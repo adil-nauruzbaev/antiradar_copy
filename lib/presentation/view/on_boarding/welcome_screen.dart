@@ -1,6 +1,5 @@
 import 'package:antiradar/presentation/view_model/settings/theme_provider.dart';
 import 'package:antiradar/presentation/view_model/settings/select_language/locale_provider.dart';
-import 'package:antiradar/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -65,15 +64,12 @@ class WelcomeScreen extends ConsumerWidget {
               context.push('/country-select');
             },
           ),
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: theme == AppTheme.dark
-                  ? AppColors.darkTextColor
-                  : AppColors.lightTextColor,
-            ),
-          )
+          ElevatedButton(
+            child: Text(loc.settings),
+            onPressed: () {
+              context.push('/allow-location');
+            },
+          ),
         ],
       ),
     );

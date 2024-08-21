@@ -1,3 +1,4 @@
+import 'package:antiradar/presentation/view/on_boarding/allow_location.dart';
 import 'package:antiradar/presentation/view/on_boarding/country_select_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -23,6 +24,10 @@ GoRouter router(RouterRef ref) {
         GoRoute(
           path: '/country-select',
           builder: (context, state) => const CountrySelectScreen(),
+        ),
+        GoRoute(
+          path: '/allow-location',
+          builder: (context, state) => const AllowLocationScreen(),
         ),
       ]);
   ref.onDispose(router.dispose);
