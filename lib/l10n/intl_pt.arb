@@ -1,0 +1,23 @@
+{
+    "@@locale": "pt",
+    "hello": "hello",
+    "selectLanguage": "Select language",
+    "english": "English (US)",
+    "spanish": "Español (A. Latina)",
+    "portuguese": "Português (BR)",
+    "russian": "Russian",
+    "add": "Add",
+    "chooseAStyle": "Choose a style",
+    "light": "Light",
+    "dark": "Dark",
+    "contin": "Continue",
+    "start": "START",
+    "welcomeToAntiradar": "Welcome to Antiradar",
+    "static": "Static",
+    "chamber": "chamber",
+    "stop": "STOP",
+    "lang" : "Language",
+    "loadPoints" : "Load points",
+    "settings" : "Settings",
+    "darkMode" : "Dark mode"
+}

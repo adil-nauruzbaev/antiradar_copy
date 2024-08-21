@@ -1,0 +1,23 @@
+{
+    "@@locale": "ru",
+    "hello": "Привет",
+    "selectLanguage": "Выберите язык",
+    "english": "Английский (США)",
+    "spanish": "Испанский (А. Латина)",
+    "portuguese": "Португальский (Бразилия)",
+    "russian": "Русский",
+    "add": "Добавить",
+    "chooseAStyle": "Выбрать тему",
+    "light": "Светлая",
+    "dark": "Темная",
+    "contin": "Продолжить",
+    "start": "СТАРТ",
+    "welcomeToAntiradar": "Добро пожаловать в АнтиРадар",
+    "static": "Static",
+    "chamber": "chamber",
+    "stop": "STOP",
+    "lang" : "Language",
+    "loadPoints" : "Load points",
+    "settings" : "Settings",
+    "darkMode" : "Dark mode"
+}
