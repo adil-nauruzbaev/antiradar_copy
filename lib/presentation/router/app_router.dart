@@ -1,5 +1,6 @@
 import 'package:antiradar/presentation/view/on_boarding/allow_location.dart';
 import 'package:antiradar/presentation/view/on_boarding/country_select_screen.dart';
+import 'package:antiradar/presentation/view/start_screens/language_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:antiradar/presentation/view/on_boarding/welcome_screen.dart';
@@ -28,6 +29,10 @@ GoRouter router(RouterRef ref) {
         GoRoute(
           path: '/allow-location',
           builder: (context, state) => const AllowLocationScreen(),
+        ),
+        GoRoute(
+          path: '/language',
+          builder: (context, state) => const LanguageScreen(),
         ),
       ]);
   ref.onDispose(router.dispose);

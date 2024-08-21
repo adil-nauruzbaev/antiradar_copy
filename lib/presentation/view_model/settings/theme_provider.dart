@@ -1,3 +1,5 @@
+import 'package:antiradar/presentation/view_model/settings/dark_theme.dart';
+import 'package:antiradar/presentation/view_model/settings/light_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -19,9 +21,11 @@ class ThemeNotifier extends _$ThemeNotifier {
 ThemeData themeData(AppTheme theme) {
   switch (theme) {
     case AppTheme.dark:
-      return ThemeData.dark();
+      return darkTheme;
     case AppTheme.light:
     default:
-      return ThemeData.light();
+      return lightTheme;
   }
 }
+
+
