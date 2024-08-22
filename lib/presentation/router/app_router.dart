@@ -1,3 +1,4 @@
+import 'package:antiradar/presentation/view/auth/auth_screen.dart';
 import 'package:antiradar/presentation/view/on_boarding/allow_location.dart';
 import 'package:antiradar/presentation/view/on_boarding/country_select_screen.dart';
 import 'package:antiradar/presentation/view/start_screens/language_screen.dart';
@@ -33,6 +34,10 @@ GoRouter router(RouterRef ref) {
         GoRoute(
           path: '/language',
           builder: (context, state) => const LanguageScreen(),
+        ),
+        GoRoute(
+          path: '/auth',
+          builder: (context, state) => const AuthScreen(),
         ),
       ]);
   ref.onDispose(router.dispose);

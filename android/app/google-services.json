@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "986020307657",
+    "project_id": "antiradar-5a2b5",
+    "storage_bucket": "antiradar-5a2b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986020307657:android:fc7becea04cd6472596318",
+        "android_client_info": {
+          "package_name": "com.antiradar.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA88y5V4k1Z--Sk_0Az4qqRfzLlgJ-KPHM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
