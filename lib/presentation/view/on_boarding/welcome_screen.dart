@@ -76,6 +76,12 @@ class WelcomeScreen extends ConsumerWidget {
               context.push('/allow-location');
             },
           ),
+          ElevatedButton(
+            child: const Text('Вход'),
+            onPressed: () {
+              context.push('/auth');
+            },
+          ),
         ],
       ),
     );
