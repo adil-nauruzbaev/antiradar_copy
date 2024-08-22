@@ -43,6 +43,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '986020307657',
     projectId: 'antiradar-5a2b5',
     storageBucket: 'antiradar-5a2b5.appspot.com',
-    iosBundleId: 'com.example.antiradar',
+    iosBundleId: 'com.antiradar.app',
   );
 }
