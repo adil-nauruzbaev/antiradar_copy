@@ -15,7 +15,6 @@ class ArgentinaModel {
 
   ArgentinaModel();
 
-  // Фабричный метод для создания экземпляра модели из данных Firebase
   factory ArgentinaModel.fromFirestore(
       firestore.DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data()!;
@@ -26,7 +25,6 @@ class ArgentinaModel {
       ..speed = data['speed'] as String;
   }
 
-  // Преобразование модели для отправки в Firebase (если понадобится)
   Map<String, dynamic> toFirestore() {
     return {
       'long': long,
