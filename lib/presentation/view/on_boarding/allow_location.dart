@@ -27,8 +27,10 @@ class AllowLocationScreen extends ConsumerWidget {
                     permission == LocationPermission.deniedForever) {
                   return ElevatedButton(
                     onPressed: () async {
+                      // ignore: unused_local_variable
                       LocationPermission permission =
                           await Geolocator.requestPermission();
+                      // ignore: unused_result
                       ref.refresh(locationPermissionProvider);
                     },
                     child: const Text('Request Location Permission'),

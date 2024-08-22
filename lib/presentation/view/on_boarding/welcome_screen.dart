@@ -82,6 +82,18 @@ class WelcomeScreen extends ConsumerWidget {
               context.push('/auth');
             },
           ),
+          ElevatedButton(
+            child: const Text('list'),
+            onPressed: () {
+              context.push('/list');
+            },
+          ),
+          ElevatedButton(
+            child: const Text('isar'),
+            onPressed: () {
+              context.push('/isar');
+            },
+          ),
         ],
       ),
     );

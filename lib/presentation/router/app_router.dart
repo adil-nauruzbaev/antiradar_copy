@@ -2,6 +2,8 @@ import 'package:antiradar/presentation/view/auth/auth_screen.dart';
 import 'package:antiradar/presentation/view/on_boarding/allow_location.dart';
 import 'package:antiradar/presentation/view/on_boarding/country_select_screen.dart';
 import 'package:antiradar/presentation/view/start_screens/language_screen.dart';
+import 'package:antiradar/presentation/view/test/iser.dart';
+import 'package:antiradar/presentation/view/test/list.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:antiradar/presentation/view/on_boarding/welcome_screen.dart';
@@ -38,6 +40,14 @@ GoRouter router(RouterRef ref) {
         GoRoute(
           path: '/auth',
           builder: (context, state) => const AuthScreen(),
+        ),
+        GoRoute(
+          path: '/list',
+          builder: (context, state) => const ArgentinaListPage(),
+        ),
+        GoRoute(
+          path: '/isar',
+          builder: (context, state) => const SaveArgentinaDataPage(),
         ),
       ]);
   ref.onDispose(router.dispose);
