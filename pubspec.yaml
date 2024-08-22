@@ -48,6 +48,7 @@ dependencies:
   firebase_analytics: ^10.8.0
   firebase_auth: ^4.16.0
   cloud_firestore: ^4.14.0
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -74,8 +75,11 @@ flutter:
   generate: true
   
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/fonts/
+    - assets/icons/search.svg
+    - assets/icons/tick.svg
+    - assets/icons/waving-hand-svgrepo-com.svg
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -86,7 +90,14 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter/Inter-Regular.otf
+    - family: SF Pro Display
+      fonts:
+        - asset: assets/fonts/Inter/Inter-Regular.otf
+        - asset: assets/fonts/Inter/Inter-Semibold.otf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

@@ -19,5 +19,13 @@
     "lang" : "Language",
     "loadPoints" : "Load points",
     "settings" : "Settings",
-    "darkMode" : "Dark mode"
+    "darkMode" : "Dark mode",
+    "search" : "Search",
+    "signin" : "Sign In",
+    "signup" : "Sign Up",
+    "email" : "Email",
+    "password" : "Password",
+    "repeat": "Repeat password",
+    "signInTextt" : "Already have an account? Sign In",
+    "signUpText" : "Don't have an account? Sign Up"
 }

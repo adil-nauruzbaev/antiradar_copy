@@ -58,28 +58,22 @@ class WelcomeScreen extends ConsumerWidget {
                   );
             },
           ),
-          ElevatedButton(
+          /*ElevatedButton(
             child: Text(loc.add),
             onPressed: () {
               context.push('/country-select');
             },
-          ),
+          ),*/
           ElevatedButton(
-            child: const Text('start'),
-            onPressed: () {
-              context.push('/language');
-            },
-          ),
-          ElevatedButton(
-            child: Text(loc.settings),
-            onPressed: () {
-              context.push('/allow-location');
-            },
-          ),
-          ElevatedButton(
-            child: const Text('Вход'),
+            child: const Text('Вход (почти красивый)'),
             onPressed: () {
               context.push('/auth');
+            },
+          ),
+          ElevatedButton(
+            child: Text('${loc.settings} (еще некрасивый)'),
+            onPressed: () {
+              context.push('/allow-location');
             },
           ),
         ],
