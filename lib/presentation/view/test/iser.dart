@@ -10,6 +10,10 @@ class SaveArgentinaDataPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isarModelsAsyncValue = ref.watch(isarArgentinaModelsProvider);
+    Future<void> _refresh() async {
+      // ignore: unused_result
+      ref.refresh(isarArgentinaModelsProvider);
+    }
 
     return Scaffold(
       appBar: AppBar(title: const Text('Save Argentina Data')),
@@ -43,15 +47,20 @@ class SaveArgentinaDataPage extends ConsumerWidget {
           Expanded(
             child: isarModelsAsyncValue.when(
               data: (models) {
-                return ListView.builder(
-                  itemCount: models.length,
-                  itemBuilder: (context, index) {
-                    final model = models[index];
-                    return ListTile(
-                      title: Text('Type: ${model.type}, Speed: ${model.speed}'),
-                      subtitle: Text('Lat: ${model.lat}, Long: ${model.long}'),
-                    );
-                  },
+                return RefreshIndicator(
+                  onRefresh: _refresh,
+                  child: ListView.builder(
+                    itemCount: models.length,
+                    itemBuilder: (context, index) {
+                      final model = models[index];
+                      return ListTile(
+                        title:
+                            Text('Type: ${model.type}, Speed: ${model.speed}'),
+                        subtitle:
+                            Text('Lat: ${model.lat}, Long: ${model.long}'),
+                      );
+                    },
+                  ),
                 );
               },
               loading: () => const Center(child: CircularProgressIndicator()),
