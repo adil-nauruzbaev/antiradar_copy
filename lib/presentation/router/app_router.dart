@@ -1,6 +1,7 @@
 import 'package:antiradar/presentation/view/auth/auth_screen.dart';
 import 'package:antiradar/presentation/view/on_boarding/allow_location.dart';
 import 'package:antiradar/presentation/view/on_boarding/country_select_screen.dart';
+import 'package:antiradar/presentation/view/on_boarding/theme_switch_screen.dart';
 import 'package:antiradar/presentation/view/start_screens/language_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -38,6 +39,10 @@ GoRouter router(RouterRef ref) {
         GoRoute(
           path: '/auth',
           builder: (context, state) => const AuthScreen(),
+        ),
+        GoRoute(
+          path: '/theme-switch',
+          builder: (context, state) => const ThemeSwitchScreen(),
         ),
       ]);
   ref.onDispose(router.dispose);

@@ -25,6 +25,12 @@ class AppFonts{
 
   static const TextStyle h1Style =  TextStyle(
       fontFamily: 'SF Pro Display',
+      fontSize: 32,
+      color: AppColors.whiteColor,
+      fontWeight: FontWeight.w600 );
+
+  static const TextStyle h2Style =  TextStyle(
+      fontFamily: 'SF Pro Display',
       fontSize: 24,
       color: AppColors.whiteColor,
       fontWeight: FontWeight.w600 );
@@ -40,6 +46,15 @@ class AppFonts{
       fontSize: 24,
       color: AppColors.gradientColor5,
       fontWeight: FontWeight.w600);
+
+  static const TextStyle toggleTextStyle = TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 20,
+      color: AppColors.gradientColor5,
+      fontWeight: FontWeight.w600);
+
+
+
 
   static const TextStyle authButtonTextStyle = TextStyle(
       fontFamily: 'SF Pro Display',

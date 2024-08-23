@@ -27,5 +27,6 @@
     "password" : "Password",
     "repeat": "Repeat password",
     "signInTextt" : "Already have an account? Sign In",
-    "signUpText" : "Don't have an account? Sign Up"
+    "signUpText" : "Don't have an account? Sign Up",
+    "choose" : "Choose a style"
 }

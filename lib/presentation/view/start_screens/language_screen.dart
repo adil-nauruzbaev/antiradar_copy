@@ -1,4 +1,4 @@
-import 'package:antiradar/presentation/view/start_screens/widgets/add_button.dart';
+import 'package:antiradar/presentation/view/on_boarding/widgets/continue_button.dart';
 import 'package:antiradar/presentation/view/start_screens/widgets/search_bar.dart';
 import 'package:antiradar/presentation/view_model/settings/gradient_extension.dart';
 import 'package:antiradar/utils/app_fonts.dart';
@@ -19,7 +19,7 @@ class LanguageScreen extends ConsumerWidget {
     final locale = ref.watch(localeNotifierProvider);
 
     return Scaffold(
-      floatingActionButton: const AddButton(),
+      floatingActionButton: ContinueButton(text: loc.add,),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SingleChildScrollView(
         child: Container(

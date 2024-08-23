@@ -14,20 +14,51 @@ class LangDropDown extends ConsumerWidget {
 
     return SizedBox(
       width: double.infinity,
-      child: DropdownButtonHideUnderline(
-        child: ButtonTheme(
-          alignedDropdown: true,
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
           child: DropdownButton<Locale>(
+            isExpanded: true,
             iconEnabledColor: Colors.white,
             iconDisabledColor: Colors.white,
             value: currentLocale,
-            //style: TextStyle(color: Colors.white),
             dropdownColor: Colors.white,
             onChanged: (Locale? newLocale) {
               if (newLocale != null) {
-                ref.read(localeNotifierProvider.notifier)
-                    .setLocale(newLocale);
+                ref.read(localeNotifierProvider.notifier).setLocale(newLocale);
               }
+            },
+            selectedItemBuilder: (BuildContext context) {
+              return [
+                DropdownMenuItem<Locale>(
+                  value: const Locale('en', 'US'),
+                  child: Text(
+                    loc.english,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+                DropdownMenuItem<Locale>(
+                  value: const Locale('es', 'ES'),
+                  child: Text(
+                    loc.spanish,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+                DropdownMenuItem<Locale>(
+                  value: const Locale('pt', 'BR'),
+                  child: Text(
+                    loc.portuguese,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+                DropdownMenuItem<Locale>(
+                  value: const Locale('ru', 'RU'),
+                  child: Text(
+                    loc.russian,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ];
             },
             items: [
               DropdownMenuItem<Locale>(
