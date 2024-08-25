@@ -50,6 +50,7 @@ dependencies:
   cloud_firestore: ^4.14.0
   flutter_svg: ^2.0.10+1
   animated_toggle_switch: ^0.8.3
+  dropdown_button2: ^2.3.9
 
 dev_dependencies:
   flutter_test:
@@ -79,9 +80,18 @@ flutter:
   assets:
     - assets/fonts/
     - assets/icons/search.svg
+    - assets/icons/arrow.svg
     - assets/icons/tick.svg
     - assets/icons/waving-hand-svgrepo-com.svg
     - assets/icons/car.svg
+    - assets/icons/car2.svg
+    - assets/icons/load.svg
+    - assets/icons/loaded.svg
+    - assets/icons/country_flags/Brazil.svg
+    - assets/icons/country_flags/Chile.svg
+    - assets/icons/country_flags/Argentina.svg
+    - assets/icons/country_flags/Paraguay.svg
+    - assets/icons/country_flags/Uruguay.svg
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

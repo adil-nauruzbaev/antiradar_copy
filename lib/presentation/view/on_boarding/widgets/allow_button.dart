@@ -1,37 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_fonts.dart';
 
-class ContinueButton extends StatelessWidget {
+class AllowButton extends StatelessWidget {
   final String text;
-  final String route;
+  final Future<void> Function() onPressed;
 
-  const ContinueButton({super.key, required this.text, required this.route});
+  const AllowButton({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 60),
       height: 60,
-      width: 260,
+      width: 140,
       child: ElevatedButton(
-        onPressed: () {
-          context.push(route);
-        },
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           shadowColor: Colors.transparent,
           splashFactory: NoSplash.splashFactory,
           backgroundColor: AppColors.whiteColor,
           foregroundColor: Colors.transparent,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(5),
           ),
         ),
         child: Text(
           text,
-          style: AppFonts.buttonTextStyle,
+          style: AppFonts.allowButtonTextStyle,
         ),
       ),
     );

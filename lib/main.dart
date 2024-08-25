@@ -8,6 +8,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'l10n/l10n.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(
@@ -28,12 +30,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       theme: themeData(theme),
       locale: locale,
-      supportedLocales: const [
-        Locale('en'),
-        Locale('es'),
-        Locale('pt'),
-        Locale('ru'),
-      ],
+      supportedLocales: L10n.locales,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

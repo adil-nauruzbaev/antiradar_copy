@@ -19,7 +19,7 @@ class TopSearchBar extends ConsumerWidget {
       child: Row(children: [
         Text(
           loc.selectLanguage,
-          style: AppFonts.h2Style,
+          style: AppFonts.h3Style,
         ),
         const SizedBox(
           width: 8,

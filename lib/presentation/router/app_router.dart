@@ -2,11 +2,12 @@ import 'package:antiradar/presentation/view/auth/auth_screen.dart';
 import 'package:antiradar/presentation/view/on_boarding/allow_location.dart';
 import 'package:antiradar/presentation/view/on_boarding/country_select_screen.dart';
 import 'package:antiradar/presentation/view/on_boarding/theme_switch_screen.dart';
-import 'package:antiradar/presentation/view/start_screens/language_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:antiradar/presentation/view/on_boarding/welcome_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../view/on_boarding/start_screen.dart';
 
 part 'app_router.g.dart';
 
@@ -33,16 +34,16 @@ GoRouter router(RouterRef ref) {
           builder: (context, state) => const AllowLocationScreen(),
         ),
         GoRoute(
-          path: '/language',
-          builder: (context, state) => const LanguageScreen(),
-        ),
-        GoRoute(
           path: '/auth',
           builder: (context, state) => const AuthScreen(),
         ),
         GoRoute(
           path: '/theme-switch',
           builder: (context, state) => const ThemeSwitchScreen(),
+        ),
+        GoRoute(
+          path: '/start',
+          builder: (context, state) => const StartScreen(),
         ),
       ]);
   ref.onDispose(router.dispose);

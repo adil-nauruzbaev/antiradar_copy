@@ -97,7 +97,10 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                   const SizedBox(
                     height: 40,
                   ),
-                  LangDropDown(),
+                  const LangDropDown(),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   CustomTextField(
                     controller: _emailController,
                     hintText: loc.email,
@@ -120,24 +123,28 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                     },
                     obscureText: true,
                   ),
-                  const SizedBox(height: 20),
                   Visibility(
                       visible: _isSignUp,
-                      child: CustomTextField(
-                        controller: _repeatPasswordController,
-                        hintText: loc.repeat,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Пожалуйста, введите пароль';
-                          } else if (value != _passwordController.text &&
-                              _isSignUp) {
-                            return 'Пароли не совпадают';
-                          }
-                          return null;
-                        },
-                        obscureText: true,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20),
+                          CustomTextField(
+                            controller: _repeatPasswordController,
+                            hintText: loc.repeat,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Пожалуйста, введите пароль';
+                              } else if (value != _passwordController.text &&
+                                  _isSignUp) {
+                                return 'Пароли не совпадают';
+                              }
+                              return null;
+                            },
+                            obscureText: true,
+                          ),
+                        ],
                       )),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 30),
                   SizedBox(
                     height: 50,
                     width: MediaQuery.of(context).size.width,

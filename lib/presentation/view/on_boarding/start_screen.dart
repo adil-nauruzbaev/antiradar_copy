@@ -1,5 +1,4 @@
 import 'package:antiradar/presentation/view/on_boarding/widgets/car_image.dart';
-import 'package:antiradar/presentation/view/on_boarding/widgets/theme_switch.dart';
 import 'package:antiradar/utils/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,8 +6,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../view_model/settings/gradient_extension.dart';
 import 'widgets/continue_button.dart';
 
-class ThemeSwitchScreen extends ConsumerWidget {
-  const ThemeSwitchScreen({super.key});
+class StartScreen extends ConsumerWidget {
+  const StartScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,8 +15,8 @@ class ThemeSwitchScreen extends ConsumerWidget {
 
     return Scaffold(
       floatingActionButton: ContinueButton(
-        text: loc.contin,
-        route: '/start',
+        text: loc.start,
+        route: '',
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SingleChildScrollView(
@@ -25,18 +24,18 @@ class ThemeSwitchScreen extends ConsumerWidget {
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
               gradient:
-                  Theme.of(context).extension<GradientExtension>()?.gradient),
+              Theme.of(context).extension<GradientExtension>()?.gradient),
           child: SafeArea(
             child: Column(
               children: [
-                const CarImage(pic: 'assets/icons/car.svg'),
+                const CarImage(pic: 'assets/icons/car2.svg'),
                 const SizedBox(
                   height: 24,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Text(
-                    loc.choose,
+                    loc.welcomeToAntiradar,
                     style: AppFonts.h2Style,
                     textAlign: TextAlign.center,
                   ),
@@ -44,7 +43,6 @@ class ThemeSwitchScreen extends ConsumerWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                const ThemeToggleSwitch(),
               ],
             ),
           ),
@@ -53,4 +51,3 @@ class ThemeSwitchScreen extends ConsumerWidget {
     );
   }
 }
-

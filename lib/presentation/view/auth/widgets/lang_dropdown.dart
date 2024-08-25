@@ -1,7 +1,8 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../l10n/l10n.dart';
 import '../../../view_model/settings/select_language/locale_provider.dart';
 
 class LangDropDown extends ConsumerWidget {
@@ -9,77 +10,62 @@ class LangDropDown extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final loc = AppLocalizations.of(context)!;
     final currentLocale = ref.watch(localeNotifierProvider);
 
-    return SizedBox(
-      width: double.infinity,
-      child: ButtonTheme(
-        alignedDropdown: true,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<Locale>(
-            isExpanded: true,
-            iconEnabledColor: Colors.white,
-            iconDisabledColor: Colors.white,
-            value: currentLocale,
-            dropdownColor: Colors.white,
-            onChanged: (Locale? newLocale) {
-              if (newLocale != null) {
-                ref.read(localeNotifierProvider.notifier).setLocale(newLocale);
-              }
-            },
-            selectedItemBuilder: (BuildContext context) {
-              return [
-                DropdownMenuItem<Locale>(
-                  value: const Locale('en', 'US'),
+    final locales = L10n.locales;
+    final languages = L10n.languages(context);
+
+    final dropdownItems = locales
+        .map((locale) => DropdownMenuItem<Locale>(
+              value: locale,
+              child: Text(
+                languages[locales.indexOf(locale)],
+                style: const TextStyle(color: Colors.black),
+              ),
+            ))
+        .toList();
+
+    selectedItemBuilder(BuildContext context) {
+      return dropdownItems
+          .map((item) => DropdownMenuItem<Locale>(
+                value: item.value,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    loc.english,
+                    languages[locales.indexOf(item.value!)],
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
-                DropdownMenuItem<Locale>(
-                  value: const Locale('es', 'ES'),
-                  child: Text(
-                    loc.spanish,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ),
-                DropdownMenuItem<Locale>(
-                  value: const Locale('pt', 'BR'),
-                  child: Text(
-                    loc.portuguese,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ),
-                DropdownMenuItem<Locale>(
-                  value: const Locale('ru', 'RU'),
-                  child: Text(
-                    loc.russian,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ),
-              ];
-            },
-            items: [
-              DropdownMenuItem<Locale>(
-                value: const Locale('en', 'US'),
-                child: Text(loc.english),
-              ),
-              DropdownMenuItem<Locale>(
-                value: const Locale('es', 'ES'),
-                child: Text(loc.spanish),
-              ),
-              DropdownMenuItem<Locale>(
-                value: const Locale('pt', 'BR'),
-                child: Text(loc.portuguese),
-              ),
-              DropdownMenuItem<Locale>(
-                value: const Locale('ru', 'RU'),
-                child: Text(loc.russian),
-              ),
-            ],
-          ),
+              ))
+          .toList();
+    }
+
+    return DropdownButton2<Locale>(
+      isExpanded: true,
+      items: dropdownItems,
+      selectedItemBuilder: selectedItemBuilder,
+      value: currentLocale,
+      onChanged: (Locale? newLocale) {
+        if (newLocale != null) {
+          ref.read(localeNotifierProvider.notifier).setLocale(newLocale);
+        }
+      },
+      iconStyleData: const IconStyleData(
+        iconSize: 24,
+        iconEnabledColor: Colors.white,
+      ),
+      buttonStyleData: ButtonStyleData(
+        padding: EdgeInsets.zero,
+        width: MediaQuery.of(context).size.width,
+      ),
+      dropdownStyleData: const DropdownStyleData(
+        decoration: BoxDecoration(
+          color: Colors.white,
         ),
+      ),
+      underline: Container(height: 1, color: Colors.white),
+      menuItemStyleData: const MenuItemStyleData(
+        height: 50,
       ),
     );
   }

@@ -49,21 +49,27 @@ class WelcomeScreen extends ConsumerWidget {
                 .setLocale(const Locale('ru', 'RU')),
           ),
           ElevatedButton(
-            child: const Text('theme switch screen (красивый)'),
+            child: const Text('theme switch screen'),
             onPressed: () {
               context.push('/theme-switch');
             },
           ),
           ElevatedButton(
-            child: const Text('Вход (почти красивый)'),
+            child: const Text('Вход'),
             onPressed: () {
               context.push('/auth');
             },
           ),
           ElevatedButton(
-            child: Text('${loc.settings} (еще некрасивый)'),
+            child: Text(loc.settings),
             onPressed: () {
               context.push('/allow-location');
+            },
+          ),
+          ElevatedButton(
+            child: const Text('выбор страны'),
+            onPressed: () {
+              context.push('/country-select');
             },
           ),
           const ThemeToggleSwitch(),
