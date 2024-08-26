@@ -73,7 +73,12 @@ int _userModelEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.country.length * 3;
+  {
+    final value = object.country;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   bytesCount += 3 + object.email.length * 3;
   return bytesCount;
 }
@@ -100,7 +105,7 @@ UserModel _userModelDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = UserModel(
-    country: reader.readString(offsets[0]),
+    country: reader.readStringOrNull(offsets[0]),
     createdAt: reader.readDateTime(offsets[1]),
     email: reader.readString(offsets[2]),
     expiredAt: reader.readDateTimeOrNull(offsets[3]),
@@ -119,7 +124,7 @@ P _userModelDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 1:
       return (reader.readDateTime(offset)) as P;
     case 2:
@@ -228,8 +233,24 @@ extension UserModelQueryWhere
 
 extension UserModelQueryFilter
     on QueryBuilder<UserModel, UserModel, QFilterCondition> {
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> countryIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'country',
+      ));
+    });
+  }
+
+  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> countryIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'country',
+      ));
+    });
+  }
+
   QueryBuilder<UserModel, UserModel, QAfterFilterCondition> countryEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -242,7 +263,7 @@ extension UserModelQueryFilter
   }
 
   QueryBuilder<UserModel, UserModel, QAfterFilterCondition> countryGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -257,7 +278,7 @@ extension UserModelQueryFilter
   }
 
   QueryBuilder<UserModel, UserModel, QAfterFilterCondition> countryLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -272,8 +293,8 @@ extension UserModelQueryFilter
   }
 
   QueryBuilder<UserModel, UserModel, QAfterFilterCondition> countryBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1062,7 +1083,7 @@ extension UserModelQueryProperty
     });
   }
 
-  QueryBuilder<UserModel, String, QQueryOperations> countryProperty() {
+  QueryBuilder<UserModel, String?, QQueryOperations> countryProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'country');
     });

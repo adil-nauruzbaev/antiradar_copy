@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:isar/isar.dart' as isar;
 import 'package:isar/isar.dart';
 
@@ -9,7 +10,7 @@ part 'user_model.g.dart';
 class UserModel {
   isar.Id? id = isar.Isar.autoIncrement;
 
-  final String country;
+  final String? country;
   final DateTime createdAt;
   final String email;
   final DateTime? expiredAt;
@@ -17,7 +18,7 @@ class UserModel {
   final bool subscription;
   UserModel({
     this.id,
-    required this.country,
+    this.country,
     required this.createdAt,
     required this.email,
     this.expiredAt,
@@ -59,15 +60,14 @@ class UserModel {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       id: map['id'],
-      country: map['country'] as String,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at']),
+      country: map['country'] as String?,
+      createdAt: (map['created_at'] as Timestamp).toDate(),
       email: map['email'] as String,
       expiredAt: map['expired_at'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['expired_at'])
+          ? (map['expired_at'] as Timestamp).toDate()
           : null,
-      subAt: map['sub_at'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['sub_at'])
-          : null,
+      subAt:
+          map['sub_at'] != null ? (map['sub_at'] as Timestamp).toDate() : null,
       subscription: map['subscription'] as bool,
     );
   }
