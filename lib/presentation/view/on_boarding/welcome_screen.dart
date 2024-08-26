@@ -1,9 +1,25 @@
 import 'package:antiradar/presentation/view/on_boarding/widgets/theme_switch.dart';
+import 'package:antiradar/presentation/view_model/auth/auth_provider.dart';
 import 'package:antiradar/presentation/view_model/settings/select_language/locale_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+
+//  Future<void> _signOut() async {
+//       try {
+//         await FirebaseAuth.instance.signOut();
+//         // await ref.read(authServiceProvider.notifier).signOut();
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           const SnackBar(content: Text('Signed out successfully!')),
+//         );
+//       } catch (error) {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(content: Text('Sign out failed: $error')),
+//         );
+//       }
+//     }
 
 class WelcomeScreen extends ConsumerWidget {
   const WelcomeScreen({super.key});
@@ -12,6 +28,7 @@ class WelcomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final locale = ref.watch(localeNotifierProvider);
     final loc = AppLocalizations.of(context)!;
+
     //final theme = ref.watch(themeNotifierProvider);
 
     return Scaffold(
@@ -83,6 +100,12 @@ class WelcomeScreen extends ConsumerWidget {
             child: const Text('isar'),
             onPressed: () {
               context.push('/isar');
+            },
+          ),
+          ElevatedButton(
+            child: const Text('exit'),
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
             },
           ),
         ],
