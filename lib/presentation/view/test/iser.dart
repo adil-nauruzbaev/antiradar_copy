@@ -33,6 +33,7 @@ class _SaveArgentinaDataPageState extends ConsumerState<SaveArgentinaDataPage> {
                               .read(downloadPod.notifier)
                               .update((state) => true);
                           final country = CountryEnum.argentina.name;
+
                           if (country != null) {
                             final models = await ref
                                 .read(firebaseModelsProvider(country).future);
@@ -45,6 +46,17 @@ class _SaveArgentinaDataPageState extends ConsumerState<SaveArgentinaDataPage> {
                                   .update((state) => false);
                             });
                           } else {}
+
+                          final models = await ref
+                              .read(firebaseModelsProvider(country).future);
+                          await ref
+                              .read(countryNotifierProvider(country).notifier)
+                              .saveAll(models)
+                              .whenComplete(() {
+                            ref
+                                .read(downloadPod.notifier)
+                                .update((state) => false);
+                          });
 
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Data saved to Isar')),
