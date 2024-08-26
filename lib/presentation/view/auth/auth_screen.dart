@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:go_router/go_router.dart';
 
 import '../../../utils/app_colors.dart';
 import '../../view_model/settings/gradient_extension.dart';
@@ -26,7 +26,6 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   bool _isSignUp = false;
   final _formKey = GlobalKey<FormState>();
 
-
   Future<void> _authenticate() async {
     try {
       if (_isSignUp && _formKey.currentState!.validate()) {
@@ -34,17 +33,11 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
               _emailController.text,
               _passwordController.text,
             );
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Registration successful!')),
-        );
       } else if (!_isSignUp && _formKey.currentState!.validate()) {
         await ref.read(authServiceProvider.notifier).signIn(
               _emailController.text,
               _passwordController.text,
             );
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Login successful!')),
-        );
       }
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -72,7 +65,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
-      //appBar: AppBar(title: const Text('Authentication')),
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -96,10 +89,6 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                   ),
                   const SizedBox(
                     height: 40,
-                  ),
-                  const LangDropDown(),
-                  const SizedBox(
-                    height: 10,
                   ),
                   CustomTextField(
                     controller: _emailController,
@@ -144,6 +133,10 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                           ),
                         ],
                       )),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const LangDropDown(),
                   const SizedBox(height: 30),
                   SizedBox(
                     height: 50,
@@ -168,24 +161,21 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                         _isSignUp = !_isSignUp;
                       });
                     },
-                    child: Text(
-                        _isSignUp
-                            ? loc.signInText
-                            : loc.signUpText,
+                    child: Text(_isSignUp ? loc.signInText : loc.signUpText,
                         style: AppFonts.textButtonStyle),
                   ),
-                  ElevatedButton(
-                    onPressed: _signOut,
-                    child: const Text('Sign out'),
-                  ),
-                  const SizedBox(height: 16),
-                  authState.when(
-                    data: (user) => user != null
-                        ? Text('Signed in as ${user.email}')
-                        : const Text('Not signed in'),
-                    loading: () => const CircularProgressIndicator(),
-                    error: (e, _) => Text('Error: $e'),
-                  ),
+                  // ElevatedButton(
+                  //   onPressed: _signOut,
+                  //   child: const Text('Sign out'),
+                  // ),
+                  // const SizedBox(height: 16),
+                  // authState.when(
+                  //   data: (user) => user != null
+                  //       ? Text('Signed in as ${user.email}')
+                  //       : const Text('Not signed in'),
+                  //   loading: () => const CircularProgressIndicator(),
+                  //   error: (e, _) => Text('Error: $e'),
+                  // ),
                 ],
               ),
             ),
