@@ -1,3 +1,4 @@
+import 'package:antiradar/data/source/database/isar_service.dart';
 import 'package:antiradar/firebase_options.dart';
 import 'package:antiradar/presentation/router/app_router.dart';
 import 'package:antiradar/presentation/view_model/settings/theme_provider.dart';
@@ -10,6 +11,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await IsarDatabaseService().init();
   Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

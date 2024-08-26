@@ -21,11 +21,12 @@ final authStateChangesProvider = AutoDisposeStreamProvider<User?>.internal(
 );
 
 typedef AuthStateChangesRef = AutoDisposeStreamProviderRef<User?>;
-String _$authServiceHash() => r'18f62e69b9235a954543e2a61738128224b85653';
+String _$authServiceHash() => r'a27cf13e4d7e0d5368cb38d1f945afbf333cfdde';
 
 /// See also [AuthService].
 @ProviderFor(AuthService)
-final authServiceProvider = AsyncNotifierProvider<AuthService, User?>.internal(
+final authServiceProvider =
+    AsyncNotifierProvider<AuthService, UserModel?>.internal(
   AuthService.new,
   name: r'authServiceProvider',
   debugGetCreateSourceHash:
@@ -34,6 +35,6 @@ final authServiceProvider = AsyncNotifierProvider<AuthService, User?>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef _$AuthService = AsyncNotifier<User?>;
+typedef _$AuthService = AsyncNotifier<UserModel?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

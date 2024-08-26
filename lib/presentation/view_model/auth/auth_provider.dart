@@ -1,6 +1,6 @@
+import 'package:antiradar/presentation/view_model/isar/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_provider.g.dart';
@@ -8,8 +8,19 @@ part 'auth_provider.g.dart';
 @Riverpod(keepAlive: true)
 class AuthService extends _$AuthService {
   @override
-  Future<User?> build() async {
-    return FirebaseAuth.instance.currentUser;
+  Future<UserModel?> build() async {
+    final user = FirebaseAuth.instance.currentUser;
+    final data = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user?.uid)
+        .get();
+
+    final info = data.data();
+    if (info != null) {
+      return UserModel.fromMap(info);
+    } else {
+      return null;
+    }
   }
 
   Future<void> signIn(String email, String password) async {
@@ -19,7 +30,18 @@ class AuthService extends _$AuthService {
         email: email,
         password: password,
       );
-      state = AsyncData(userCredential.user);
+
+      final data = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user?.uid)
+          .get();
+
+      final info = data.data();
+      if (info != null) {
+        state = AsyncData(UserModel.fromMap(info));
+      } else {
+        return;
+      }
     } catch (error, stackTrace) {
       state = AsyncError(error, stackTrace);
     }
@@ -41,8 +63,6 @@ class AuthService extends _$AuthService {
         'created_at': Timestamp.now(),
         'subscription': false,
       });
-
-      state = AsyncData(userCredential.user);
     } catch (error, stackTrace) {
       state = AsyncError(error, stackTrace);
     }
@@ -56,8 +76,6 @@ class AuthService extends _$AuthService {
       state = AsyncError(error, stackTrace);
     }
   }
-
-  User? get currentUser => state.valueOrNull;
 }
 
 @riverpod

@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'argentina_provider.dart';
+part of 'country_pod.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$firebaseModelsHash() => r'b616c0792a9d3b326a9c9eb23506c01b199546cb';
+String _$countryNotifierHash() => r'bbf567104e31b9123aa0f35e8383cc0398dbb0ee';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,27 +29,36 @@ class _SystemHash {
   }
 }
 
-/// See also [firebaseModels].
-@ProviderFor(firebaseModels)
-const firebaseModelsProvider = FirebaseModelsFamily();
+abstract class _$CountryNotifier
+    extends BuildlessAutoDisposeStreamNotifier<List<CountryModel>> {
+  late final String country;
 
-/// See also [firebaseModels].
-class FirebaseModelsFamily extends Family<AsyncValue<List<CountryModel>>> {
-  /// See also [firebaseModels].
-  const FirebaseModelsFamily();
+  Stream<List<CountryModel>> build(
+    String country,
+  );
+}
 
-  /// See also [firebaseModels].
-  FirebaseModelsProvider call(
+/// See also [CountryNotifier].
+@ProviderFor(CountryNotifier)
+const countryNotifierProvider = CountryNotifierFamily();
+
+/// See also [CountryNotifier].
+class CountryNotifierFamily extends Family<AsyncValue<List<CountryModel>>> {
+  /// See also [CountryNotifier].
+  const CountryNotifierFamily();
+
+  /// See also [CountryNotifier].
+  CountryNotifierProvider call(
     String country,
   ) {
-    return FirebaseModelsProvider(
+    return CountryNotifierProvider(
       country,
     );
   }
 
   @override
-  FirebaseModelsProvider getProviderOverride(
-    covariant FirebaseModelsProvider provider,
+  CountryNotifierProvider getProviderOverride(
+    covariant CountryNotifierProvider provider,
   ) {
     return call(
       provider.country,
@@ -68,32 +77,30 @@ class FirebaseModelsFamily extends Family<AsyncValue<List<CountryModel>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'firebaseModelsProvider';
+  String? get name => r'countryNotifierProvider';
 }
 
-/// See also [firebaseModels].
-class FirebaseModelsProvider extends FutureProvider<List<CountryModel>> {
-  /// See also [firebaseModels].
-  FirebaseModelsProvider(
+/// See also [CountryNotifier].
+class CountryNotifierProvider extends AutoDisposeStreamNotifierProviderImpl<
+    CountryNotifier, List<CountryModel>> {
+  /// See also [CountryNotifier].
+  CountryNotifierProvider(
     String country,
   ) : this._internal(
-          (ref) => firebaseModels(
-            ref as FirebaseModelsRef,
-            country,
-          ),
-          from: firebaseModelsProvider,
-          name: r'firebaseModelsProvider',
+          () => CountryNotifier()..country = country,
+          from: countryNotifierProvider,
+          name: r'countryNotifierProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$firebaseModelsHash,
-          dependencies: FirebaseModelsFamily._dependencies,
+                  : _$countryNotifierHash,
+          dependencies: CountryNotifierFamily._dependencies,
           allTransitiveDependencies:
-              FirebaseModelsFamily._allTransitiveDependencies,
+              CountryNotifierFamily._allTransitiveDependencies,
           country: country,
         );
 
-  FirebaseModelsProvider._internal(
+  CountryNotifierProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -106,13 +113,20 @@ class FirebaseModelsProvider extends FutureProvider<List<CountryModel>> {
   final String country;
 
   @override
-  Override overrideWith(
-    FutureOr<List<CountryModel>> Function(FirebaseModelsRef provider) create,
+  Stream<List<CountryModel>> runNotifierBuild(
+    covariant CountryNotifier notifier,
   ) {
+    return notifier.build(
+      country,
+    );
+  }
+
+  @override
+  Override overrideWith(CountryNotifier Function() create) {
     return ProviderOverride(
       origin: this,
-      override: FirebaseModelsProvider._internal(
-        (ref) => create(ref as FirebaseModelsRef),
+      override: CountryNotifierProvider._internal(
+        () => create()..country = country,
         from: from,
         name: null,
         dependencies: null,
@@ -124,13 +138,14 @@ class FirebaseModelsProvider extends FutureProvider<List<CountryModel>> {
   }
 
   @override
-  FutureProviderElement<List<CountryModel>> createElement() {
-    return _FirebaseModelsProviderElement(this);
+  AutoDisposeStreamNotifierProviderElement<CountryNotifier, List<CountryModel>>
+      createElement() {
+    return _CountryNotifierProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is FirebaseModelsProvider && other.country == country;
+    return other is CountryNotifierProvider && other.country == country;
   }
 
   @override
@@ -142,17 +157,19 @@ class FirebaseModelsProvider extends FutureProvider<List<CountryModel>> {
   }
 }
 
-mixin FirebaseModelsRef on FutureProviderRef<List<CountryModel>> {
+mixin CountryNotifierRef
+    on AutoDisposeStreamNotifierProviderRef<List<CountryModel>> {
   /// The parameter `country` of this provider.
   String get country;
 }
 
-class _FirebaseModelsProviderElement
-    extends FutureProviderElement<List<CountryModel>> with FirebaseModelsRef {
-  _FirebaseModelsProviderElement(super.provider);
+class _CountryNotifierProviderElement
+    extends AutoDisposeStreamNotifierProviderElement<CountryNotifier,
+        List<CountryModel>> with CountryNotifierRef {
+  _CountryNotifierProviderElement(super.provider);
 
   @override
-  String get country => (origin as FirebaseModelsProvider).country;
+  String get country => (origin as CountryNotifierProvider).country;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
