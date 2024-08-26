@@ -40,32 +40,41 @@ class LangDropDown extends ConsumerWidget {
           .toList();
     }
 
-    return DropdownButton2<Locale>(
-      isExpanded: true,
-      items: dropdownItems,
-      selectedItemBuilder: selectedItemBuilder,
-      value: currentLocale,
-      onChanged: (Locale? newLocale) {
-        if (newLocale != null) {
-          ref.read(localeNotifierProvider.notifier).setLocale(newLocale);
-        }
-      },
-      iconStyleData: const IconStyleData(
-        iconSize: 24,
-        iconEnabledColor: Colors.white,
-      ),
-      buttonStyleData: ButtonStyleData(
-        padding: EdgeInsets.zero,
-        width: MediaQuery.of(context).size.width,
-      ),
-      dropdownStyleData: const DropdownStyleData(
-        decoration: BoxDecoration(
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
           color: Colors.white,
+          width: 1.0,
         ),
+        borderRadius: BorderRadius.circular(10.0),
       ),
-      underline: Container(height: 1, color: Colors.white),
-      menuItemStyleData: const MenuItemStyleData(
-        height: 50,
+      child: DropdownButton2<Locale>(
+        isExpanded: true,
+        items: dropdownItems,
+        selectedItemBuilder: selectedItemBuilder,
+        value: currentLocale,
+        onChanged: (Locale? newLocale) {
+          if (newLocale != null) {
+            ref.read(localeNotifierProvider.notifier).setLocale(newLocale);
+          }
+        },
+        iconStyleData: const IconStyleData(
+          iconSize: 24,
+          iconEnabledColor: Colors.white,
+        ),
+        buttonStyleData: ButtonStyleData(
+          padding: EdgeInsets.zero,
+          width: MediaQuery.of(context).size.width,
+        ),
+        dropdownStyleData: const DropdownStyleData(
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
+        ),
+        underline: Container(height: 0, color: Colors.white),
+        menuItemStyleData: const MenuItemStyleData(
+          height: 50,
+        ),
       ),
     );
   }
