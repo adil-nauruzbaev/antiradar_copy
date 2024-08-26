@@ -14,5 +14,5 @@ final darkTheme = ThemeData.dark().copyWith(
         ],
         stops: [0.0367, 1],
       ),)
-    ]
+    ],
 );

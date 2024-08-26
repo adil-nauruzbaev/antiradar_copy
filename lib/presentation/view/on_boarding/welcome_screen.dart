@@ -1,4 +1,4 @@
-import 'package:antiradar/presentation/view_model/settings/theme_provider.dart';
+import 'package:antiradar/presentation/view/on_boarding/widgets/theme_switch.dart';
 import 'package:antiradar/presentation/view_model/settings/select_language/locale_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +12,7 @@ class WelcomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final locale = ref.watch(localeNotifierProvider);
     final loc = AppLocalizations.of(context)!;
-    final theme = ref.watch(themeNotifierProvider);
+    //final theme = ref.watch(themeNotifierProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -49,25 +49,15 @@ class WelcomeScreen extends ConsumerWidget {
                 .setLocale(const Locale('ru', 'RU')),
           ),
           ElevatedButton(
-            child: Text(
-              theme == AppTheme.light ? loc.dark : loc.light,
-            ),
+            child: const Text('theme switch screen'),
             onPressed: () {
-              ref.read(themeNotifierProvider.notifier).setTheme(
-                    theme == AppTheme.light ? AppTheme.dark : AppTheme.light,
-                  );
+              context.push('/theme-switch');
             },
           ),
           ElevatedButton(
-            child: Text(loc.add),
+            child: const Text('Вход'),
             onPressed: () {
-              context.push('/country-select');
-            },
-          ),
-          ElevatedButton(
-            child: const Text('start'),
-            onPressed: () {
-              context.push('/language');
+              context.push('/auth');
             },
           ),
           ElevatedButton(
@@ -77,11 +67,12 @@ class WelcomeScreen extends ConsumerWidget {
             },
           ),
           ElevatedButton(
-            child: const Text('Вход'),
+            child: const Text('выбор страны'),
             onPressed: () {
-              context.push('/auth');
+              context.push('/country-select');
             },
           ),
+          const ThemeToggleSwitch(),
           ElevatedButton(
             child: const Text('list'),
             onPressed: () {
