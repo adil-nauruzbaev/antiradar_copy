@@ -93,11 +93,22 @@ flutter:
     - assets/icons/car2.svg
     - assets/icons/load.svg
     - assets/icons/loaded.svg
+    - assets/icons/Ratio.svg
+    - assets/icons/RatioDone.svg
+    - assets/icons/arrows_up_down.svg
+
     - assets/icons/country_flags/Brazil.svg
     - assets/icons/country_flags/Chile.svg
     - assets/icons/country_flags/Argentina.svg
     - assets/icons/country_flags/Paraguay.svg
     - assets/icons/country_flags/Uruguay.svg
+
+    - assets/icons/burger_icons/about.svg
+    - assets/icons/burger_icons/globe.svg
+    - assets/icons/burger_icons/language.svg
+    - assets/icons/burger_icons/moon.svg
+    - assets/icons/burger_icons/settings.svg
+    - assets/icons/burger_icons/share.svg
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -113,6 +124,7 @@ flutter:
       fonts:
         - asset: assets/fonts/Inter/Inter-Regular.otf
         - asset: assets/fonts/Inter/Inter-Semibold.otf
+        - asset: assets/fonts/Inter/Inter-Medium.otf
     - family: SF Pro Display
       fonts:
         - asset: assets/fonts/Inter/Inter-Regular.otf
