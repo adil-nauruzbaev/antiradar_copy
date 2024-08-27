@@ -3,6 +3,7 @@ import 'package:antiradar/data/source/database/country_pod.dart';
 import 'package:antiradar/data/source/database/isar_service.dart';
 import 'package:antiradar/presentation/router/app_router.dart';
 import 'package:antiradar/presentation/view/on_boarding/widgets/continue_button.dart';
+import 'package:antiradar/presentation/view/on_boarding/widgets/rotating_icon.dart';
 import 'package:antiradar/presentation/view_model/isar/models/country_model.dart';
 import 'package:antiradar/presentation/view_model/settings/gradient_extension.dart';
 import 'package:antiradar/utils/app_fonts.dart';
@@ -173,9 +174,7 @@ class _DownloadState extends ConsumerState<DownloadWidget> {
             Icons.check,
             color: Colors.white,
           ),
-        DownloadEnum.downloading => const _LoadIcon(
-            path: 'assets/icons/loaded.svg',
-          ),
+        DownloadEnum.downloading => const RotatingIcon(),
       },
       onTap: isDownloaded == DownloadEnum.downloaded &&
               isDownloaded == DownloadEnum.downloading
