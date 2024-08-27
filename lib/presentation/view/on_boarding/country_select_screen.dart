@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:antiradar/data/firebase/argentina_provider.dart';
 import 'package:antiradar/data/source/database/country_pod.dart';
 import 'package:antiradar/data/source/database/isar_service.dart';
@@ -14,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:isar/isar.dart';
 
 enum CountryEnum {
@@ -61,7 +59,7 @@ class CountrySelectScreen extends ConsumerWidget {
     return Scaffold(
       floatingActionButton: ContinueButton(
         text: loc.add,
-        route: '',
+        route: '/allow-location',
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SingleChildScrollView(
@@ -189,18 +187,16 @@ class _DownloadState extends ConsumerState<DownloadWidget> {
                     .update((state) => DownloadEnum.downloading);
                 final country = widget.countryDownload;
 
-                if (country != null) {
-                  final models =
-                      await ref.read(firebaseModelsProvider(country).future);
-                  await ref
-                      .read(countryNotifierProvider(country).notifier)
-                      .saveAll(models)
-                      .whenComplete(() {
-                    ref
-                        .read(downloadPod.notifier)
-                        .update((state) => DownloadEnum.downloaded);
-                  });
-                } else {}
+                final models =
+                    await ref.read(firebaseModelsProvider(country).future);
+                await ref
+                    .read(countryNotifierProvider(country).notifier)
+                    .saveAll(models)
+                    .whenComplete(() {
+                  ref
+                      .read(downloadPod.notifier)
+                      .update((state) => DownloadEnum.downloaded);
+                });
 
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Data saved to Isar')),

@@ -1,4 +1,5 @@
 import 'package:antiradar/presentation/view/on_boarding/widgets/allow_button.dart';
+import 'package:antiradar/presentation/view/on_boarding/widgets/continue_button.dart';
 import 'package:antiradar/presentation/view_model/location/location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,6 +19,11 @@ class AllowLocationScreen extends ConsumerWidget {
     final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
+      floatingActionButton: ContinueButton(
+        text: loc.contin,
+        route: '/theme-switch',
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -75,7 +81,10 @@ class AllowLocationScreen extends ConsumerWidget {
                       ],
                     );
                   } else {
-                    return const Text('Permission granted');
+                    return const Text(
+                      'Permission already granted',
+                      style: AppFonts.langStyle,
+                    );
                   }
                 },
                 loading: () => const CircularProgressIndicator(),
@@ -84,7 +93,9 @@ class AllowLocationScreen extends ConsumerWidget {
               const SizedBox(height: 20),
               locationAsyncValue.when(
                 data: (position) => Text(
-                    'Location: ${position.latitude}, ${position.longitude}'),
+                  'Location: ${position.latitude}, ${position.longitude}',
+                  style: const TextStyle(color: Colors.white),
+                ),
                 loading: () => const CircularProgressIndicator(),
                 error: (err, stack) => Text('Error: $err'),
               ),

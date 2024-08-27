@@ -1,5 +1,4 @@
 import 'package:antiradar/presentation/view/on_boarding/widgets/theme_switch.dart';
-import 'package:antiradar/presentation/view_model/auth/auth_provider.dart';
 import 'package:antiradar/presentation/view_model/settings/select_language/locale_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
