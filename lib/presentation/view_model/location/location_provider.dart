@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:antiradar/presentation/view/radar/widgets/radar_image.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -9,11 +12,18 @@ Future<LocationPermission> locationPermission(LocationPermissionRef ref) async {
 }
 
 @riverpod
-Future<Position> location(LocationRef ref) async {
+Stream<GeoPosition> location(LocationRef ref) async* {
   final permission = await ref.watch(locationPermissionProvider.future);
   if (permission == LocationPermission.denied ||
       permission == LocationPermission.deniedForever) {
     throw Exception('Permission denied');
   }
-  return await Geolocator.getCurrentPosition();
+  final StreamController<GeoPosition> positionStream =
+      StreamController<GeoPosition>();
+  Geolocator.getPositionStream().listen((Position position) {
+    positionStream.add(GeoPosition(
+        latitude: position.latitude, longitude: position.longitude));
+  });
+
+  yield* positionStream.stream;
 }

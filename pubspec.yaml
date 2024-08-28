@@ -98,6 +98,7 @@ flutter:
     - assets/icons/country_flags/Argentina.svg
     - assets/icons/country_flags/Paraguay.svg
     - assets/icons/country_flags/Uruguay.svg
+    - assets/icons/pin.png
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

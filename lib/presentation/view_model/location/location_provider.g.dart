@@ -24,11 +24,11 @@ final locationPermissionProvider =
 
 typedef LocationPermissionRef
     = AutoDisposeFutureProviderRef<LocationPermission>;
-String _$locationHash() => r'f881ad6b037eb873cbd84817b6cf66ced8d02df5';
+String _$locationHash() => r'47e00aac3f8e99e6585315f91c295481edac984b';
 
 /// See also [location].
 @ProviderFor(location)
-final locationProvider = AutoDisposeFutureProvider<Position>.internal(
+final locationProvider = AutoDisposeStreamProvider<GeoPosition>.internal(
   location,
   name: r'locationProvider',
   debugGetCreateSourceHash:
@@ -37,6 +37,6 @@ final locationProvider = AutoDisposeFutureProvider<Position>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef LocationRef = AutoDisposeFutureProviderRef<Position>;
+typedef LocationRef = AutoDisposeStreamProviderRef<GeoPosition>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

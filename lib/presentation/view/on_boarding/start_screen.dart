@@ -16,7 +16,7 @@ class StartScreen extends ConsumerWidget {
     return Scaffold(
       floatingActionButton: ContinueButton(
         text: loc.start,
-        route: '',
+        route: '/radar',
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SingleChildScrollView(
@@ -24,7 +24,7 @@ class StartScreen extends ConsumerWidget {
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
               gradient:
-              Theme.of(context).extension<GradientExtension>()?.gradient),
+                  Theme.of(context).extension<GradientExtension>()?.gradient),
           child: SafeArea(
             child: Column(
               children: [

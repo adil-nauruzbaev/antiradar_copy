@@ -6,9 +6,8 @@ import 'package:antiradar/presentation/view/on_boarding/allow_location.dart';
 import 'package:antiradar/presentation/view/on_boarding/country_select_screen.dart';
 import 'package:antiradar/presentation/view/on_boarding/splash_screen.dart';
 import 'package:antiradar/presentation/view/on_boarding/theme_switch_screen.dart';
+import 'package:antiradar/presentation/view/radar/radar_screen.dart';
 import 'package:antiradar/presentation/view/test/iser.dart';
-import 'package:antiradar/presentation/view_model/auth/auth_provider.dart';
-import 'package:antiradar/presentation/view_model/isar/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -88,6 +87,10 @@ GoRouter router(RouterRef ref) {
         GoRoute(
           path: '/isar',
           builder: (context, state) => const SaveArgentinaDataPage(),
+        ),
+        GoRoute(
+          path: '/radar',
+          builder: (context, state) => RadarScreen(),
         ),
       ]);
   ref.onDispose(router.dispose);
