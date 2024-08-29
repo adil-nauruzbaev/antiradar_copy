@@ -1,54 +1,17 @@
 import 'package:antiradar/data/firebase/argentina_provider.dart';
 import 'package:antiradar/data/source/database/country_pod.dart';
-import 'package:antiradar/data/source/database/isar_service.dart';
-import 'package:antiradar/presentation/router/app_router.dart';
 import 'package:antiradar/presentation/view/on_boarding/widgets/continue_button.dart';
 import 'package:antiradar/presentation/view/on_boarding/widgets/rotating_icon.dart';
-import 'package:antiradar/presentation/view_model/isar/models/country_model.dart';
 import 'package:antiradar/presentation/view_model/settings/gradient_extension.dart';
 import 'package:antiradar/utils/app_fonts.dart';
-import 'package:antiradar/utils/extensions/localization.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'package:isar/isar.dart';
+import '../../view_model/country_download_status/country_download_provider.dart';
 
-enum CountryEnum {
-  argentina('assets/icons/country_flags/Argentina.svg'),
-  brazil('assets/icons/country_flags/Brazil.svg'),
-  uruguay(
-    'assets/icons/country_flags/Uruguay.svg',
-  ),
-  paraguay(
-    'assets/icons/country_flags/Paraguay.svg',
-  ),
-  chile('assets/icons/country_flags/Chile.svg'),
-  ;
-
-  final String flagPath;
-
-  const CountryEnum(this.flagPath);
-
-  String locale() {
-    final locale = navigatorKey.currentState!.context.localization;
-    return switch (this) {
-      argentina => locale.argentina,
-      brazil => locale.brazil,
-      uruguay => locale.uruguay,
-      paraguay => locale.paraguay,
-      chile => locale.chile,
-    };
-  }
-}
-
-enum DownloadEnum {
-  isDefault,
-  downloaded,
-  downloading,
-}
 
 class CountrySelectScreen extends ConsumerWidget {
   const CountrySelectScreen({super.key});
@@ -78,36 +41,9 @@ class CountrySelectScreen extends ConsumerWidget {
                 ),
                 ...CountryEnum.values.map(
                   (e) => DownloadWidget(
-                    country: e.locale(),
-                    flagPath: e.flagPath,
-                    countryDownload: e.name,
+                    country: e,
                   ),
                 )
-                // _buildLanguageItem(
-                //   context,
-                //   loc.argentina,
-                //   'assets/icons/country_flags/Argentina.svg',
-                // ),
-                // _buildLanguageItem(
-                //   context,
-                //   loc.brazil,
-                //   'assets/icons/country_flags/Brazil.svg',
-                // ),
-                // _buildLanguageItem(
-                //   context,
-                //   loc.uruguay,
-                //   'assets/icons/country_flags/Uruguay.svg',
-                // ),
-                // _buildLanguageItem(
-                //   context,
-                //   loc.paraguay,
-                //   'assets/icons/country_flags/Paraguay.svg',
-                // ),
-                // _buildLanguageItem(
-                //   context,
-                //   loc.chile,
-                //   'assets/icons/country_flags/Chile.svg',
-                // ),
               ],
             ),
           ),
@@ -117,53 +53,23 @@ class CountrySelectScreen extends ConsumerWidget {
   }
 }
 
-class DownloadWidget extends ConsumerStatefulWidget {
-  const DownloadWidget({
-    super.key,
-    required this.countryDownload,
-    required this.country,
-    required this.flagPath,
-  });
-  final String countryDownload;
-  final String country;
-  final String flagPath;
-  @override
-  ConsumerState<DownloadWidget> createState() => _DownloadState();
-}
+class DownloadWidget extends ConsumerWidget {
+  const DownloadWidget({super.key, required this.country});
 
-class _DownloadState extends ConsumerState<DownloadWidget> {
-  String get countryDownload => widget.countryDownload;
-
-  late final StateProvider<DownloadEnum> downloadPod;
+  final CountryEnum country;
 
   @override
-  void initState() {
-    super.initState();
-    downloadPod = StateProvider((ref) {
-      final Isar isar = IsarDatabaseService().isarDB;
-      final length = isar.countryModels
-          .where()
-          .filter()
-          .countryEqualTo(countryDownload)
-          .countSync();
-      if (length > 0) {
-        return DownloadEnum.downloaded;
-      }
-      return DownloadEnum.isDefault;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final isDownloaded = ref.watch(downloadPod);
+  Widget build(BuildContext context, WidgetRef ref) {
+    var downloadPod = ref.watch(countryDownloadNotifierProvider.notifier);
+    final isDownloaded = ref.watch(countryDownloadNotifierProvider)[country]!;
     return ListTile(
       contentPadding: const EdgeInsets.only(left: 16, right: 48, bottom: 24),
       title: Text(
-        widget.country,
+        country.locale(),
         style: AppFonts.langStyle,
       ),
       leading: SvgPicture.asset(
-        widget.flagPath,
+        country.path(),
         width: 40,
         height: 40,
       ),
@@ -181,20 +87,18 @@ class _DownloadState extends ConsumerState<DownloadWidget> {
           ? null
           : () async {
               try {
-                ref
-                    .read(downloadPod.notifier)
-                    .update((state) => DownloadEnum.downloading);
-                final country = widget.countryDownload;
+                downloadPod.setDownloadState(country, DownloadEnum.downloading);
+
+                final countryName = country.name;
 
                 final models =
-                    await ref.read(firebaseModelsProvider(country).future);
+                    await ref.read(firebaseModelsProvider(countryName).future);
                 await ref
-                    .read(countryNotifierProvider(country).notifier)
+                    .read(countryNotifierProvider(countryName).notifier)
                     .saveAll(models)
                     .whenComplete(() {
-                  ref
-                      .read(downloadPod.notifier)
-                      .update((state) => DownloadEnum.downloaded);
+                  downloadPod.setDownloadState(
+                      country, DownloadEnum.downloaded);
                 });
 
                 ScaffoldMessenger.of(context).showSnackBar(
