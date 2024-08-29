@@ -1,5 +1,5 @@
 import 'package:antiradar/presentation/view/burger_menu/widgets/version_tile.dart';
-import 'package:antiradar/presentation/view_model/settings/version_card_extension.dart';
+import 'package:antiradar/presentation/view_model/settings/app_colors_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -25,7 +25,7 @@ class VersionSelection extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
             width: 2,
-            color: Theme.of(context).extension<VersionCardExtension>()!.strokeColor!,
+            color: Theme.of(context).extension<AppColorsExtension>()!.strokeColor!,
           ),
           borderRadius: BorderRadius.circular(10),
         ),

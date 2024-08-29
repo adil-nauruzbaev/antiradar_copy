@@ -1,3 +1,4 @@
+/*
 class AssetManager {
   static String mainFolder = 'assets/';
 
@@ -6,4 +7,4 @@ class AssetManager {
     const iconNames = ['language', 'globe', 'settings', 'about', 'share', 'moon'];
     return iconNames.map((iconName) => '$mainFolder$path$iconName.svg').toList();
   }
-}
+}*/

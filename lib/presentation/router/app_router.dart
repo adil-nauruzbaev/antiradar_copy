@@ -6,6 +6,7 @@ import 'package:antiradar/presentation/view/on_boarding/allow_location.dart';
 import 'package:antiradar/presentation/view/on_boarding/country_select_screen.dart';
 import 'package:antiradar/presentation/view/on_boarding/splash_screen.dart';
 import 'package:antiradar/presentation/view/on_boarding/theme_switch_screen.dart';
+import 'package:antiradar/presentation/view/settings/menu_settings_screen.dart';
 import 'package:antiradar/presentation/view/test/iser.dart';
 import 'package:antiradar/presentation/view_model/auth/auth_provider.dart';
 import 'package:antiradar/presentation/view_model/isar/models/user_model.dart';
@@ -88,6 +89,10 @@ GoRouter router(RouterRef ref) {
         GoRoute(
           path: '/isar',
           builder: (context, state) => const SaveArgentinaDataPage(),
+        ),
+        GoRoute(
+          path: '/settings',
+          builder: (context, state) => const MenuSettingsScreen(),
         ),
       ]);
   ref.onDispose(router.dispose);

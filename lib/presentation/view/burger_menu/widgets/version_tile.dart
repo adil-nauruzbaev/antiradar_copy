@@ -1,5 +1,5 @@
 import 'package:antiradar/presentation/view/burger_menu/widgets/pro_free_icon.dart';
-import 'package:antiradar/presentation/view_model/settings/version_card_extension.dart';
+import 'package:antiradar/presentation/view_model/settings/app_colors_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -26,7 +26,7 @@ class VersionTile extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
         color: isSelected == isFree
-            ? Theme.of(context).extension<VersionCardExtension>()!.highlightedStrokeColor!
+            ? Theme.of(context).extension<AppColorsExtension>()!.highlightedStrokeColor!
             : null,
         borderRadius: BorderRadius.circular(5),
       ),

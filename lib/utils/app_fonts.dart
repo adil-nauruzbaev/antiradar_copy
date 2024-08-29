@@ -83,4 +83,8 @@ class AppFonts {
       fontFamily: 'Inter',
       fontWeight: FontWeight.w500);
 
+  static TextStyle sfProRegular = const TextStyle(
+      fontFamily: 'SF Pro Display',
+      fontWeight: FontWeight.normal);
+
 }

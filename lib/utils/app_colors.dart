@@ -7,6 +7,9 @@ class AppColors {
   static const Color lightTextColor = Color(0xFF000000);
   static const Color lightMenuColor = Color(0xFFFFFFFF);
   static const Color lightStrokeVersionCardColor = Color(0xFFECECEC);
+  static const Color lightSettingsBackground = Color(0xFFF3F2F8);
+  static const Color lightSettingsTileColor = Color(0xFFFFFFFF);
+  static const Color lightSettingsStrokeColor = Color(0xFFDDDDDD);
 
   static const Color darkBackgroundColor = Color(0xFF121212);
   static const Color darkPrimaryColor = Color(0xFF4CAF50);
@@ -14,6 +17,10 @@ class AppColors {
   static const Color darkTextColor = Color(0xFFFFFFFF);
   static const Color darkMenuColor = Color(0xFF090909);
   static const Color darkStrokeVersionCardColor = Color(0xFF9A9A9A);
+  static const Color darkSettingsBackground = Color(0xFF131313);
+  static const Color darkSettingsTileColor = Color(0xFF303030);
+  static const Color darkSettingsStrokeColor = Color(0xFF808080);
+
 
   static const Color gradientColor1 = Color(0xFF204A90);
   static const Color gradientColor2 = Color(0xFF255AB4);
