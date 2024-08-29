@@ -17,7 +17,7 @@ import '../../view_model/settings/user_settings/settings_provider.dart';
 class SettingTile {
   final String title;
   final String iconPath;
-  final String route;
+  final String? route;
   final bool showSwitch;
   final bool isVisible;
 
@@ -26,7 +26,7 @@ class SettingTile {
       this.showSwitch = false,
       this.isVisible = true,
       required this.iconPath,
-      this.route = ''});
+      this.route});
 }
 
 class BurgerMenu extends ConsumerStatefulWidget {
@@ -49,21 +49,21 @@ class _BurgerMenuState extends ConsumerState<BurgerMenu> {
       SettingTile(
           title: loc.lang,
           iconPath: 'assets/icons/burger_icons/language.svg',
-          isVisible: userSettings.isLanguageDisplayed),
+          isVisible: userSettings.isLanguageDisplayed,
+          route: '/language-settings'),
       SettingTile(
           title: loc.loadPoints,
           iconPath: 'assets/icons/burger_icons/globe.svg',
-          isVisible: userSettings.isCountriesDisplayed),
+          isVisible: userSettings.isCountriesDisplayed,
+          route: '/country-settings'),
       SettingTile(
           title: loc.settings,
           iconPath: 'assets/icons/burger_icons/settings.svg',
           route: '/settings'),
       SettingTile(
-          title: loc.about,
-          iconPath: 'assets/icons/burger_icons/about.svg'),
+          title: loc.about, iconPath: 'assets/icons/burger_icons/about.svg'),
       SettingTile(
-          title: loc.share,
-          iconPath: 'assets/icons/burger_icons/share.svg'),
+          title: loc.share, iconPath: 'assets/icons/burger_icons/share.svg'),
       SettingTile(
           title: loc.darkMode,
           iconPath: 'assets/icons/burger_icons/moon.svg',
@@ -113,7 +113,9 @@ class _BurgerMenuState extends ConsumerState<BurgerMenu> {
                       ),
                       trailing: e.showSwitch ? const _DarkThemeToggle() : null,
                       onTap: () {
-                        context.push(e.route);
+                        if (e.route != null) {
+                          context.push(e.route!);
+                        }
                       },
                     ),
                   )),

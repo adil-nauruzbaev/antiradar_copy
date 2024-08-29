@@ -103,6 +103,11 @@ flutter:
     - assets/icons/country_flags/Paraguay.svg
     - assets/icons/country_flags/Uruguay.svg
 
+    - assets/icons/country_flags/lang_flags/usa.svg
+    - assets/icons/country_flags/lang_flags/spain.svg
+    - assets/icons/country_flags/lang_flags/russia.svg
+    - assets/icons/country_flags/lang_flags/portugal.svg
+
     - assets/icons/burger_icons/about.svg
     - assets/icons/burger_icons/globe.svg
     - assets/icons/burger_icons/language.svg
