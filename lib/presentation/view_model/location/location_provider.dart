@@ -22,7 +22,9 @@ Stream<GeoPosition> location(LocationRef ref) async* {
       StreamController<GeoPosition>();
   Geolocator.getPositionStream().listen((Position position) {
     positionStream.add(GeoPosition(
-        latitude: position.latitude, longitude: position.longitude));
+        latitude: position.latitude,
+        longitude: position.longitude,
+        heading: position.heading));
   });
 
   yield* positionStream.stream;
