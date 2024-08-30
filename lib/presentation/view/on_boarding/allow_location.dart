@@ -91,14 +91,14 @@ class AllowLocationScreen extends ConsumerWidget {
                 error: (err, stack) => Text('Error: $err'),
               ),
               const SizedBox(height: 20),
-              locationAsyncValue.when(
-                data: (position) => Text(
-                  'Location: ${position.latitude}, ${position.longitude}',
-                  style: const TextStyle(color: Colors.white),
-                ),
-                loading: () => const CircularProgressIndicator(),
-                error: (err, stack) => Text('Error: $err'),
-              ),
+              // locationAsyncValue.when(
+              //   data: (position) => Text(
+              //     'Location: ${position.latitude}, ${position.longitude}',
+              //     style: const TextStyle(color: Colors.white),
+              //   ),
+              //   loading: () => const CircularProgressIndicator(),
+              //   error: (err, stack) => Text('Error: $err'),
+              // ),
             ],
           ),
         ),

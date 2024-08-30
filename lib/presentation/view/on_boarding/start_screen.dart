@@ -1,4 +1,5 @@
 import 'package:antiradar/presentation/view/on_boarding/widgets/car_image.dart';
+import 'package:antiradar/presentation/view_model/speed/speed_service.dart';
 import 'package:antiradar/utils/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +13,7 @@ class StartScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
+    final speedAsyncValue = ref.watch(speedProvider);
 
     return Scaffold(
       floatingActionButton: ContinueButton(
