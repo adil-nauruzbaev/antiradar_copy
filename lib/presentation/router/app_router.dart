@@ -7,6 +7,8 @@ import 'package:antiradar/presentation/view/on_boarding/country_select_screen.da
 import 'package:antiradar/presentation/view/on_boarding/splash_screen.dart';
 import 'package:antiradar/presentation/view/on_boarding/theme_switch_screen.dart';
 import 'package:antiradar/presentation/view/radar/radar_screen.dart';
+import 'package:antiradar/presentation/view/settings/countries_settings_screen.dart';
+import 'package:antiradar/presentation/view/settings/menu_settings_screen.dart';
 import 'package:antiradar/presentation/view/test/iser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -16,6 +18,7 @@ import 'package:antiradar/presentation/view/on_boarding/welcome_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../view/on_boarding/start_screen.dart';
+import '../view/settings/language_settings_screen.dart';
 
 part 'app_router.g.dart';
 
@@ -91,6 +94,18 @@ GoRouter router(RouterRef ref) {
         GoRoute(
           path: '/radar',
           builder: (context, state) => RadarScreen(),
+        ),
+        GoRoute(
+          path: '/settings',
+          builder: (context, state) => const MenuSettingsScreen(),
+        ),
+        GoRoute(
+          path: '/country-settings',
+          builder: (context, state) => const CountriesSettingsScreen(),
+        ),
+        GoRoute(
+          path: '/language-settings',
+          builder: (context, state) => const LanguageSettingsScreen(),
         ),
       ]);
   ref.onDispose(router.dispose);

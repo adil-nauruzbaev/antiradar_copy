@@ -1,3 +1,4 @@
+import 'package:antiradar/presentation/view/burger_menu/burger_menu.dart';
 import 'package:antiradar/presentation/view/on_boarding/widgets/theme_switch.dart';
 import 'package:antiradar/presentation/view_model/settings/select_language/locale_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,6 +32,7 @@ class WelcomeScreen extends ConsumerWidget {
     //final theme = ref.watch(themeNotifierProvider);
 
     return Scaffold(
+      drawer: const BurgerMenu(),
       appBar: AppBar(
         title: Text(loc.selectLanguage),
       ),

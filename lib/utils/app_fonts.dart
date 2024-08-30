@@ -74,4 +74,17 @@ class AppFonts {
       fontSize: 20,
       color: AppColors.gradientColor3,
       fontWeight: FontWeight.w600);
+
+  static const TextStyle sfProSemibold = TextStyle(
+      fontFamily: 'SF Pro Display',
+      fontWeight: FontWeight.w600);
+
+  static const TextStyle interMedium = TextStyle(
+      fontFamily: 'Inter',
+      fontWeight: FontWeight.w500);
+
+  static TextStyle sfProRegular = const TextStyle(
+      fontFamily: 'SF Pro Display',
+      fontWeight: FontWeight.normal);
+
 }
