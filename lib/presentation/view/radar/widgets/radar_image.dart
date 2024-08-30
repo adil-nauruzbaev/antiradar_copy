@@ -37,19 +37,62 @@ class _RadarImageState extends ConsumerState<RadarImage> {
   }
 
   Offset calculateOffset(Offset center, double radius, double angleInDegrees) {
-    final angleInRadians = angleInDegrees * pi / 180;
+    final angleInRadians = angleInDegrees * pi / -180;
     final dx = center.dx + radius * cos(angleInRadians);
     final dy = center.dy + radius * sin(angleInRadians);
+
     return Offset(dx, dy);
   }
 
+  Offset calculateOffsetWithHeading(
+      Offset center, double radius, double angleInDegrees, double heading) {
+    final adjustedAngle = angleInDegrees - heading;
+    return calculateOffset(center, radius, adjustedAngle);
+  }
+
+  // Offset calculateOffset(GeoPosition myLocation, GeoPosition cameraLocation) {
+  //   double distance = calculateDistance(myLocation, cameraLocation);
+  //   double bearing = calculateBearing(myLocation, cameraLocation);
+
+  //   // Преобразуем расстояние в пиксели (например, 1 км = 100 пикселей)
+  //   double pixelsPerMeter = 0.1; // Например, 0.1 пикселя на метр
+  //   double offsetDistance = distance * pixelsPerMeter; // Расстояние в пикселях
+
+  //   // Вычисляем смещение по осям X и Y
+  //   double offsetX = offsetDistance * cos(_degreesToRadians(bearing));
+  //   double offsetY = offsetDistance * sin(_degreesToRadians(bearing));
+
+  //   return Offset(offsetX, offsetY);
+  // }
+  // double calculateBearing(GeoPosition point1, GeoPosition point2) {
+  //   double lat1Rad = _degreesToRadians(point1.latitude);
+  //   double lon1Rad = _degreesToRadians(point1.longitude);
+  //   double lat2Rad = _degreesToRadians(point2.latitude);
+  //   double lon2Rad = _degreesToRadians(point2.longitude);
+
+  //   double dLon = lon2Rad - lon1Rad;
+
+  //   double y = sin(dLon) * cos(lat2Rad);
+  //   double x =
+  //       cos(lat1Rad) * sin(lat2Rad) - sin(lat1Rad) * cos(lat2Rad) * cos(dLon);
+  //   double bearing = atan2(y, x);
+
+  //   return (bearing * 180 / pi + 360) % 360; // Возвращаем угол в градусах
+  // }
+
   double calculateAngleFromCurrentLocation(
-      GeoPosition point, GeoPosition currentLocation) {
+    GeoPosition point,
+    GeoPosition currentLocation,
+  ) {
     final deltaX = point.longitude - currentLocation.longitude;
     final deltaY = point.latitude - currentLocation.latitude;
-    final angle = atan2(deltaY, deltaX);
+    final angle = atan2(deltaY, deltaX) * 180 / pi;
 
-    return angle * 180 / pi;
+    // Корректируем угол на основе heading
+    final adjustedAngle = angle - (currentLocation.heading ?? 0);
+
+    // Убедитесь, что угол остается в пределах 0-360 градусов
+    return (adjustedAngle + 360) % 360;
   }
 
   double _degreesToRadians(double degrees) {
@@ -84,7 +127,7 @@ class _RadarImageState extends ConsumerState<RadarImage> {
     final radius = min(size.width, size.height) / 0.8;
     final Isar isar = IsarDatabaseService().isarDB;
 
-    List<CountryModel> Positions = await isar.countryModels
+    List<CountryModel> positions = await isar.countryModels
         .where()
         .filter()
         .countryEqualTo('argentina')
@@ -92,13 +135,14 @@ class _RadarImageState extends ConsumerState<RadarImage> {
 
     List<Offset> points = [];
 
-    for (var point in Positions) {
+    for (var point in positions) {
       double angle = calculateAngleFromCurrentLocation(
-          GeoPosition(
-            latitude: point.lat!,
-            longitude: point.long!,
-          ),
-          currentLocation);
+        GeoPosition(
+          latitude: point.lat!,
+          longitude: point.long!,
+        ),
+        currentLocation,
+      );
       double distance = calculateDistance(
           GeoPosition(
             latitude: point.lat!,
@@ -108,28 +152,11 @@ class _RadarImageState extends ConsumerState<RadarImage> {
 
       // Преобразуем дистанцию в пиксели относительно радиуса радара
       double distanceInPixels = (distance / maxDistanceKm) * radius;
-      points.add(calculateOffset(center, distanceInPixels, angle));
+      points.add(calculateOffsetWithHeading(
+          center, distanceInPixels, angle, currentLocation.heading!));
     }
 
-    return (points, Positions);
-  }
-
-  late GeoPosition currentLocation;
-  @override
-  void initState() {
-    super.initState();
-    currentLocation = GeoPosition(
-      latitude: -34.48445,
-      longitude: -58.5182644,
-    );
-    Timer.periodic(const Duration(milliseconds: 1), (timer) {
-      setState(() {
-        currentLocation = GeoPosition(
-          latitude: currentLocation.latitude - 0.00001,
-          longitude: currentLocation.longitude,
-        );
-      });
-    });
+    return (points, positions);
   }
 
   @override
@@ -149,9 +176,9 @@ class _RadarImageState extends ConsumerState<RadarImage> {
 
               return ref.watch(locationProvider).when(
                 data: (GeoPosition data) {
-                  print(currentLocation);
+                  print(data.heading);
                   return FutureBuilder(
-                    future: _getPoints(size, center, currentLocation),
+                    future: _getPoints(size, center, data),
                     builder: (context, snapshotPoints) {
                       if (snapshotPoints.connectionState !=
                               ConnectionState.done &&
@@ -186,10 +213,12 @@ class _RadarImageState extends ConsumerState<RadarImage> {
 class GeoPosition {
   final double latitude;
   final double longitude;
+  final double? heading;
 
   GeoPosition({
     required this.latitude,
     required this.longitude,
+    this.heading,
   });
 
   @override

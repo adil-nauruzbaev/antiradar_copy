@@ -55,8 +55,17 @@ class RadarPainter extends CustomPainter {
       )
       ..lineTo(center.dx, center.dy - 25);
 
+    final gradient = RadialGradient(
+      colors: [
+        Colors.white.withOpacity(0.1),
+        Colors.transparent,
+      ],
+      stops: const [0.8, 1.0],
+    );
+
     final sectorPaintFill = Paint()
-      ..color = Colors.white.withOpacity(0.1)
+      ..shader =
+          gradient.createShader(Rect.fromCircle(center: center, radius: radius))
       ..style = PaintingStyle.fill;
 
     canvas.drawPath(sectorPath, sectorPaintFill);
@@ -69,7 +78,7 @@ class RadarPainter extends CustomPainter {
     void drawText(String text, Offset position) {
       textPainter.text = TextSpan(
         text: text,
-        style: TextStyle(color: Colors.white, fontSize: 12),
+        style: const TextStyle(color: Colors.white, fontSize: 12),
       );
       textPainter.layout();
       textPainter.paint(canvas,
