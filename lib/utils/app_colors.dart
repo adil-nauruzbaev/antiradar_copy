@@ -33,6 +33,7 @@ class AppColors {
   static const Color gradientColor9 = Color(0xFF1D2736);
 
   static const Color whiteColor = Color(0xFFFFFFFF);
+  static const Color alertColor = Color(0xFF1C1E2A);
 
   static Color lclSecondary = const Color(0xFF3C3C43).withOpacity(0.6);
   static const Color toggleGray = Color(0xFFE7E7E7);
