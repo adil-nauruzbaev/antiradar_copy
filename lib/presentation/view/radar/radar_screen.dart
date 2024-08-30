@@ -41,7 +41,100 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          backgroundColor: AppColors.alertColor, // Dark background for the dialog
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          content: SizedBox(
+                            width: 300,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: const BoxDecoration(
+                                    color: Color(
+                                        0xFF4B5563), // Darker gray for the icon background
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(
+                                    Icons.gps_fixed,
+                                    color: Colors.white,
+                                    size: 36,
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                const Text(
+                                  'Are you sure you want to place this action on map?',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          actions: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(
+                                          false); // Return false when 'No' is pressed
+                                    },
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: const Color(
+                                          0xFF4B5563), // Gray for 'No' button
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
+                                    ),
+                                    child: const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 12),
+                                      child: Text('No',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(
+                                          true); // Return true when 'Yes' is pressed
+                                    },
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: const Color(
+                                          0xFF3B82F6), // Blue for 'Yes' button
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
+                                    ),
+                                    child: const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 12),
+                                      child: Text('Yes',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                   child: SvgPicture.asset('assets/icons/camera2.svg'),
                 ),
               ),
