@@ -93,7 +93,7 @@ GoRouter router(RouterRef ref) {
         ),
         GoRoute(
           path: '/radar',
-          builder: (context, state) => RadarScreen(),
+          builder: (context, state) => const RadarScreen(),
         ),
         GoRoute(
           path: '/settings',
