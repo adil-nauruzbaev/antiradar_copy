@@ -7,10 +7,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../view_model/settings/gradient_extension.dart';
 import 'widgets/continue_button.dart';
 
-class StartScreen extends ConsumerWidget {
-  StartScreen({super.key});
+final GlobalKey<ScaffoldState> _startScreenKey = GlobalKey<ScaffoldState>();
 
-  final GlobalKey<ScaffoldState> _startScreenKey = GlobalKey<ScaffoldState>();
+
+class StartScreen extends ConsumerWidget {
+  const StartScreen({super.key});
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
