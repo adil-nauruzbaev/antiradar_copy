@@ -21,7 +21,7 @@ class UserPref {
   static bool get isFirstTime => _prefs.getBool('is_first_time') ?? true;
 
   static set isLearningComplete(bool isLearningComplete) =>
-      _prefs.setBool('is_learning_complete', isFirstTime);
+      _prefs.setBool('is_learning_complete', isLearningComplete);
   static bool get isLearningComplete =>
       _prefs.getBool('is_learning_complete') ?? false;
 

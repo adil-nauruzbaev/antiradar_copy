@@ -26,7 +26,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
     return AppColorsExtension(
       strokeColor: strokeColor ?? this.strokeColor,
       highlightedStrokeColor:
-          highlightedStrokeColor ?? this.highlightedStrokeColor,
+      highlightedStrokeColor ?? this.highlightedStrokeColor,
       settingsBackground: settingsBackground ?? this.settingsBackground,
       settingsTileColor: settingsTileColor ?? this.settingsTileColor,
       settingsStrokeColor: settingsStrokeColor ?? this.settingsStrokeColor,
@@ -41,13 +41,17 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
     return AppColorsExtension(
       strokeColor: Color.lerp(strokeColor, other.strokeColor, t),
       highlightedStrokeColor:
-          Color.lerp(highlightedStrokeColor, other.highlightedStrokeColor, t),
+      Color.lerp(highlightedStrokeColor, other.highlightedStrokeColor, t),
       settingsBackground:
-          Color.lerp(settingsBackground, other.settingsBackground, t),
+      Color.lerp(settingsBackground, other.settingsBackground, t),
       settingsTileColor:
-          Color.lerp(settingsTileColor, other.settingsTileColor, t),
+      Color.lerp(settingsTileColor, other.settingsTileColor, t),
       settingsStrokeColor:
-          Color.lerp(settingsStrokeColor, other.settingsStrokeColor, t),
+      Color.lerp(settingsStrokeColor, other.settingsStrokeColor, t),
     );
   }
+}
+
+extension AppColorsExt on ThemeData {
+  AppColorsExtension get appColors => extension<AppColorsExtension>()!;
 }
