@@ -94,7 +94,19 @@ class RadarPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     for (int i = 0; i < points.length; i++) {
-      canvas.drawCircle(points[i], 5.0, pointPaint);
+      final outerRadius = size.width / 2;
+      final innerRadius = size.width / 4;
+      final outerCirclePaint = Paint()
+        ..color = Colors.red
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2;
+      canvas.drawCircle(points[i], 8.0, outerCirclePaint);
+      final innerCirclePaint = Paint()
+        ..color = Colors.red
+        ..style = PaintingStyle.fill;
+
+      canvas.drawCircle(points[i], 4.0, innerCirclePaint);
+
       drawText('${models[i].lat}, ${models[i].long}', points[i]);
     }
   }
