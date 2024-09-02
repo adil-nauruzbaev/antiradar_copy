@@ -42,5 +42,8 @@
     "repeat": "Повторите пароль",
     "signInText" : "Уже есть аккаунт? Войти",
     "signUpText" : "Нет аккаунта? Зарегистрироваться",
-    "choose" : "Выберите тему"
+    "choose" : "Выберите тему",
+    "alertText": "Are you sure you want to place this action on map?",
+    "yes": "Yes",
+    "no": "No"
 }

@@ -43,5 +43,9 @@
     "repeat": "Repeat password",
     "signInText" : "Already have an account? Sign In",
     "signUpText" : "Don't have an account? Sign Up",
-    "choose" : "Choose a style"
+    "choose" : "Choose a style",
+    "alertText": "Are you sure you want to place this action on map?",
+    "yes": "Yes",
+    "no": "No"
+
 }
