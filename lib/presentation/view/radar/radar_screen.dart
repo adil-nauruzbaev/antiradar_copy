@@ -3,10 +3,12 @@ import 'package:antiradar/presentation/view/radar/widgets/radar_painter.dart';
 import 'package:antiradar/presentation/view_model/settings/gradient_extension.dart';
 import 'package:antiradar/presentation/view_model/speed/speed_service.dart';
 import 'package:antiradar/utils/app_colors.dart';
+import 'package:antiradar/utils/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RadarScreen extends ConsumerStatefulWidget {
   const RadarScreen({super.key});
@@ -19,6 +21,7 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
   @override
   Widget build(BuildContext context) {
     final speedAsyncValue = ref.watch(speedProvider);
+    final loc = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
@@ -28,7 +31,7 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
                 Theme.of(context).extension<GradientExtension>()?.gradient),
         child: Stack(
           children: [
-            RadarImage(),
+            const RadarImage(),
             // Camera button
             Positioned(
               left: 16,
@@ -46,90 +49,78 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          backgroundColor: AppColors.alertColor, // Dark background for the dialog
+                          backgroundColor: AppColors
+                              .alertColor, // Dark background for the dialog
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                           content: SizedBox(
                             width: 300,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Container(
-                                  padding: const EdgeInsets.all(12),
-                                  decoration: const BoxDecoration(
-                                    color: Color(
-                                        0xFF4B5563), // Darker gray for the icon background
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Icon(
-                                    Icons.gps_fixed,
-                                    color: Colors.white,
-                                    size: 36,
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                const Text(
-                                  'Are you sure you want to place this action on map?',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                const SizedBox(height: 12),
+                                SvgPicture.asset('assets/icons/location.svg'),
+                                const SizedBox(height: 14),
+                                Text(loc.alertText,
+                                    textAlign: TextAlign.center,
+                                    style: AppFonts.langStyle
+                                        .copyWith(fontWeight: FontWeight.w500)),
                               ],
                             ),
                           ),
                           actions: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Expanded(
+                                SizedBox(
+                                  height: 52,
+                                  width: 100,
                                   child: TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop(
                                           false); // Return false when 'No' is pressed
                                     },
                                     style: TextButton.styleFrom(
-                                      backgroundColor: const Color(
-                                          0xFF4B5563), // Gray for 'No' button
+                                      backgroundColor: AppColors
+                                          .whiteColor, // Gray for 'No' button
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(8)),
+                                              BorderRadius.circular(5)),
                                     ),
-                                    child: const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 12),
-                                      child: Text('No',
-                                          style:
-                                              TextStyle(color: Colors.white)),
+                                    child: Text(
+                                      loc.no,
+                                      style: AppFonts.searchStyle.copyWith(
+                                          color: AppColors.gradientColor5),
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 10),
-                                Expanded(
+                                const SizedBox(width: 20),
+                                SizedBox(
+                                  height: 52,
+                                  width: 100,
                                   child: TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop(
                                           true); // Return true when 'Yes' is pressed
                                     },
                                     style: TextButton.styleFrom(
-                                      backgroundColor: const Color(
-                                          0xFF3B82F6), // Blue for 'Yes' button
+                                      backgroundColor: AppColors
+                                          .gradientColor5, // Blue for 'Yes' button
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(8)),
+                                              BorderRadius.circular(5)),
                                     ),
-                                    child: const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 12),
-                                      child: Text('Yes',
-                                          style:
-                                              TextStyle(color: Colors.white)),
+                                    child: Text(
+                                      loc.yes,
+                                      style: AppFonts.searchStyle.copyWith(
+                                          color: AppColors.whiteColor),
                                     ),
                                   ),
-                                ),
+                                )
                               ],
                             ),
+                            const SizedBox(height: 12),
                           ],
                         );
                       },
