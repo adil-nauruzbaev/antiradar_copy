@@ -102,7 +102,7 @@ class DownloadWidget extends ConsumerWidget {
                 });
 
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Data saved to Isar')),
+                   SnackBar(content: Text('Points ${country.name} saved to storage')),
                 );
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
