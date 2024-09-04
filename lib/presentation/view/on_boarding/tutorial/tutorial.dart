@@ -12,6 +12,7 @@ import '../../../../data/source/shared_preferences/shared_preferences_provider.d
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_fonts.dart';
 import '../../../view_model/settings/theme_provider.dart';
+import '../../radar/radar_screen.dart';
 import '../start_screen.dart';
 
 class Tutorial {
@@ -44,153 +45,212 @@ class Tutorial {
             context.push('/radar');
             break;
           default:
-            print("Unknown target clicked");
         }
+
       },
     );
   }
 
-  List<TargetFocus> _createTargets() {
-    List<TargetFocus> targets = [];
+  List<TargetFocus> targets = [];
 
-    targets.add(
-      TargetFocus(
-        identify: "keyMenu",
-        keyTarget: keyMenu,
-        enableOverlayTab: true,
-        contents: [
-          TargetContent(
-            padding: const EdgeInsets.only(left: 36),
-            builder: (context, controller) {
-              return Align(
-                alignment: Alignment.topLeft,
-                child: Stack(
-                  children: [
-                    Container(
-                      height: 100,
-                      width: 250,
-                      //color: Colors.orange,
-                    ),
-                    SvgPicture.asset(
-                      'assets/icons/tutor_arrow.svg',
-                      height: 35,
-                    ),
-                    Positioned(
-                        left: 26,
-                        top: 22,
-                        child: Transform.rotate(
-                          angle: math.pi / 4,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(2),
-                              color: AppColors.dialogTutorialColor,
-                            ),
-                            height: 15,
-                            width: 15,
-                          ),
-                        )),
-                    Positioned(
-                      left: 32,
-                      top: 12,
+  List<TargetFocus> _createTargets() {
+
+
+    targets.add(targetFocus(
+        widgetKey: keyMenu,
+        identify: 'keyMenu',
+        text: 'Here is the menu',
+        padding: const EdgeInsets.only(left: 36),
+        alignmentGeometry: Alignment.topLeft,
+        contentAlign: ContentAlign.bottom,
+        triangleLeft: 26,
+        triangleTop: 22,
+        containerLeft: 32,
+        containerTop: 12,
+        arrowAngle: 0));
+
+    targets.add(targetFocus(
+        widgetKey: keyStartButton,
+        identify: 'keyStartButton',
+        text: 'Click on the START \nbutton to turn on Radar',
+        enableOverlayTab: false,
+        alignmentGeometry: Alignment.topCenter,
+        contentAlign: ContentAlign.top,
+        triangleTop: 61,
+        arrowTop: 90,
+        arrowAngle: math.pi));
+
+    targets.add(targetFocus(
+        identify: 'keyStopButton',
+        widgetKey: keyStopButton,
+        text: 'Press the STOP button \nto turn off the radar',
+        enableOverlayTab: false,
+        alignmentGeometry: Alignment.topCenter,
+        contentAlign: ContentAlign.top,
+        triangleTop: 61,
+        arrowTop: 90,
+        arrowAngle: math.pi));
+
+    targets.add(targetFocus(
+        widgetKey: keyStaticChamber,
+        identify: 'keyStaticChamber',
+        text: 'Here you see warnings \nand restrictions',
+        padding: const EdgeInsets.only(left: 60),
+        alignmentGeometry: Alignment.topLeft,
+        contentAlign: ContentAlign.bottom,
+        triangleLeft: 26,
+        triangleTop: 50,
+        arrowLeft: 27,
+        containerTop: 56,
+        arrowAngle: 0));
+
+    targets.add(targetFocus(
+        widgetKey: keySpeed,
+        identify: 'keySpeed',
+        text: 'Here you can see \nyour speed',
+        padding: const EdgeInsets.only(right: 10, top: 34),
+        alignmentGeometry: Alignment.centerRight,
+        contentAlign: ContentAlign.left,
+        containerRight: 40,
+        triangleRight: 36,
+        arrowAngle: math.pi / 2,
+        radius: 40));
+
+    targets.add(targetFocus(
+        widgetKey: keyAddButton,
+        identify: 'keyAddButton',
+        text: 'Add mobile ambushes for \nup-to-date traffic \ninformation.',
+        padding: const EdgeInsets.only(right: 45),
+        alignmentGeometry: Alignment.centerRight,
+        contentAlign: ContentAlign.top,
+        containerRight: 54,
+        triangleRight: 48,
+        triangleTop: 32 ,
+        radius: 5,
+        paddingFocus: 43,
+        arrowAngle: math.pi));
+
+    targets.add(targetFocus(
+        widgetKey: keyVolumeButton,
+        identify: 'keyVolumeButton',
+        text: 'Customize the sound to \nmake your journey more \nenjoyable. ',
+        padding: const EdgeInsets.only(right: 45),
+        alignmentGeometry: Alignment.centerRight,
+        contentAlign: ContentAlign.top,
+        containerRight: 54,
+        triangleRight: 48,
+        triangleTop: 32 ,
+        radius: 5,
+        paddingFocus: 43,
+        arrowAngle: math.pi));
+
+    targets.add(targetFocus(
+        widgetKey: keyCameraButton,
+        identify: 'keyCameraButton',
+        text: 'Here you can \nmark cameras ',
+        padding: const EdgeInsets.only(left: 10, top: 23),
+        alignmentGeometry: Alignment.centerLeft,
+        contentAlign: ContentAlign.right,
+        containerLeft: 40,
+        triangleLeft: 34,
+
+        arrowAngle: -math.pi / 2));
+
+    return targets;
+  }
+
+  static TargetFocus targetFocus({
+    required GlobalKey widgetKey,
+    required String identify,
+    required AlignmentGeometry alignmentGeometry,
+    required ContentAlign contentAlign,
+    required String text,
+    double? triangleTop,
+    double? triangleLeft,
+    double? triangleRight,
+    double? containerTop,
+    double? containerLeft,
+    double? containerRight,
+    double? arrowTop,
+    double? arrowLeft,
+    EdgeInsets? padding,
+    bool enableOverlayTab = true,
+    double radius = 10,
+    double paddingFocus = 0,
+    required double arrowAngle,
+  }) {
+    return TargetFocus(
+      identify: identify,
+      keyTarget: widgetKey,
+      enableOverlayTab: enableOverlayTab,
+      contents: [
+        TargetContent(
+          align: contentAlign,
+          padding: padding ?? EdgeInsets.zero,
+          builder: (context, controller) {
+            return Stack(
+              alignment: alignmentGeometry,
+              children: [
+                Container(
+                  height: 130,
+                  width: 250,
+                  //color: Colors.orange,
+                ),
+                Positioned(
+                    left: triangleLeft,
+                    right: triangleRight,
+                    top: triangleTop,
+                    child: Transform.rotate(
+                      angle: math.pi / 4,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(2),
                           color: AppColors.dialogTutorialColor,
                         ),
-                        height: 70,
-                        width: 185,
-                        child: Center(
-                            child: Text(
-                          'Here is the menu',
-                          style:
-                              AppFonts.sfProSemibold.copyWith(fontSize: 16),
-                        )),
+                        height: 15,
+                        width: 15,
                       ),
+                    )),
+                Positioned(
+                  top: containerTop,
+                  left: containerLeft,
+                  right: containerRight,
+                  child: IntrinsicWidth(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: AppColors.dialogTutorialColor,
+                      ),
+                      //height: 70,
+                      child: Center(
+                          child: Text(
+                        text,
+                        style: AppFonts.sfProSemibold.copyWith(fontSize: 16),
+                      )),
                     ),
-                  ],
-                ),
-              );
-            },
-          )
-        ],
-        shape: ShapeLightFocus.RRect,
-        radius: 10,
-        paddingFocus: 0,
-      ),
-    );
-
-    targets.add(
-      TargetFocus(
-        identify: "keyStartButton",
-        keyTarget: keyStartButton,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            padding: EdgeInsets.zero,
-            builder: (context, controller) {
-              return Column(
-                //mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Stack(
-                    children: [
-                      Container(
-                        height: 90,
-                        width: 230,
-                        //color: Colors.orange,
-                      ),
-                      Positioned(
-                          left: 230 / 2 - 8,
-                          top: 61,
-                          child: Transform.rotate(
-                            angle: math.pi / 4,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                color: AppColors.dialogTutorialColor,
-                              ),
-                              height: 15,
-                              width: 15,
-                            ),
-                          )),
-                      Positioned(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: AppColors.dialogTutorialColor,
-                          ),
-                          height: 70,
-                          width: 230,
-                          child: Center(
-                              child: Text(
-                            'Click on the START button to turn on Radar',
-                            style:
-                                AppFonts.sfProSemibold.copyWith(fontSize: 16),
-                          )),
-                        ),
-                      ),
-                    ],
                   ),
-                  Transform.rotate(
-                    angle: math.pi,
+                ),
+                Positioned(
+                  left: arrowLeft,
+                  top: arrowTop,
+                  child: Transform.rotate(
+                    angle: arrowAngle,
                     child: SvgPicture.asset(
                       'assets/icons/tutor_arrow.svg',
                       height: 35,
                     ),
                   ),
-                ],
-              );
-            },
-          )
-        ],
-        shape: ShapeLightFocus.RRect,
-        radius: 10,
-        paddingFocus: 0,
-      ),
+                ),
+              ],
+            );
+          },
+        )
+      ],
+      shape: ShapeLightFocus.RRect,
+      radius: radius,
+      paddingFocus: paddingFocus,
     );
-
-    return targets;
   }
 }

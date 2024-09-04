@@ -43,7 +43,6 @@ class _StartScreenState extends ConsumerState<StartScreen> {
         if (tutorial.tutorialCoachMark.isShowing){
           tutorial.tutorialCoachMark.finish();
           ref.read(firstNotifierProvider.notifier).setLearningUnComplete();
-          context.pop();
         }
       },
       child: Scaffold(

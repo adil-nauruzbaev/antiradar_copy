@@ -21,7 +21,7 @@ class AppColors {
   static const Color darkSettingsBackground = Color(0xFF131313);
   static const Color darkSettingsTileColor = Color(0xFF303030);
   static const Color darkSettingsStrokeColor = Color(0xFF808080);
-  static const Color darkTutorialShadowColor = Color(0xFF1C3E7A);
+  static const Color darkTutorialShadowColor = Color(0xFF12274D);
 
   static const Color gradientColor1 = Color(0xFF204A90);
   static const Color gradientColor2 = Color(0xFF255AB4);

@@ -10,6 +10,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+final GlobalKey keyStopButton = GlobalKey();
+final GlobalKey keyStaticChamber = GlobalKey();
+final GlobalKey keySpeed = GlobalKey();
+final GlobalKey keyAddButton = GlobalKey();
+final GlobalKey keyVolumeButton = GlobalKey();
+final GlobalKey keyCameraButton = GlobalKey();
+
 class RadarScreen extends ConsumerStatefulWidget {
   const RadarScreen({super.key});
 
@@ -40,6 +47,7 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
                 width: 70,
                 height: 70,
                 child: FloatingActionButton(
+                  key: keyCameraButton,
                   backgroundColor: AppColors.gradientColor3,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -144,11 +152,13 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InkWell(
+                      key: keyAddButton,
                       child: SvgPicture.asset('assets/icons/add.svg'),
                       onTap: () {},
                     ),
                     const SizedBox(height: 34),
                     InkWell(
+                      key: keyVolumeButton,
                       child: SvgPicture.asset('assets/icons/volumeup.svg'),
                       onTap: () {},
                     ),
@@ -161,6 +171,7 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
               left: 16,
               top: 68,
               child: Container(
+                key: keyStaticChamber,
                 width: 242,
                 height: 100,
                 padding: const EdgeInsets.all(14),
@@ -186,7 +197,7 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
               left: 0,
               right: 0,
               child: Center(
-                child: _buildStopButton(context),
+                child: _buildStopButton(context, keyStopButton),
               ),
             ),
             // Circle counter
@@ -194,6 +205,7 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
               right: 16,
               top: 68,
               child: CircleAvatar(
+                key: keySpeed,
                 backgroundColor: Colors.white,
                 radius: 40,
                 child: speedAsyncValue.when(
@@ -213,11 +225,12 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
   }
 }
 
-Widget _buildStopButton(BuildContext context) {
+Widget _buildStopButton(BuildContext context, GlobalKey key) {
   return SizedBox(
     height: 60,
     width: 260,
     child: ElevatedButton(
+      key: key,
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.gradientColor3,
         minimumSize: const Size(double.infinity, 48),
