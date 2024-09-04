@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:antiradar/utils/extensions/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,14 +12,17 @@ import 'dart:math' as math;
 import '../../../../data/source/shared_preferences/shared_preferences_provider.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_fonts.dart';
+import '../../../router/app_router.dart';
 import '../../../view_model/settings/theme_provider.dart';
 import '../../radar/radar_screen.dart';
 import '../start_screen.dart';
+
 
 class Tutorial {
 
   late TutorialCoachMark tutorialCoachMark;
   List<TargetFocus> targets = [];
+  List<String> texts = [];
   int currentIndex = 0;
   bool isShowing = false;
 
@@ -28,13 +32,24 @@ class Tutorial {
   }
 
   void createTutorial(BuildContext context, WidgetRef ref) {
+    final loc = navigatorKey.currentState!.context.localization;
+    texts = [
+      loc.tutorial0,
+      loc.tutorial1,
+      loc.tutorial2,
+      loc.tutorial3,
+      loc.tutorial4,
+      loc.tutorial5,
+      loc.tutorial6,
+      loc.tutorial7,
+    ];
     tutorialCoachMark = TutorialCoachMark(
       targets: _createTargets(),
       colorShadow: ref.read(themeNotifierProvider) == AppTheme.light
           ? AppColors.lightTutorialShadowColor
           : AppColors.darkTutorialShadowColor,
       pulseEnable: false,
-      textSkip: "SKIP",
+      textSkip: loc.skip,
       opacityShadow: 0.3,
       imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
       onFinish: () {
@@ -69,7 +84,7 @@ class Tutorial {
     targets.add(targetFocus(
         widgetKey: keyMenu,
         identify: 'keyMenu',
-        text: 'Here is the menu',
+        text: texts[0],
         padding: const EdgeInsets.only(left: 36),
         alignmentGeometry: Alignment.topLeft,
         contentAlign: ContentAlign.bottom,
@@ -82,29 +97,31 @@ class Tutorial {
     targets.add(targetFocus(
         widgetKey: keyStartButton,
         identify: 'keyStartButton',
-        text: 'Click on the START \nbutton to turn on Radar',
+        text: texts[1],
         enableOverlayTab: false,
         alignmentGeometry: Alignment.topCenter,
         contentAlign: ContentAlign.top,
-        triangleTop: 61,
-        arrowTop: 90,
+        triangleBottom: 52,
+        containerBottom: 58,
+        arrowBottom: 5,
         arrowAngle: math.pi));
 
     targets.add(targetFocus(
         identify: 'keyStopButton',
         widgetKey: keyStopButton,
-        text: 'Press the STOP button \nto turn off the radar',
+        text: texts[2],
         enableOverlayTab: false,
         alignmentGeometry: Alignment.topCenter,
         contentAlign: ContentAlign.top,
-        triangleTop: 61,
-        arrowTop: 90,
+        triangleBottom: 52,
+        containerBottom: 58,
+        arrowBottom: 5,
         arrowAngle: math.pi));
 
     targets.add(targetFocus(
         widgetKey: keyStaticChamber,
         identify: 'keyStaticChamber',
-        text: 'Here you see warnings \nand restrictions',
+        text: texts[3],
         padding: const EdgeInsets.only(left: 60),
         alignmentGeometry: Alignment.topLeft,
         contentAlign: ContentAlign.bottom,
@@ -117,25 +134,26 @@ class Tutorial {
     targets.add(targetFocus(
         widgetKey: keySpeed,
         identify: 'keySpeed',
-        text: 'Here you can see \nyour speed',
-        padding: const EdgeInsets.only(right: 10, top: 34),
+        text: texts[4],
+        padding: const EdgeInsets.only(right: 10),
         alignmentGeometry: Alignment.centerRight,
         contentAlign: ContentAlign.left,
-        containerRight: 40,
-        triangleRight: 36,
+        containerRight: 50,
+        triangleRight: 44,
         arrowAngle: math.pi / 2,
         radius: 40));
 
     targets.add(targetFocus(
         widgetKey: keyAddButton,
         identify: 'keyAddButton',
-        text: 'Add mobile ambushes for \nup-to-date traffic \ninformation.',
+        text: texts[5],
         padding: const EdgeInsets.only(right: 45),
-        alignmentGeometry: Alignment.centerRight,
+        alignmentGeometry: Alignment.bottomRight,
         contentAlign: ContentAlign.top,
         containerRight: 54,
         triangleRight: 48,
-        triangleTop: 32 ,
+        triangleBottom: 60,
+        arrowBottom: 30,
         radius: 5,
         paddingFocus: 43,
         arrowAngle: math.pi));
@@ -143,13 +161,14 @@ class Tutorial {
     targets.add(targetFocus(
         widgetKey: keyVolumeButton,
         identify: 'keyVolumeButton',
-        text: 'Customize the sound to \nmake your journey more \nenjoyable. ',
+        text: texts[6],
         padding: const EdgeInsets.only(right: 45),
-        alignmentGeometry: Alignment.centerRight,
+        alignmentGeometry: Alignment.bottomRight,
         contentAlign: ContentAlign.top,
         containerRight: 54,
         triangleRight: 48,
-        triangleTop: 32 ,
+        triangleBottom: 60,
+        arrowBottom: 30,
         radius: 5,
         paddingFocus: 43,
         arrowAngle: math.pi));
@@ -157,13 +176,12 @@ class Tutorial {
     targets.add(targetFocus(
         widgetKey: keyCameraButton,
         identify: 'keyCameraButton',
-        text: 'Here you can \nmark cameras ',
-        padding: const EdgeInsets.only(left: 10, top: 23),
+        text: texts[7],
+        padding: const EdgeInsets.only(left: 10),
         alignmentGeometry: Alignment.centerLeft,
         contentAlign: ContentAlign.right,
         containerLeft: 40,
         triangleLeft: 34,
-
         arrowAngle: -math.pi / 2));
 
     return targets;
@@ -176,12 +194,15 @@ class Tutorial {
     required ContentAlign contentAlign,
     required String text,
     double? triangleTop,
+    double? triangleBottom,
     double? triangleLeft,
     double? triangleRight,
     double? containerTop,
+    double? containerBottom,
     double? containerLeft,
     double? containerRight,
     double? arrowTop,
+    double? arrowBottom,
     double? arrowLeft,
     EdgeInsets? padding,
     bool enableOverlayTab = true,
@@ -189,6 +210,7 @@ class Tutorial {
     double paddingFocus = 0,
     required double arrowAngle,
   }) {
+    final double maxWidth = (contentAlign == ContentAlign.left || contentAlign == ContentAlign.right) ? 180 : 230;
     return TargetFocus(
       identify: identify,
       keyTarget: widgetKey,
@@ -202,7 +224,7 @@ class Tutorial {
               alignment: alignmentGeometry,
               children: [
                 Container(
-                  height: 130,
+                  height: 200,
                   width: 250,
                   //color: Colors.orange,
                 ),
@@ -210,6 +232,7 @@ class Tutorial {
                     left: triangleLeft,
                     right: triangleRight,
                     top: triangleTop,
+                    bottom: triangleBottom,
                     child: Transform.rotate(
                       angle: math.pi / 4,
                       child: Container(
@@ -223,28 +246,32 @@ class Tutorial {
                     )),
                 Positioned(
                   top: containerTop,
+                  bottom: containerBottom,
                   left: containerLeft,
                   right: containerRight,
-                  child: IntrinsicWidth(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: AppColors.dialogTutorialColor,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: maxWidth),
+                    child: IntrinsicWidth(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: AppColors.dialogTutorialColor,
+                        ),
+                        child: Center(
+                            child: Text(
+                          text,
+                          style: AppFonts.sfProSemibold.copyWith(fontSize: 16),
+                        )),
                       ),
-                      //height: 70,
-                      child: Center(
-                          child: Text(
-                        text,
-                        style: AppFonts.sfProSemibold.copyWith(fontSize: 16),
-                      )),
                     ),
                   ),
                 ),
                 Positioned(
                   left: arrowLeft,
                   top: arrowTop,
+                  bottom: arrowBottom,
                   child: Transform.rotate(
                     angle: arrowAngle,
                     child: SvgPicture.asset(

@@ -85,7 +85,7 @@ GoRouter router(RouterRef ref) {
         ),
         GoRoute(
           path: '/start',
-          builder: (context, state) => const StartScreen(),
+          builder: (context, state) => StartScreen(key: keyTutorial,),
         ),
         GoRoute(
           path: '/isar',
