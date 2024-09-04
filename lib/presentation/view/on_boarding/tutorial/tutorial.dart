@@ -16,10 +16,15 @@ import '../../radar/radar_screen.dart';
 import '../start_screen.dart';
 
 class Tutorial {
+
   late TutorialCoachMark tutorialCoachMark;
+  List<TargetFocus> targets = [];
+  int currentIndex = 0;
+  bool isShowing = false;
 
   void showTutorial(BuildContext context) {
     tutorialCoachMark.show(context: context);
+    isShowing = true;
   }
 
   void createTutorial(BuildContext context, WidgetRef ref) {
@@ -34,24 +39,29 @@ class Tutorial {
       imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
       onFinish: () {
         ref.read(firstNotifierProvider.notifier).setLearningComplete();
+        isShowing = false;
       },
       onSkip: () {
         ref.read(firstNotifierProvider.notifier).setLearningComplete();
+        isShowing = false;
         return true;
       },
       onClickTarget: (target) {
+        currentIndex = targets.indexOf(target) + 1;
+
         switch (target.identify) {
           case "keyStartButton":
             context.push('/radar');
             break;
           default:
         }
-
       },
+      onClickOverlay: (target){
+        currentIndex = targets.indexOf(target) + 1;}
     );
   }
 
-  List<TargetFocus> targets = [];
+
 
   List<TargetFocus> _createTargets() {
 

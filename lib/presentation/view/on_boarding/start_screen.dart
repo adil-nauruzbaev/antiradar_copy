@@ -13,6 +13,7 @@ import 'widgets/continue_button.dart';
 final GlobalKey<ScaffoldState> startScreenKey = GlobalKey<ScaffoldState>();
 final GlobalKey keyMenu = GlobalKey();
 final GlobalKey keyStartButton = GlobalKey();
+final keyTutorial = GlobalKey<_StartScreenState>();
 
 class StartScreen extends ConsumerStatefulWidget {
   const StartScreen({super.key});
@@ -38,11 +39,20 @@ class _StartScreenState extends ConsumerState<StartScreen> {
     final loc = AppLocalizations.of(context)!;
 
     return PopScope(
-      canPop: true,
+      canPop: false,
       onPopInvokedWithResult: (didPop, _) {
-        if (tutorial.tutorialCoachMark.isShowing){
+        if (didPop){
+          return;
+        }
+        if (tutorial.isShowing && tutorial.currentIndex == 0) {
           tutorial.tutorialCoachMark.finish();
           ref.read(firstNotifierProvider.notifier).setLearningUnComplete();
+          context.pop();
+        } else if (tutorial.isShowing && tutorial.currentIndex != 0) {
+          tutorial.tutorialCoachMark.previous();
+          tutorial.currentIndex -= 1;
+        } else {
+          context.pop();
         }
       },
       child: Scaffold(
@@ -59,7 +69,7 @@ class _StartScreenState extends ConsumerState<StartScreen> {
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
                 gradient:
-                Theme.of(context).extension<GradientExtension>()?.gradient),
+                    Theme.of(context).extension<GradientExtension>()?.gradient),
             child: SafeArea(
               child: Column(
                 children: [
