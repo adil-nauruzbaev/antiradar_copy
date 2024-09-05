@@ -55,5 +55,7 @@
     "tutorial5": "Add mobile ambushes for up-to-date traffic information",
     "tutorial6": "Customize the sound to make your journey more enjoyable",
     "tutorial7": "Here you can mark cameras",
-    "skip": "SKIP"
+    "skip": "SKIP",
+    "selectedCountry": "SELECTED COUNTRY",
+    "downloadedCountries": "DOWNLOADED COUNTRIES"
 }

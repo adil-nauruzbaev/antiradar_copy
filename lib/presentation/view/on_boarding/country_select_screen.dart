@@ -82,7 +82,7 @@ class DownloadWidget extends ConsumerWidget {
           ),
         DownloadEnum.downloading => const RotatingIcon(),
       },
-      onTap: isDownloaded == DownloadEnum.downloaded &&
+      onTap: isDownloaded == DownloadEnum.downloaded ||
               isDownloaded == DownloadEnum.downloading
           ? null
           : () async {
