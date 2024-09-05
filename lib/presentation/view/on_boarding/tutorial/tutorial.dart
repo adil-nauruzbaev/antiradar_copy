@@ -9,10 +9,10 @@ import 'package:go_router/go_router.dart';
 
 import 'dart:math' as math;
 
-import '../../../../data/source/shared_preferences/shared_preferences_provider.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_fonts.dart';
 import '../../../router/app_router.dart';
+import '../../../view_model/learning/learning_provider.dart';
 import '../../../view_model/settings/theme_provider.dart';
 import '../../radar/radar_screen.dart';
 import '../start_screen.dart';
@@ -53,11 +53,11 @@ class Tutorial {
       opacityShadow: 0.3,
       imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
       onFinish: () {
-        ref.read(firstNotifierProvider.notifier).setLearningComplete();
+        ref.read(learningNotifierProvider.notifier).setLearningComplete();
         isShowing = false;
       },
       onSkip: () {
-        ref.read(firstNotifierProvider.notifier).setLearningComplete();
+        ref.read(learningNotifierProvider.notifier).setLearningComplete();
         isShowing = false;
         return true;
       },

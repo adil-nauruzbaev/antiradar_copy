@@ -37,7 +37,7 @@ class FirstNotifier extends _$FirstNotifier {
     }
   }
 
-  void setLearningComplete() {
+  /*void setLearningComplete() {
     state = state.copyWith(isLearningComplete: true);
     UserPref.isLearningComplete = true;
   }
@@ -45,7 +45,7 @@ class FirstNotifier extends _$FirstNotifier {
   void setLearningUnComplete() {
     state = state.copyWith(isLearningComplete: false);
     UserPref.isLearningComplete = false;
-  }
+  }*/
 
 
 }

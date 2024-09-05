@@ -1,12 +1,12 @@
 import 'package:antiradar/presentation/view/burger_menu/burger_menu.dart';
 import 'package:antiradar/presentation/view/on_boarding/tutorial/tutorial.dart';
 import 'package:antiradar/presentation/view/on_boarding/widgets/car_image.dart';
+import 'package:antiradar/presentation/view_model/learning/learning_provider.dart';
 import 'package:antiradar/utils/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import '../../../data/source/shared_preferences/shared_preferences_provider.dart';
 import '../../view_model/settings/gradient_extension.dart';
 import 'widgets/continue_button.dart';
 
@@ -28,7 +28,7 @@ class _StartScreenState extends ConsumerState<StartScreen> {
   @override
   void initState() {
     super.initState();
-    if (!ref.read(firstNotifierProvider).isLearningComplete) {
+    if (!ref.read(learningNotifierProvider)) {
       tutorial.createTutorial(context, ref);
       tutorial.showTutorial(context);
     }
@@ -46,7 +46,7 @@ class _StartScreenState extends ConsumerState<StartScreen> {
         }
         if (tutorial.isShowing && tutorial.currentIndex == 0) {
           tutorial.tutorialCoachMark.finish();
-          ref.read(firstNotifierProvider.notifier).setLearningUnComplete();
+          ref.read(learningNotifierProvider.notifier).setLearningUnComplete();
           context.pop();
         } else if (tutorial.isShowing && tutorial.currentIndex != 0) {
           tutorial.tutorialCoachMark.previous();
