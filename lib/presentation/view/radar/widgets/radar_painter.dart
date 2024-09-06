@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:antiradar/presentation/view_model/isar/models/country_model.dart';
+import 'package:antiradar/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class RadarPainter extends CustomPainter {
@@ -90,19 +91,19 @@ class RadarPainter extends CustomPainter {
     canvas.drawImage(image,
         Offset((size.width / 2) - 20, (size.height / 1.3) - 20), Paint());
     final pointPaint = Paint()
-      ..color = Colors.red
+      ..color = AppColors.redColor
       ..style = PaintingStyle.fill;
 
     for (int i = 0; i < points.length; i++) {
       final outerRadius = size.width / 2;
       final innerRadius = size.width / 4;
       final outerCirclePaint = Paint()
-        ..color = Colors.red
+        ..color = AppColors.redColor
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2;
       canvas.drawCircle(points[i], 8.0, outerCirclePaint);
       final innerCirclePaint = Paint()
-        ..color = Colors.red
+        ..color = AppColors.redColor
         ..style = PaintingStyle.fill;
 
       canvas.drawCircle(points[i], 4.0, innerCirclePaint);
