@@ -24,7 +24,7 @@ final locationPermissionProvider =
 
 typedef LocationPermissionRef
     = AutoDisposeFutureProviderRef<LocationPermission>;
-String _$locationHash() => r'57c9e443e5f01c29c59db6194dbbe1af6d849b9a';
+String _$locationHash() => r'a4fedd2ab55f2633464242ab956d73ea13275da6';
 
 /// See also [location].
 @ProviderFor(location)

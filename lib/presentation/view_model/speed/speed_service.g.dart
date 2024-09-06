@@ -6,7 +6,7 @@ part of 'speed_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$speedHash() => r'd2f7f6e5f391748c1164df1f9d8f592b351e9adf';
+String _$speedHash() => r'ef8a9efaea1c703ac6834b67f897de8088b1b2a3';
 
 /// See also [speed].
 @ProviderFor(speed)
