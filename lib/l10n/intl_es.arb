@@ -46,6 +46,8 @@
     "choose" : "Choose a style",
     "alertText": "Are you sure you want to place this action on map?",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "cancel": "Cancel",
+    "send": "Send"
 
 }
