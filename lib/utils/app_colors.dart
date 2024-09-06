@@ -28,12 +28,15 @@ class AppColors {
   static const Color gradientColor4 = Color(0xFF2F6BD1);
   static const Color gradientColor5 = Color(0xFF377EF6);
 
-  static const Color gradientColor6 = Color(0xFF000000);
+  static const Color darkColor = Color(0xFF000000);
   static const Color gradientColor7 = Color(0xFF021333);
   static const Color gradientColor9 = Color(0xFF1D2736);
 
   static const Color whiteColor = Color(0xFFFFFFFF);
+  static const Color borderColor = Color(0xFFB4B4B4);
   static const Color alertColor = Color(0xFF1C1E2A);
+
+  static const Color redColor = Color(0xFFFF3B2C);
 
   static Color lclSecondary = const Color(0xFF3C3C43).withOpacity(0.6);
   static const Color toggleGray = Color(0xFFE7E7E7);

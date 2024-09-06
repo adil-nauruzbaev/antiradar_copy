@@ -26,7 +26,7 @@ final darkTheme = ThemeData.dark().copyWith(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
-          AppColors.gradientColor6,
+          AppColors.darkColor,
           AppColors.gradientColor7,
         ],
         stops: [0.0367, 1],
