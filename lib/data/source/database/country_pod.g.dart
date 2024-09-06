@@ -6,7 +6,7 @@ part of 'country_pod.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$countryNotifierHash() => r'0ddf6aeb0ddc8250932c083324b8125f4893d405';
+String _$countryNotifierHash() => r'1880dc730d96491a01e9e9d9ccda26675a6ecee1';
 
 /// Copied from Dart SDK
 class _SystemHash {

@@ -36,6 +36,17 @@ class CountryManager implements DatabaseManager<CountryModel> {
     });
   }
 
+  
+  
+   Future<void> deleteIds(List<int> ids) async {
+    await isar.writeTxn(() async {
+      
+      await isar.countryModels.deleteAll(
+        ids,
+      );
+    });
+  }
+
   @override
   Future<void> update({required CountryModel item}) {
     throw UnimplementedError();
