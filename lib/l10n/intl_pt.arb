@@ -1,5 +1,5 @@
 {
-    "@@locale": "es",
+    "@@locale": "pt",
     "hello": "hello",
     "selectLanguage": "Select language",
     "selectCountry": "Select country",
@@ -29,7 +29,6 @@
     "about" : "About",
     "share" : "Share",
     "darkMode" : "Dark mode",
-    "proVersion" : "Pro Version",
     "freeVersion" : "Free Version",
     "proVersion" : "Pro Version",
     "month" : "1 month",

@@ -222,7 +222,7 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
               left: 0,
               right: 0,
               child: Center(
-                child: _buildStopButton(context),
+                child: _buildStopButton(context, keyStopButton),
               ),
             ),
             // Circle counter
