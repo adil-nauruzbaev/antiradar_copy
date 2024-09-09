@@ -1,5 +1,6 @@
 import 'package:antiradar/data/firebase/sandbox_service.dart';
 import 'package:antiradar/data/source/database/country_pod.dart';
+import 'package:antiradar/presentation/view/on_boarding/start_screen.dart';
 import 'package:antiradar/presentation/view/radar/widgets/audio_channel.dart';
 import 'package:antiradar/presentation/view/radar/widgets/radar_image.dart';
 import 'package:antiradar/presentation/view/radar/widgets/radar_painter.dart';
@@ -39,210 +40,233 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
     final loc = AppLocalizations.of(context)!;
     final countryNotifier = ref.watch(countryNotifierProvider('argentina'));
 
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-            gradient:
-                Theme.of(context).extension<GradientExtension>()?.gradient),
-        child: Stack(
-          children: [
-            const RadarImage(),
-            // Camera button
-            Positioned(
-              left: 16,
-              bottom: 240,
-              child: SizedBox(
-                width: 70,
-                height: 70,
-                child: FloatingActionButton(
-                  backgroundColor: AppColors.gradientColor3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) {
+          return;
+        }
+        var tutorial = keyTutorial.currentState!.tutorial;
+        if (tutorial.isShowing && tutorial.currentIndex == 2) {
+          tutorial.tutorialCoachMark.goTo(1);
+          context.pop();
+        } else if (tutorial.isShowing && tutorial.currentIndex != 0) {
+          tutorial.tutorialCoachMark.previous();
+          tutorial.currentIndex -= 1;
+        } else {
+          context.pop();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+              gradient:
+                  Theme.of(context).extension<GradientExtension>()?.gradient),
+          child: Stack(
+            children: [
+              const RadarImage(),
+              // Camera button
+              Positioned(
+                left: 16,
+                bottom: 240,
+                child: SizedBox(
+                  width: 70,
+                  height: 70,
+                  child: FloatingActionButton(
+                    key: keyCameraButton,
+                    backgroundColor: AppColors.gradientColor3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: AppColors
+                                .alertColor, // Dark background for the dialog
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            content: SizedBox(
+                              width: 300,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const SizedBox(height: 12),
+                                  SvgPicture.asset('assets/icons/location.svg'),
+                                  const SizedBox(height: 14),
+                                  Text(loc.alertText,
+                                      textAlign: TextAlign.center,
+                                      style: AppFonts.langStyle.copyWith(
+                                          fontWeight: FontWeight.w500)),
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 52,
+                                    width: 100,
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(
+                                            false); // Return false when 'No' is pressed
+                                      },
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: AppColors
+                                            .whiteColor, // Gray for 'No' button
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                      ),
+                                      child: Text(
+                                        loc.no,
+                                        style: AppFonts.searchStyle.copyWith(
+                                            color: AppColors.gradientColor5),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20),
+                                  SizedBox(
+                                    height: 52,
+                                    width: 100,
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(true);
+                                        showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          builder: (context) {
+                                            return Consumer(
+                                              builder: (context, ref, child) {
+                                                return buildBottomSheet(
+                                                    context, ref);
+                                              },
+                                            );
+                                          },
+                                        ); // Return true when 'Yes' is pressed
+                                      },
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: AppColors
+                                            .gradientColor5, // Blue for 'Yes' button
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                      ),
+                                      child: Text(
+                                        loc.yes,
+                                        style: AppFonts.searchStyle.copyWith(
+                                            color: AppColors.whiteColor),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 12),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: SvgPicture.asset('assets/icons/camera2.svg'),
                   ),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          backgroundColor: AppColors
-                              .alertColor, // Dark background for the dialog
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          content: SizedBox(
-                            width: 300,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const SizedBox(height: 12),
-                                SvgPicture.asset('assets/icons/location.svg'),
-                                const SizedBox(height: 14),
-                                Text(loc.alertText,
-                                    textAlign: TextAlign.center,
-                                    style: AppFonts.langStyle
-                                        .copyWith(fontWeight: FontWeight.w500)),
-                              ],
-                            ),
-                          ),
-                          actions: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 52,
-                                  width: 100,
-                                  child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop(
-                                          false); // Return false when 'No' is pressed
-                                    },
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: AppColors
-                                          .whiteColor, // Gray for 'No' button
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                    ),
-                                    child: Text(
-                                      loc.no,
-                                      style: AppFonts.searchStyle.copyWith(
-                                          color: AppColors.gradientColor5),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 20),
-                                SizedBox(
-                                  height: 52,
-                                  width: 100,
-                                  child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop(true);
-                                      showModalBottomSheet(
-                                        context: context,
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
-                                        builder: (context) {
-                                          return Consumer(
-                                            builder: (context, ref, child) {
-                                              return buildBottomSheet(
-                                                  context, ref);
-                                            },
-                                          );
-                                        },
-                                      ); // Return true when 'Yes' is pressed
-                                    },
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: AppColors
-                                          .gradientColor5, // Blue for 'Yes' button
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                    ),
-                                    child: Text(
-                                      loc.yes,
-                                      style: AppFonts.searchStyle.copyWith(
-                                          color: AppColors.whiteColor),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(height: 12),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  child: SvgPicture.asset('assets/icons/camera2.svg'),
                 ),
               ),
-            ),
-            // Plus and sound buttons
-            Positioned(
-              right: 16,
-              bottom: 180,
-              child: Container(
-                width: 70,
-                height: 130,
-                decoration: BoxDecoration(
+              // Plus and sound buttons
+              Positioned(
+                right: 16,
+                bottom: 180,
+                child: Container(
+                  width: 70,
+                  height: 130,
+                  decoration: BoxDecoration(
+                      color: AppColors.gradientColor9,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        key: keyAddButton,
+                        child: SvgPicture.asset('assets/icons/add.svg'),
+                        onTap: () {},
+                      ),
+                      const SizedBox(height: 34),
+                      InkWell(
+                        key: keyVolumeButton,
+                        child: SvgPicture.asset('assets/icons/volumeup.svg'),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AudioChannelDialog();
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // Top status indicator
+              Positioned(
+                left: 16,
+                top: 68,
+                child: Container(
+                  key: keyStaticChamber,
+                  width: 242,
+                  height: 100,
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
                     color: AppColors.gradientColor9,
-                    borderRadius: BorderRadius.circular(5)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      child: SvgPicture.asset('assets/icons/add.svg'),
-                      onTap: () {},
-                    ),
-                    const SizedBox(height: 34),
-                    InkWell(
-                      child: SvgPicture.asset('assets/icons/volumeup.svg'),
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AudioChannelDialog();
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Top status indicator
-            Positioned(
-              left: 16,
-              top: 68,
-              child: Container(
-                width: 242,
-                height: 100,
-                padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: AppColors.gradientColor9,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      '200 m\nStatic chamber',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                    Image.asset('assets/icons/camera.png')
-                  ],
-                ),
-              ),
-            ),
-            // Stop button
-            Positioned(
-              bottom: 60,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: _buildStopButton(context, keyStopButton),
-              ),
-            ),
-            // Circle counter
-            Positioned(
-              right: 16,
-              top: 68,
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 40,
-                child: speedAsyncValue.when(
-                  data: (speed) => Text(
-                    ' ${speed.toStringAsFixed(0)} ',
-                    style: const TextStyle(fontSize: 24, color: Colors.black),
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                  loading: () => const CircularProgressIndicator(),
-                  error: (error, stack) => Text('Error: $error'),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        '200 m\nStatic chamber',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                      Image.asset('assets/icons/camera.png')
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+              // Stop button
+              Positioned(
+                bottom: 60,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: _buildStopButton(context, keyStopButton),
+                ),
+              ),
+              // Circle counter
+              Positioned(
+                right: 16,
+                top: 68,
+                child: CircleAvatar(
+                  key: keySpeed,
+                  backgroundColor: Colors.white,
+                  radius: 40,
+                  child: speedAsyncValue.when(
+                    data: (speed) => Text(
+                      ' ${speed.toStringAsFixed(0)} ',
+                      style: const TextStyle(fontSize: 24, color: Colors.black),
+                    ),
+                    loading: () => const CircularProgressIndicator(),
+                    error: (error, stack) => Text('Error: $error'),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
