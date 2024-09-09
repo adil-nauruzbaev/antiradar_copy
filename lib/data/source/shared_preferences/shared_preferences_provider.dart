@@ -37,23 +37,27 @@ class FirstNotifier extends _$FirstNotifier {
     }
   }
 
-  void isLearningComplete() {
-    final isLearningComplete = UserPref.isLearningComplete;
-    if (isLearningComplete) {
-      state = state.copyWith(
-          isLearningComplete: UserPref.isLearningComplete = true);
-    }
+  /*void setLearningComplete() {
+    state = state.copyWith(isLearningComplete: true);
+    UserPref.isLearningComplete = true;
   }
+
+  void setLearningUnComplete() {
+    state = state.copyWith(isLearningComplete: false);
+    UserPref.isLearningComplete = false;
+  }*/
+
+
 }
 
 class FirstState {
   final bool? isFirstTime;
-  final bool? isLearningComplete;
+  final bool isLearningComplete;
 
   FirstState(
-    this.isFirstTime,
-    this.isLearningComplete,
-  );
+      this.isFirstTime,
+      this.isLearningComplete,
+      );
 
   FirstState copyWith({
     bool? isFirstTime,

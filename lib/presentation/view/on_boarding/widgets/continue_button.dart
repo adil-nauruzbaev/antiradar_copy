@@ -7,8 +7,9 @@ import '../../../../utils/app_fonts.dart';
 class ContinueButton extends StatelessWidget {
   final String text;
   final String route;
+  final GlobalKey? buttonKey;
 
-  const ContinueButton({super.key, required this.text, required this.route});
+  const ContinueButton({super.key, required this.text, required this.route, this.buttonKey});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class ContinueButton extends StatelessWidget {
       height: 60,
       width: 260,
       child: ElevatedButton(
+        key: buttonKey,
         onPressed: () {
           context.push(route);
         },

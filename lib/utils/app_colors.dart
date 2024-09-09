@@ -11,6 +11,7 @@ class AppColors {
   static const Color lightSettingsTileColor = Color(0xFFFFFFFF);
   static const Color lightSettingsStrokeColor = Color(0xFFDDDDDD);
   static const Color lightTextColor2 = Color(0xFFE6E0E9);
+  static const Color lightTutorialShadowColor = Color(0xFF0F0F0F);
 
   static const Color darkBackgroundColor = Color(0xFF121212);
   static const Color darkPrimaryColor = Color(0xFF4CAF50);
@@ -23,6 +24,7 @@ class AppColors {
   static const Color darkSettingsStrokeColor = Color(0xFF808080);
   static const Color greyColor = Color(0xFF49454F);
 
+  static const Color darkTutorialShadowColor = Color(0xFF12274D);
 
   static const Color gradientColor1 = Color(0xFF204A90);
   static const Color gradientColor2 = Color(0xFF255AB4);
@@ -43,10 +45,10 @@ class AppColors {
   static Color lclSecondary = const Color(0xFF3C3C43).withOpacity(0.6);
   static const Color toggleGray = Color(0xFFE7E7E7);
   static const Color toggleGrayText = Color(0xFF878787);
+  static const Color settingsText = Color(0xFFA1A0A5);
 
   static const Color grayText = Color(0xFF828282);
-
-
+  static const Color dialogTutorialColor = Color(0xFF588DF0);
 
 
 }

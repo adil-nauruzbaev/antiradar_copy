@@ -48,6 +48,16 @@
     "yes": "Yes",
     "no": "No",
     "cancel": "Cancel",
-    "send": "Send"
-
+    "send": "Send",
+    "tutorial0": "Here is the menu",
+    "tutorial1": "Click on the START button to turn on Radar",
+    "tutorial2": "Press the STOP button to turn off the radar",
+    "tutorial3": "Here you see warnings and restrictions",
+    "tutorial4": "Here you can see your speed",
+    "tutorial5": "Add mobile ambushes for up-to-date traffic information",
+    "tutorial6": "Customize the sound to make your journey more enjoyable",
+    "tutorial7": "Here you can mark cameras",
+    "skip": "SKIP",
+    "selectedCountry": "SELECTED COUNTRY",
+    "downloadedCountries": "DOWNLOADED COUNTRIES"
 }

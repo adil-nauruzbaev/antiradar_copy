@@ -18,6 +18,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+final GlobalKey keyStopButton = GlobalKey();
+final GlobalKey keyStaticChamber = GlobalKey();
+final GlobalKey keySpeed = GlobalKey();
+final GlobalKey keyAddButton = GlobalKey();
+final GlobalKey keyVolumeButton = GlobalKey();
+final GlobalKey keyCameraButton = GlobalKey();
+
 class RadarScreen extends ConsumerStatefulWidget {
   const RadarScreen({super.key});
 
@@ -260,11 +267,12 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
   }
 }
 
-Widget _buildStopButton(BuildContext context) {
+Widget _buildStopButton(BuildContext context, GlobalKey key) {
   return SizedBox(
     height: 60,
     width: 260,
     child: ElevatedButton(
+      key: key,
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.gradientColor3,
         minimumSize: const Size(double.infinity, 48),
