@@ -1,5 +1,6 @@
 import 'package:antiradar/data/firebase/sandbox_service.dart';
 import 'package:antiradar/data/source/database/country_pod.dart';
+import 'package:antiradar/presentation/view/radar/widgets/audio_channel.dart';
 import 'package:antiradar/presentation/view/radar/widgets/radar_image.dart';
 import 'package:antiradar/presentation/view/radar/widgets/radar_painter.dart';
 import 'package:antiradar/presentation/view_model/isar/models/country_model.dart';
@@ -175,49 +176,7 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
                         showDialog(
                           context: context,
                           builder: (context) {
-                            return AlertDialog(
-                              backgroundColor: Colors.black87,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              title: const Text(
-                                "Audio channel",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    buildRadioOption('Automatically'),
-                                    buildRadioOption('Speakerphone'),
-                                    buildRadioOption('Smartphone speaker'),
-                                    buildRadioOption('Turn off the sound'),
-                                    buildRadioOption('Car play'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text(
-                                    "Cancel",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    // Можете добавить логику здесь для сохранения выбранного значения
-                                  },
-                                  child: const Text(
-                                    "OK",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ],
-                            );
+                            return AudioChannelDialog();
                           },
                         );
                       },
@@ -428,8 +387,7 @@ Widget buildBottomSheet(BuildContext context, WidgetRef ref) {
 
                   double calculateDistance(
                       double lat1, double lon1, double lat2, double lon2) {
-                    return Geolocator.distanceBetween(
-                        lat1, lon1, lat2, lon2);
+                    return Geolocator.distanceBetween(lat1, lon1, lat2, lon2);
                   }
 
                   void checkAndAddToCountry(
@@ -453,7 +411,6 @@ Widget buildBottomSheet(BuildContext context, WidgetRef ref) {
                     }
 
                     if (nearbyPoints.length >= 3) {
-                    
                       nearbyPoints.add(newPoint);
 
                       double avgLat = nearbyPoints
@@ -496,7 +453,7 @@ Widget buildBottomSheet(BuildContext context, WidgetRef ref) {
                       error: (err, stack) => 0.0,
                     ),
                     speed: selectedSpeed!.toDouble(),
-                    type: '',
+                    type: 'speed control',
                   );
 
                   ref.read(sandboxProvider).addSandboxData(sandboxData);
