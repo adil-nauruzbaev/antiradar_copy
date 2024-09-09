@@ -34,12 +34,13 @@ class CountryNotifier extends _$CountryNotifier {
                     CountryModel.fromFirestore(toElement, country))
                 .toList());
       } else if (countryList.length > value.length) {
-        delete(
-            countryList,
-            value
-                .map((toElement) =>
-                    CountryModel.fromFirestore(toElement, country))
-                .toList());
+        // Need to do
+        // delete(
+        //     countryList,
+        //     value
+        //         .map((toElement) =>
+        //             CountryModel.fromFirestore(toElement, country))
+        //         .toList());
       }
     });
     yield countryList;
