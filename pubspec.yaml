@@ -43,7 +43,7 @@ dependencies:
   riverpod_generator: ^2.4.0
   riverpod_annotation: ^2.3.5
   go_router: ^14.2.6
-  geolocator: ^13.0.1
+  geolocator: ^12.0.0
   firebase_core: ^2.24.2
   firebase_analytics: ^10.8.0
   firebase_auth: ^4.16.0
@@ -56,6 +56,9 @@ dependencies:
   animated_toggle_switch: ^0.8.3
   dropdown_button2: ^2.3.9
   shared_preferences: ^2.3.2
+  assets_audio_player: ^3.1.1
+  
+  advanced_audio_manager: 0.0.1
 
 
 dev_dependencies:
@@ -130,6 +133,11 @@ flutter:
     - assets/icons/settings_icons/geo.svg
     - assets/icons/settings_icons/moon.svg
     - assets/icons/settings_icons/globe.svg
+
+
+    - assets/audio/russian_voice/300m40.mp3
+
+    
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
