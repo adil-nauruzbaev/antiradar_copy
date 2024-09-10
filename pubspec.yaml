@@ -102,11 +102,11 @@ flutter:
     - assets/icons/country_flags/Argentina.svg
     - assets/icons/country_flags/Paraguay.svg
     - assets/icons/country_flags/Uruguay.svg
-    - assets/icons/pin.png
+    - assets/icons/pin.svg
     - assets/icons/camera2.svg
     - assets/icons/volumeup.svg
     - assets/icons/add.svg
-    - assets/icons/camera.png
+    - assets/icons/camera.svg
     - assets/icons/location.svg
     - assets/icons/camera3.svg
     - assets/icons/tutor_arrow.svg

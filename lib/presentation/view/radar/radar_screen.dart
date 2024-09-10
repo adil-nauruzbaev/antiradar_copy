@@ -233,7 +233,7 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
                         '200 m\nStatic chamber',
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
-                      Image.asset('assets/icons/camera.png')
+                      SvgPicture.asset('assets/icons/camera.svg')
                     ],
                   ),
                 ),

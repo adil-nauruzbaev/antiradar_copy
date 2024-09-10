@@ -3,17 +3,20 @@ import 'dart:ui' as ui;
 import 'package:antiradar/presentation/view_model/isar/models/country_model.dart';
 import 'package:antiradar/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RadarPainter extends CustomPainter {
-  final ui.Image image;
+  //final ui.Image image;
   final List<Offset> points;
   final List<CountryModel> models;
+  final PictureInfo picture;
 
   RadarPainter({
     super.repaint,
-    required this.image,
+    //required this.image,
     required this.points,
     required this.models,
+    required this.picture
   });
   @override
   void paint(Canvas canvas, Size size) {
@@ -88,8 +91,14 @@ class RadarPainter extends CustomPainter {
 
     drawText('200m', Offset(center.dx, center.dy - radius / 3));
     drawText('500m', Offset(center.dx, center.dy - radius * 2 / 3));
-    canvas.drawImage(image,
-        Offset((size.width / 2) - 20, (size.height / 1.3) - 20), Paint());
+
+    /*canvas.drawImage(image,
+        Offset((size.width / 2) - 20, (size.height / 1.3) - 20), Paint());*/
+    canvas.save();
+    canvas.translate((size.width / 2) - 20, (size.height / 1.3) - 20);
+    canvas.drawPicture(picture.picture);
+    canvas.restore();
+
     final pointPaint = Paint()
       ..color = AppColors.redColor
       ..style = PaintingStyle.fill;

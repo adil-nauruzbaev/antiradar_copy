@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:isar/isar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -25,15 +26,18 @@ class RadarImage extends ConsumerStatefulWidget {
 }
 
 class _RadarImageState extends ConsumerState<RadarImage> {
-  Future<ui.Image> _loadImage(String imageAssetPath) async {
-    final ByteData data = await rootBundle.load(imageAssetPath);
+  Future<PictureInfo> _loadImage(String imageAssetPath) async {
+    /*final ByteData data = await rootBundle.load(imageAssetPath);
     final codec = await ui.instantiateImageCodec(
       data.buffer.asUint8List(),
       targetHeight: 40,
       targetWidth: 40,
     );
     var frame = await codec.getNextFrame();
-    return frame.image;
+    return frame.image;*/
+    final svgString = await rootBundle.loadString(imageAssetPath);
+    final picture = vg.loadPicture(SvgStringLoader(svgString), null);
+    return picture;
   }
 
   Offset calculateOffset(Offset center, double radius, double angleInDegrees) {
@@ -162,8 +166,8 @@ class _RadarImageState extends ConsumerState<RadarImage> {
   @override
   Widget build(BuildContext context) {
     return Positioned.fill(
-      child: FutureBuilder<ui.Image>(
-        future: _loadImage('assets/icons/pin.png'),
+      child: FutureBuilder<PictureInfo>(
+        future: _loadImage('assets/icons/pin.svg'),
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done &&
               snapshot.data == null) {
@@ -187,9 +191,10 @@ class _RadarImageState extends ConsumerState<RadarImage> {
                       }
                       return CustomPaint(
                         painter: RadarPainter(
-                          image: snapshot.data!,
+                          //image: snapshot.data!,
                           points: snapshotPoints.data?.$1 ?? [],
                           models: snapshotPoints.data?.$2 ?? [],
+                          picture: snapshot.data!,
                         ),
                       );
                     },
