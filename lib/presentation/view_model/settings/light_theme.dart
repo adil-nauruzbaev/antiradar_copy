@@ -22,8 +22,8 @@ final lightTheme = ThemeData.light().copyWith(
     backgroundColor: AppColors.lightMenuColor,
   ),
   extensions: [
-    const GradientExtension(
-      gradient: LinearGradient(
+    GradientExtension(
+      gradient: const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
@@ -35,13 +35,23 @@ final lightTheme = ThemeData.light().copyWith(
         ],
         stops: [0.06, 0.41, 0.64, 0.8, 1],
       ),
+      radarGradient: null,
+      viewGradient: RadialGradient(
+        colors: [
+          AppColors.lightViewColor.withOpacity(0.2),
+          AppColors.lightViewColor.withOpacity(0.1),
+          Colors.white.withOpacity(0.3)
+        ],
+        stops: const [0.1, 0.6, 1],
+      ),
     ),
     AppColorsExtension(
       highlightedStrokeColor: AppColors.gradientColor5.withOpacity(0.12),
       strokeColor: AppColors.lightStrokeVersionCardColor,
       settingsBackground: AppColors.lightSettingsBackground,
       settingsTileColor: AppColors.lightSettingsTileColor,
-      settingsStrokeColor: AppColors.lightSettingsStrokeColor
+      settingsStrokeColor: AppColors.lightSettingsStrokeColor,
+      radarColors: RadarColors(linesColor: AppColors.lightLinesColor)
     )
   ],
 );

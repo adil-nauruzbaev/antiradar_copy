@@ -58,12 +58,11 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.black,
+        //backgroundColor: Colors.black,
         body: Container(
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-              gradient:
-                  Theme.of(context).extension<GradientExtension>()?.gradient),
+              gradient: Theme.of(context).gradients.radarGradient,),
           child: Stack(
             children: [
               const RadarImage(),

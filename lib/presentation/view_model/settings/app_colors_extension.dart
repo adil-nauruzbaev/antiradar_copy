@@ -7,6 +7,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
     required this.settingsBackground,
     required this.settingsTileColor,
     required this.settingsStrokeColor,
+    required this.radarColors
   });
 
   final Color? strokeColor;
@@ -14,6 +15,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
   final Color? settingsBackground;
   final Color? settingsTileColor;
   final Color? settingsStrokeColor;
+  final RadarColors? radarColors;
 
   @override
   AppColorsExtension copyWith({
@@ -22,6 +24,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
     Color? settingsBackground,
     Color? settingsTileColor,
     Color? settingsStrokeColor,
+    RadarColors? radarColors
   }) {
     return AppColorsExtension(
       strokeColor: strokeColor ?? this.strokeColor,
@@ -30,6 +33,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
       settingsBackground: settingsBackground ?? this.settingsBackground,
       settingsTileColor: settingsTileColor ?? this.settingsTileColor,
       settingsStrokeColor: settingsStrokeColor ?? this.settingsStrokeColor,
+      radarColors: radarColors ?? this.radarColors
     );
   }
 
@@ -48,10 +52,24 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
       Color.lerp(settingsTileColor, other.settingsTileColor, t),
       settingsStrokeColor:
       Color.lerp(settingsStrokeColor, other.settingsStrokeColor, t),
+      radarColors: RadarColors(
+          linesColor: Color.lerp(radarColors!.linesColor, other.radarColors!.linesColor, t),
+          //viewColor: Color.lerp(radarColors!.viewColor, other.radarColors!.viewColor, t)
+      )
     );
   }
 }
 
 extension AppColorsExt on ThemeData {
   AppColorsExtension get appColors => extension<AppColorsExtension>()!;
+}
+
+class RadarColors{
+  RadarColors({
+    required this.linesColor,
+    //required this.viewColor
+});
+
+  final Color? linesColor;
+  //final Color? viewColor;
 }

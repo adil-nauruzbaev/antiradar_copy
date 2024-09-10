@@ -50,5 +50,9 @@ class AppColors {
   static const Color grayText = Color(0xFF828282);
   static const Color dialogTutorialColor = Color(0xFF588DF0);
 
+  static const Color darkLinesColor = Color(0xFF181B26);
+  static const Color lightLinesColor = Color(0xFFC9DBE4);
 
+  static const Color darkViewColor = Color(0xFF13264A);
+  static const Color lightViewColor = Color(0xFF2A6DEC);
 }

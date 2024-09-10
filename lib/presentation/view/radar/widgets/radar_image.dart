@@ -3,6 +3,8 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:antiradar/presentation/view_model/settings/app_colors_extension.dart';
+import 'package:antiradar/presentation/view_model/settings/gradient_extension.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -195,6 +197,8 @@ class _RadarImageState extends ConsumerState<RadarImage> {
                           points: snapshotPoints.data?.$1 ?? [],
                           models: snapshotPoints.data?.$2 ?? [],
                           picture: snapshot.data!,
+                          gradient: Theme.of(context).gradients.viewGradient!,
+                          linesColor: Theme.of(context).appColors.radarColors!.linesColor!
                         ),
                       );
                     },

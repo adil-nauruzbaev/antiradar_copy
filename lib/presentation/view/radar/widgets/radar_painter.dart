@@ -10,13 +10,17 @@ class RadarPainter extends CustomPainter {
   final List<Offset> points;
   final List<CountryModel> models;
   final PictureInfo picture;
+  final RadialGradient gradient;
+  final Color linesColor;
 
   RadarPainter({
     super.repaint,
     //required this.image,
     required this.points,
     required this.models,
-    required this.picture
+    required this.picture,
+    required this.gradient,
+    required this.linesColor
   });
   @override
   void paint(Canvas canvas, Size size) {
@@ -24,9 +28,9 @@ class RadarPainter extends CustomPainter {
     final radius = min(size.width, size.height) / 0.8;
 
     final paint = Paint()
-      ..color = Colors.grey[800]!
+      ..color = linesColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0;
+      ..strokeWidth = 2.0;
 
     // Draw circles
     for (var i = 1; i <= 3; i++) {
@@ -34,9 +38,9 @@ class RadarPainter extends CustomPainter {
     }
 
     final sectorPaint = Paint()
-      ..color = Colors.grey[800]!
+      ..color = linesColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0;
+      ..strokeWidth = 2.0;
 
     for (var i = 5.5; i < 7.5; i++) {
       final angle = i * pi / 4;
@@ -59,13 +63,13 @@ class RadarPainter extends CustomPainter {
       )
       ..lineTo(center.dx, center.dy - 25);
 
-    final gradient = RadialGradient(
+    /*final gradient = RadialGradient(
       colors: [
         Colors.white.withOpacity(0.1),
         Colors.transparent,
       ],
       stops: const [0.8, 1.0],
-    );
+    );*/
 
     final sectorPaintFill = Paint()
       ..shader =
