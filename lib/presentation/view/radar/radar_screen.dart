@@ -32,6 +32,9 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
   Widget build(BuildContext context) {
     //final loc = AppLocalizations.of(context)!;
     final countryNotifier = ref.watch(countryNotifierProvider('argentina'));
+    final bool isHorizontal = MediaQuery.of(context).orientation == Orientation.landscape;
+
+    final double topLevel = isHorizontal ? 40 : 68;
 
     return PopScope(
       canPop: false,
@@ -51,8 +54,8 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
         }
       },
       child: Scaffold(
-        floatingActionButton: StopButton(buttonKey: keyStopButton),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: StopButton(buttonKey: keyStopButton, isHorizontal: isHorizontal,),
+        floatingActionButtonLocation: isHorizontal ? FloatingActionButtonLocation.endDocked : FloatingActionButtonLocation.centerDocked,
         body: Container(
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
@@ -63,19 +66,20 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
               const RadarImage(),
               Positioned(
                 left: 16,
-                bottom: 240,
+                bottom: isHorizontal ? 26 : 240,
                 child: CameraButton(
                   key: keyCameraButton,
                 ),
               ),
               Positioned(
                   right: 16,
-                  bottom: 180,
+                  bottom: isHorizontal ? null : 180,
+                  top: isHorizontal ? 140 : null,
                   child:
                       VolumeButtons(key1: keyAddButton, key2: keyVolumeButton)),
               Positioned(
                   left: 16,
-                  top: 68,
+                  top: topLevel,
                   child: TopStatusIndicator(
                     key: keyStaticChamber,
                     meters: 200,
@@ -84,7 +88,7 @@ class _RadarScreenState extends ConsumerState<RadarScreen> {
                   )),
               Positioned(
                   right: 16,
-                  top: 68,
+                  top: topLevel,
                   child: SpeedIndicator(
                     key: keySpeed,
                   )),
