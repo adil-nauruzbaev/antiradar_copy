@@ -1,3 +1,4 @@
+import 'package:antiradar/presentation/view_model/settings/fonts_extension.dart';
 import 'package:antiradar/presentation/view_model/settings/gradient_extension.dart';
 import 'package:antiradar/presentation/view_model/settings/app_colors_extension.dart';
 import 'package:flutter/material.dart';
@@ -42,8 +43,22 @@ final darkTheme = ThemeData.dark().copyWith(
         settingsBackground: AppColors.darkSettingsBackground,
         settingsTileColor: AppColors.darkSettingsTileColor,
         settingsStrokeColor: AppColors.darkSettingsStrokeColor,
-        radarColors: RadarColors(linesColor: AppColors.darkLinesColor)
-    )
+        radarColors: RadarColors(
+            linesColor: AppColors.darkLinesColor,
+            staticChamberColor: AppColors.darkRadarWidgetsColor,
+            volumeButtonColor: AppColors.darkRadarWidgetsColor,
+            volumeIconsColor: AppColors.whiteColor,
+            staticChamberStrokeColor: Colors.transparent,
+            alertColor: AppColors.darkAlertColor
+        )
+    ),
+    AppFontsExtension(
+        staticChamberTextStyle: AppFonts.sfProMedium.copyWith(color: AppColors.darkTextColor, fontSize: 22, height: 1),
+        alertTextStyle: AppFonts.sfProMedium.copyWith(fontSize: 20, color: AppColors.darkTextColor),
+        alertTextStyle2: AppFonts.sfProMedium.copyWith(fontSize: 24, color: AppColors.darkTextColor),
+        alertTextStyle3: AppFonts.sfProRegular.copyWith(fontSize: 24, color: AppColors.darkTextColor),
+    ),
+
   ],
 );
 

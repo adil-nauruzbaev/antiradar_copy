@@ -1,7 +1,7 @@
 import 'dart:math';
-import 'dart:ui' as ui;
 import 'package:antiradar/presentation/view_model/isar/models/country_model.dart';
 import 'package:antiradar/utils/app_colors.dart';
+import 'package:antiradar/utils/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -86,7 +86,7 @@ class RadarPainter extends CustomPainter {
     void drawText(String text, Offset position) {
       textPainter.text = TextSpan(
         text: text,
-        style: const TextStyle(color: Colors.white, fontSize: 12),
+        style: AppFonts.sfProMedium.copyWith(color: AppColors.metresColor, fontSize: 14),
       );
       textPainter.layout();
       textPainter.paint(canvas,

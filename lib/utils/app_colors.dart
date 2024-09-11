@@ -34,11 +34,13 @@ class AppColors {
 
   static const Color darkColor = Color(0xFF000000);
   static const Color gradientColor7 = Color(0xFF021333);
-  static const Color gradientColor9 = Color(0xFF1D2736);
+  static const Color darkRadarWidgetsColor = Color(0xFF1D2736);
+  static const Color lightRadarWidgetsColor = Color(0xFFF5F5F5);
 
   static const Color whiteColor = Color(0xFFFFFFFF);
   static const Color borderColor = Color(0xFFB4B4B4);
-  static const Color alertColor = Color(0xFF1C1E2A);
+  static const Color darkAlertColor = Color(0xFF1C1E2A);
+  static const Color lightAlertColor = Color(0xFFF5F5F5);
 
   static const Color redColor = Color(0xFFFF3B2C);
 
@@ -55,4 +57,7 @@ class AppColors {
 
   static const Color darkViewColor = Color(0xFF13264A);
   static const Color lightViewColor = Color(0xFF2A6DEC);
+
+  static const Color metresColor = Color(0xFF858585);
+  static const Color chamberStrokeColor = Color(0xFFDEDEDE);
 }

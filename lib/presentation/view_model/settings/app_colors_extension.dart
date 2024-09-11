@@ -52,24 +52,30 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
       Color.lerp(settingsTileColor, other.settingsTileColor, t),
       settingsStrokeColor:
       Color.lerp(settingsStrokeColor, other.settingsStrokeColor, t),
-      radarColors: RadarColors(
-          linesColor: Color.lerp(radarColors!.linesColor, other.radarColors!.linesColor, t),
-          //viewColor: Color.lerp(radarColors!.viewColor, other.radarColors!.viewColor, t)
-      )
+      radarColors: radarColors
     );
   }
 }
 
 extension AppColorsExt on ThemeData {
   AppColorsExtension get appColors => extension<AppColorsExtension>()!;
+  RadarColors get radarColors => extension<AppColorsExtension>()!.radarColors!;
 }
 
 class RadarColors{
   RadarColors({
     required this.linesColor,
-    //required this.viewColor
+    required this.staticChamberColor,
+    required this.staticChamberStrokeColor,
+    required this.volumeButtonColor,
+    required this.volumeIconsColor,
+    required this.alertColor,
 });
 
-  final Color? linesColor;
-  //final Color? viewColor;
+  final Color linesColor;
+  final Color staticChamberColor;
+  final Color staticChamberStrokeColor;
+  final Color volumeButtonColor;
+  final Color volumeIconsColor;
+  final Color alertColor;
 }

@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_fonts.dart';
+import 'fonts_extension.dart';
 
 final lightTheme = ThemeData.light().copyWith(
   scaffoldBackgroundColor: AppColors.lightBackgroundColor,
   textTheme: TextTheme(
-    titleLarge: AppFonts.sfProRegular.copyWith(color: AppColors.lightTextColor, fontSize: 24),
+    titleLarge: AppFonts.sfProRegular
+        .copyWith(color: AppColors.lightTextColor, fontSize: 24),
     headlineMedium: AppFonts.interMedium
         .copyWith(color: AppColors.lightTextColor, fontSize: 18),
     headlineSmall:
@@ -46,12 +48,26 @@ final lightTheme = ThemeData.light().copyWith(
       ),
     ),
     AppColorsExtension(
-      highlightedStrokeColor: AppColors.gradientColor5.withOpacity(0.12),
-      strokeColor: AppColors.lightStrokeVersionCardColor,
-      settingsBackground: AppColors.lightSettingsBackground,
-      settingsTileColor: AppColors.lightSettingsTileColor,
-      settingsStrokeColor: AppColors.lightSettingsStrokeColor,
-      radarColors: RadarColors(linesColor: AppColors.lightLinesColor)
-    )
+        highlightedStrokeColor: AppColors.gradientColor5.withOpacity(0.12),
+        strokeColor: AppColors.lightStrokeVersionCardColor,
+        settingsBackground: AppColors.lightSettingsBackground,
+        settingsTileColor: AppColors.lightSettingsTileColor,
+        settingsStrokeColor: AppColors.lightSettingsStrokeColor,
+        radarColors: RadarColors(
+            linesColor: AppColors.lightLinesColor,
+            staticChamberColor: AppColors.lightRadarWidgetsColor,
+            volumeButtonColor: AppColors.whiteColor,
+            volumeIconsColor: AppColors.gradientColor5,
+            staticChamberStrokeColor: AppColors.chamberStrokeColor,
+            alertColor: AppColors.lightAlertColor)),
+    AppFontsExtension(
+        staticChamberTextStyle: AppFonts.sfProMedium
+            .copyWith(color: AppColors.lightTextColor, fontSize: 22, height: 1),
+        alertTextStyle: AppFonts.sfProMedium
+            .copyWith(fontSize: 20, color: AppColors.lightTextColor),
+      alertTextStyle2: AppFonts.sfProMedium
+          .copyWith(fontSize: 24, color: AppColors.lightTextColor),
+      alertTextStyle3: AppFonts.sfProRegular.copyWith(fontSize: 24, color: AppColors.lightTextColor),
+    ),
   ],
 );

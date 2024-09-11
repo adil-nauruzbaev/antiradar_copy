@@ -32,7 +32,7 @@ class _AudioChannelDialogState extends State<AudioChannelDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: AppColors.alertColor,
+      backgroundColor: AppColors.darkAlertColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(26),
       ),
