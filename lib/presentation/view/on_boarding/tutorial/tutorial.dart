@@ -13,6 +13,7 @@ import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_fonts.dart';
 import '../../../router/app_router.dart';
 import '../../../view_model/learning/learning_provider.dart';
+import '../../../view_model/settings/orientation_settings/app_orientation.dart';
 import '../../../view_model/settings/theme_provider.dart';
 import '../../radar/radar_screen.dart';
 import '../start_screen.dart';
@@ -55,10 +56,12 @@ class Tutorial {
       onFinish: () {
         ref.read(learningNotifierProvider.notifier).setLearningComplete();
         isShowing = false;
+        AppOrientation.allowRotate();
       },
       onSkip: () {
         ref.read(learningNotifierProvider.notifier).setLearningComplete();
         isShowing = false;
+        AppOrientation.allowRotate();
         return true;
       },
       onClickTarget: (target) {

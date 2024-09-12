@@ -8,19 +8,24 @@ class ContinueButton extends StatelessWidget {
   final String text;
   final String route;
   final GlobalKey? buttonKey;
+  final bool isHorizontal;
 
-  const ContinueButton({super.key, required this.text, required this.route, this.buttonKey});
+  const ContinueButton({super.key, required this.text, required this.route, this.buttonKey, this.isHorizontal = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 60),
+      margin: EdgeInsets.only(bottom: isHorizontal ? 30 : 60),
       height: 60,
       width: 260,
       child: ElevatedButton(
         key: buttonKey,
         onPressed: () {
-          context.push(route);
+          if (route == '/start'){
+            context.go(route);
+          } else {
+            context.push(route);
+          }
         },
         style: ElevatedButton.styleFrom(
           shadowColor: Colors.transparent,

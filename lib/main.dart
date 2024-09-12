@@ -3,6 +3,7 @@ import 'package:antiradar/data/source/shared_preferences/shared_preferences_prov
 import 'package:antiradar/data/source/shared_preferences/user_preferences.dart';
 import 'package:antiradar/firebase_options.dart';
 import 'package:antiradar/presentation/router/app_router.dart';
+import 'package:antiradar/presentation/view_model/settings/orientation_settings/app_orientation.dart';
 import 'package:antiradar/presentation/view_model/settings/theme_provider.dart';
 import 'package:antiradar/presentation/view_model/settings/select_language/locale_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,6 +16,7 @@ import 'l10n/l10n.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  AppOrientation.setOnlyVertical();
   await UserPref.init();
 
   await IsarDatabaseService().init();

@@ -2,6 +2,7 @@ import 'package:antiradar/presentation/view/burger_menu/burger_menu.dart';
 import 'package:antiradar/presentation/view/on_boarding/tutorial/tutorial.dart';
 import 'package:antiradar/presentation/view/on_boarding/widgets/car_image.dart';
 import 'package:antiradar/presentation/view_model/learning/learning_provider.dart';
+import 'package:antiradar/presentation/view_model/settings/orientation_settings/app_orientation.dart';
 import 'package:antiradar/utils/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,12 +32,16 @@ class _StartScreenState extends ConsumerState<StartScreen> {
     if (!ref.read(learningNotifierProvider)) {
       tutorial.createTutorial(context, ref);
       tutorial.showTutorial(context);
+    } else {
+      AppOrientation.allowRotate();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final bool isHorizontal =
+        MediaQuery.of(context).orientation == Orientation.landscape;
 
     return PopScope(
       canPop: false,
@@ -62,49 +67,50 @@ class _StartScreenState extends ConsumerState<StartScreen> {
           buttonKey: keyStartButton,
           text: loc.start,
           route: '/radar',
+          isHorizontal: isHorizontal,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        body: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-                gradient:
-                    Theme.of(context).extension<GradientExtension>()?.gradient),
-            child: SafeArea(
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 16, top: 14),
-                      child: IconButton(
-                        key: keyMenu,
-                        onPressed: () {
-                          startScreenKey.currentState!.openDrawer();
-                        },
-                        icon: const Icon(Icons.menu,
-                            color: Colors.white, size: 36),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+              gradient:
+                  Theme.of(context).extension<GradientExtension>()?.gradient),
+          child: SafeArea(
+            child: Stack(children: [
+              Align(
+                alignment: Alignment.center,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: isHorizontal ? 14 : 54,),
+                    CarImage(
+                        pic: 'assets/icons/car2.svg',
+                        isHorizontal: isHorizontal),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                      child: Text(
+                        loc.welcomeToAntiradar,
+                        style: AppFonts.h2Style,
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ),
-                  const CarImage(pic: 'assets/icons/car2.svg'),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: Text(
-                      loc.welcomeToAntiradar,
-                      style: AppFonts.h2Style,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16, top: 14),
+                  child: IconButton(
+                    key: keyMenu,
+                    onPressed: () {
+                      startScreenKey.currentState!.openDrawer();
+                    },
+                    icon: const Icon(Icons.menu, color: Colors.white, size: 36),
+                  ),
+                ),
+              ),
+            ]),
           ),
         ),
       ),
