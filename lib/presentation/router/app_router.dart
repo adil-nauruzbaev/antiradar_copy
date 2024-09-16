@@ -30,84 +30,94 @@ final authProvider = StreamProvider<User?>((ref) {
 
 @riverpod
 GoRouter router(RouterRef ref) {
-  // final shellNavigatorKey = GlobalKey<NavigatorState>();
-
-  final authService = ref.watch(authProvider);
+  final authState = ref.watch(authProvider);
   final firstPod = ref.watch(firstNotifierProvider);
 
+  // Определяем, загружаются ли данные
+  bool isLoading() {
+    return authState.isRefreshing || authState.isLoading;
+  }
+
+  // Функция для вычисления начального маршрута
+  String getInitialLocation() {
+    if (authState.isRefreshing) {
+      log('Firebase данные обновляются...');
+      return '/splash'; // Показываем Splash экран пока не получим данные об авторизации
+    }
+
+    final isAuth = authState.value != null;
+    log('isAuth: $isAuth'); // Логируем статус авторизации
+
+    final isFirstTime = firstPod.isFirstTime ?? true;
+    log('isFirstTime: $isFirstTime'); // Логируем статус первого запуска
+
+    if (!isAuth) {
+      return '/auth'; // Если не авторизован, направляем на экран авторизации
+    }
+
+    if (isFirstTime) {
+      return '/country-select'; // Если это первый запуск, направляем на выбор страны
+    }
+
+    return '/'; // Иначе отправляем на главный экран
+  }
+
   final router = GoRouter(
-      navigatorKey: navigatorKey,
-      initialLocation: '/splash',
-      redirect: (context, state) {
-        if (authService.isLoading || authService.hasError) return null;
+    navigatorKey: navigatorKey,
+    initialLocation: isLoading() ? '/splash' : getInitialLocation(), // Показываем splash пока данные загружаются
+    debugLogDiagnostics: true,
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const WelcomeScreen(),
+      ),
+      GoRoute(
+        path: '/splash',
+        builder: (context, state) => const SplashView(), // Экран загрузки
+      ),
+      GoRoute(
+        path: '/country-select',
+        builder: (context, state) => const CountrySelectScreen(),
+      ),
+      GoRoute(
+        path: '/allow-location',
+        builder: (context, state) => const AllowLocationScreen(),
+      ),
+      GoRoute(
+        path: '/auth',
+        builder: (context, state) => const AuthScreen(),
+      ),
+      GoRoute(
+        path: '/theme-switch',
+        builder: (context, state) => const ThemeSwitchScreen(),
+      ),
+      GoRoute(
+        path: '/start',
+        builder: (context, state) => StartScreen(key: keyTutorial),
+      ),
+      GoRoute(
+        path: '/isar',
+        builder: (context, state) => const SaveArgentinaDataPage(),
+      ),
+      GoRoute(
+        path: '/radar',
+        builder: (context, state) => const RadarScreen(),
+      ),
+      GoRoute(
+        path: '/settings',
+        builder: (context, state) => const MenuSettingsScreen(),
+      ),
+      GoRoute(
+        path: '/country-settings',
+        builder: (context, state) => const CountriesSettingsScreen(),
+      ),
+      GoRoute(
+        path: '/language-settings',
+        builder: (context, state) => const LanguageSettingsScreen(),
+      ),
+    ],
+  );
 
-        final isAuth = authService.valueOrNull != null;
-
-        final isLoggingIn = state.matchedLocation == '/auth';
-        log('isLoggingIn $isLoggingIn');
-
-        // if (isLoggingIn) return isAuth ? '/' : null;
-        log('isAuth $isAuth');
-        // if (firstPod.isFirstTime == true) return '/country-select';
-        return isAuth
-            ? state.matchedLocation == '/splash'
-                ? (firstPod.isFirstTime ?? true)
-                    ? '/country-select'
-                    : null
-                : null
-            : '/auth';
-      },
-      debugLogDiagnostics: true,
-      routes: [
-        GoRoute(
-          path: '/',
-          builder: (context, state) => const WelcomeScreen(),
-        ),
-        GoRoute(
-          path: '/splash',
-          builder: (context, state) => const SplashView(),
-        ),
-        GoRoute(
-          path: '/country-select',
-          builder: (context, state) => const CountrySelectScreen(),
-        ),
-        GoRoute(
-          path: '/allow-location',
-          builder: (context, state) => const AllowLocationScreen(),
-        ),
-        GoRoute(
-          path: '/auth',
-          builder: (context, state) => const AuthScreen(),
-        ),
-        GoRoute(
-          path: '/theme-switch',
-          builder: (context, state) => const ThemeSwitchScreen(),
-        ),
-        GoRoute(
-          path: '/start',
-          builder: (context, state) => StartScreen(key: keyTutorial,),
-        ),
-        GoRoute(
-          path: '/isar',
-          builder: (context, state) => const SaveArgentinaDataPage(),
-        ),
-        GoRoute(
-          path: '/radar',
-          builder: (context, state) => const RadarScreen(),
-        ),
-        GoRoute(
-          path: '/settings',
-          builder: (context, state) => const MenuSettingsScreen(),
-        ),
-        GoRoute(
-          path: '/country-settings',
-          builder: (context, state) => const CountriesSettingsScreen(),
-        ),
-        GoRoute(
-          path: '/language-settings',
-          builder: (context, state) => const LanguageSettingsScreen(),
-        ),
-      ]);
   ref.onDispose(router.dispose);
   return router;
 }
