@@ -19,7 +19,7 @@ Future<void> main() async {
 
   await IsarDatabaseService().init();
 
-  Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
