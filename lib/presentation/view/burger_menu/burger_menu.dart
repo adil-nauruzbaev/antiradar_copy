@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:antiradar/data/source/shared_preferences/shared_preferences_provider.dart';
 import 'package:antiradar/presentation/view/burger_menu/widgets/top_bar_version.dart';
 import 'package:antiradar/presentation/view/burger_menu/widgets/version_selection.dart';
 import 'package:antiradar/presentation/view_model/auth/auth_provider.dart';
@@ -47,6 +48,7 @@ class _BurgerMenuState extends ConsumerState<BurgerMenu> {
     final authState = ref.watch(authServiceProvider);
     final loc = AppLocalizations.of(context)!;
     final UserSettings userSettings = ref.watch(settingsNotifierProvider);
+    final firstNotifier = ref.read(firstNotifierProvider.notifier);
 
     final settings = [
       SettingTile(

@@ -34,13 +34,13 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
               _emailController.text,
               _passwordController.text,
             );
-            context.go('/country-select');
+           if (context.mounted) context.go('/country-select');
       } else if (!_isSignUp && _formKey.currentState!.validate()) {
         await ref.read(authServiceProvider.notifier).signIn(
               _emailController.text,
               _passwordController.text,
             );
-            context.go('/country-select');
+           if (context.mounted) context.go('/country-select');
       }
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(

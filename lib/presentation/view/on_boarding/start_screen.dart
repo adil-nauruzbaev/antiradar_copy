@@ -1,3 +1,4 @@
+import 'package:antiradar/data/source/shared_preferences/shared_preferences_provider.dart';
 import 'package:antiradar/presentation/view/burger_menu/burger_menu.dart';
 import 'package:antiradar/presentation/view/on_boarding/tutorial/tutorial.dart';
 import 'package:antiradar/presentation/view/on_boarding/widgets/car_image.dart';
@@ -37,11 +38,12 @@ class _StartScreenState extends ConsumerState<StartScreen> {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final firstNotifier = ref.read(firstNotifierProvider.notifier);
 
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, _) {
-        if (didPop){
+        if (didPop) {
           return;
         }
         if (tutorial.isShowing && tutorial.currentIndex == 0) {
