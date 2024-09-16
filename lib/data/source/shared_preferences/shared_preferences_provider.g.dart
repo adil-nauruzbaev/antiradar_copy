@@ -6,7 +6,7 @@ part of 'shared_preferences_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$firstNotifierHash() => r'3235fbe9297a8a5fe628e9f11274082cce387d7e';
+String _$firstNotifierHash() => r'69b6d47a91c91e92de20271d84a7b79b29a29522';
 
 /// See also [FirstNotifier].
 @ProviderFor(FirstNotifier)
