@@ -67,5 +67,6 @@
     "crash": "Accidente",
     "hazard": "Peligro",
     "roadWorks": "Obras viales",
-    "cardError": "Error de tarjeta"
+    "cardError": "Error de tarjeta",
+    "logOut": "Cerrar sesión"
 }

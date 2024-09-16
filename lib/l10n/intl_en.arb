@@ -67,5 +67,6 @@
     "crash": "Crash",
     "hazard": "Hazard",
     "roadWorks": "Road works",
-    "cardError": "Card error"
+    "cardError": "Card error",
+    "logOut": "Log out"
 }
