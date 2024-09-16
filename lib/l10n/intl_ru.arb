@@ -60,5 +60,12 @@
     "selectedCountry": "ВЫБРАННАЯ СТРАНА",
     "downloadedCountries": "ЗАГРУЖЕННЫЕ СТРАНЫ",
     "speedControl": "Контроль скорости",
-    "stationaryCamera": "Стационарная камера"
+    "stationaryCamera": "Стационарная камера",
+    "reportEvent": "Сообщить о событии",
+    "trafficJams": "Пробки",
+    "police": "Полиция",
+    "crash": "Авария",
+    "hazard": "Опасность",
+    "roadWorks": "Дорожные работы",
+    "cardError": "Ошибка карты"
 }

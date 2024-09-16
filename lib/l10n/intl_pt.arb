@@ -60,5 +60,12 @@
     "selectedCountry": "PAÍS SELECIONADO",
     "downloadedCountries": "PAÍSES BAIXADOS",
     "speedControl": "Controle de velocidade",
-    "stationaryCamera": "Câmera fixa"
+    "stationaryCamera": "Câmera fixa",
+    "reportEvent": "Reportar um evento",
+    "trafficJams": "Engarrafamentos",
+    "police": "Polícia",
+    "crash": "Acidente",
+    "hazard": "Perigo",
+    "roadWorks": "Obras na estrada",
+    "cardError": "Erro no cartão"
 }
