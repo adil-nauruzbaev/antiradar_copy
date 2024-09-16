@@ -1,3 +1,4 @@
+import 'package:antiradar/presentation/router/app_router.dart';
 import 'package:antiradar/presentation/view/auth/widgets/custom_text_field.dart';
 import 'package:antiradar/presentation/view/auth/widgets/lang_dropdown.dart';
 import 'package:antiradar/presentation/view_model/auth/auth_provider.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../utils/app_colors.dart';
 import '../../view_model/settings/gradient_extension.dart';
@@ -32,11 +34,13 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
               _emailController.text,
               _passwordController.text,
             );
+            context.go('/country-select');
       } else if (!_isSignUp && _formKey.currentState!.validate()) {
         await ref.read(authServiceProvider.notifier).signIn(
               _emailController.text,
               _passwordController.text,
             );
+            context.go('/country-select');
       }
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
