@@ -1,11 +1,11 @@
-import 'package:advanced_audio_manager/advanced_audio_manager.dart';
+
 import 'package:antiradar/utils/app_colors.dart';
 import 'package:antiradar/utils/app_fonts.dart';
 
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
+
 
 class AudioChannelDialog extends StatefulWidget {
   @override
@@ -14,7 +14,7 @@ class AudioChannelDialog extends StatefulWidget {
 
 class _AudioChannelDialogState extends State<AudioChannelDialog> {
   String _selectedOption = 'Automatically';
-  final AssetsAudioPlayer _assetsAudioPlayer = AssetsAudioPlayer();
+ 
 
   @override
   void initState() {
@@ -26,7 +26,7 @@ class _AudioChannelDialogState extends State<AudioChannelDialog> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _assetsAudioPlayer.dispose();
+  
   }
 
   @override
@@ -121,28 +121,28 @@ class _AudioChannelDialogState extends State<AudioChannelDialog> {
     setState(() {
       _selectedOption = prefs.getString('audio_channel') ?? 'Automatically';
     });
-    await _assetsAudioPlayer.open(
-        Audio(
-          "assets/audio/russian_voice/300m40.mp3",
-        ),
-        autoStart: true,
-        loopMode: LoopMode.single);
+    // await _assetsAudioPlayer.open(
+    //     Audio(
+    //       "assets/audio/russian_voice/300m40.mp3",
+    //     ),
+    //     autoStart: true,
+    //     loopMode: LoopMode.single);
     // await _assetsAudioPlayer.setLoopMode(LoopMode.single);
   }
 
   Future<void> _applyAudioChannelSetting() async {
     switch (_selectedOption) {
       case 'Bluetooth':
-        await FlutterAudioManager.changeToBluetooth();
+        
         break;
       case 'Speaker':
-        await FlutterAudioManager.changeToSpeaker();
+        
         break;
       case 'Headphones':
-        await FlutterAudioManager.changeToHeadphones();
+       
         break;
       case 'Automatically':
-        await FlutterAudioManager.changeToReceiver();
+       
       default:
         break;
     }
