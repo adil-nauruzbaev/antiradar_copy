@@ -10,6 +10,7 @@ import 'package:antiradar/presentation/view/radar/radar_screen.dart';
 import 'package:antiradar/presentation/view/settings/countries_settings_screen.dart';
 import 'package:antiradar/presentation/view/settings/menu_settings_screen.dart';
 import 'package:antiradar/presentation/view/test/iser.dart';
+import 'package:antiradar/presentation/view_model/learning/learning_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ final authProvider = StreamProvider<User?>((ref) {
 GoRouter router(RouterRef ref) {
   final authState = ref.watch(authProvider);
   final firstPod = ref.watch(firstNotifierProvider);
+  final learningPod = ref.watch(learningNotifierProvider);
 
   // Определяем, загружаются ли данные
   bool isLoading() {
@@ -48,7 +50,7 @@ GoRouter router(RouterRef ref) {
     final isAuth = authState.value != null;
     log('isAuth: $isAuth'); // Логируем статус авторизации
 
-    final isFirstTime = firstPod.isFirstTime ?? true;
+    final isFirstTime = !learningPod ?? true;
     log('isFirstTime: $isFirstTime'); // Логируем статус первого запуска
 
     if (!isAuth) {
@@ -73,7 +75,7 @@ GoRouter router(RouterRef ref) {
       ),
       GoRoute(
         path: '/splash',
-        builder: (context, state) => const SplashView(), // Экран загрузки
+        builder: (context, state) => const SplashView(),
       ),
       GoRoute(
         path: '/country-select',
