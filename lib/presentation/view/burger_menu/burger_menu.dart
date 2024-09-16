@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:antiradar/presentation/view/burger_menu/widgets/top_bar_version.dart';
 import 'package:antiradar/presentation/view/burger_menu/widgets/version_selection.dart';
+import 'package:antiradar/presentation/view_model/auth/auth_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -42,6 +44,7 @@ class _BurgerMenuState extends ConsumerState<BurgerMenu> {
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authServiceProvider);
     final loc = AppLocalizations.of(context)!;
     final UserSettings userSettings = ref.watch(settingsNotifierProvider);
 
@@ -96,29 +99,49 @@ class _BurgerMenuState extends ConsumerState<BurgerMenu> {
               const SizedBox(
                 height: 24,
               ),
-              ...settings.map((e) => Visibility(
-                    visible: e.isVisible,
-                    child: ListTile(
-                      contentPadding:
-                          const EdgeInsets.only(left: 20, right: 40),
-                      title: Text(
-                        e.title,
-                        style: AppFonts.interMedium.copyWith(fontSize: 18),
-                      ),
-                      horizontalTitleGap: 16,
-                      leading: SvgPicture.asset(
-                        e.iconPath,
-                        width: 24,
-                        height: 24,
-                      ),
-                      trailing: e.showSwitch ? const _DarkThemeToggle() : null,
-                      onTap: () {
-                        if (e.route != null) {
-                          context.push(e.route!);
-                        }
-                      },
+              ...settings.map(
+                (e) => Visibility(
+                  visible: e.isVisible,
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.only(left: 20, right: 40),
+                    title: Text(
+                      e.title,
+                      style: AppFonts.interMedium.copyWith(fontSize: 18),
                     ),
-                  )),
+                    horizontalTitleGap: 16,
+                    leading: SvgPicture.asset(
+                      e.iconPath,
+                      width: 24,
+                      height: 24,
+                    ),
+                    trailing: e.showSwitch ? const _DarkThemeToggle() : null,
+                    onTap: () {
+                      if (e.route != null) {
+                        context.push(e.route!);
+                      }
+                    },
+                  ),
+                ),
+              ),
+              authState.when(
+                data: (user) {
+                  // Если пользователь авторизован, показываем кнопку выхода
+                  if (user != null) {
+                    return ElevatedButton(
+                      onPressed: () async {
+                        await FirebaseAuth.instance.signOut();
+                        // Перенаправляем пользователя на экран авторизации
+                        GoRouter.of(context).go('/auth');
+                      },
+                      child: const Text('Log out'),
+                    );
+                  } else {
+                    return const Text('Not logged in');
+                  }
+                },
+                loading: () => const CircularProgressIndicator(),
+                error: (error, stackTrace) => Text('Error: $error'),
+              ),
             ],
           ),
         ),
