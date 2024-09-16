@@ -6,25 +6,6 @@ import 'package:antiradar/data/source/shared_preferences/user_preferences.dart';
 
 part 'shared_preferences_provider.g.dart';
 
-// @riverpod
-// bool isFirstTime(IsFirstTimeRef ref) {
-//   final isFirstTime = UserPref.isFirstTime;
-//   if (isFirstTime) {
-//     return UserPref.isFirstTime = true;
-//   }
-
-//   return isFirstTime;
-// }
-
-// @riverpod
-// bool isLearningComplete(IsLearningCompleteRef ref) {
-//   final isLearningComplete = UserPref.isLearningComplete;
-//   if (isLearningComplete) {
-//     return UserPref.isLearningComplete = true;
-//   }
-
-//   return isLearningComplete;
-// }
 @riverpod
 class FirstNotifier extends _$FirstNotifier {
   @override
@@ -36,18 +17,13 @@ class FirstNotifier extends _$FirstNotifier {
       state = state.copyWith(isFirstTime: UserPref.isFirstTime = true);
     }
   }
+  
 
-  /*void setLearningComplete() {
-    state = state.copyWith(isLearningComplete: true);
-    UserPref.isLearningComplete = true;
+// Метод для обновления isFirstTime на false
+  void updateIsFirstTimeToFalse() {
+    UserPref.isFirstTime = false; // Сохраняем в SharedPreferences
+    state = state.copyWith(isFirstTime: false); // Обновляем состояние
   }
-
-  void setLearningUnComplete() {
-    state = state.copyWith(isLearningComplete: false);
-    UserPref.isLearningComplete = false;
-  }*/
-
-
 }
 
 class FirstState {
@@ -55,9 +31,9 @@ class FirstState {
   final bool isLearningComplete;
 
   FirstState(
-      this.isFirstTime,
-      this.isLearningComplete,
-      );
+    this.isFirstTime,
+    this.isLearningComplete,
+  );
 
   FirstState copyWith({
     bool? isFirstTime,
