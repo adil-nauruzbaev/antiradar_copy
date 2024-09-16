@@ -1,3 +1,5 @@
+import 'package:antiradar/presentation/view_model/selected_country/selected_country.dart';
+import 'package:antiradar/presentation/view_model/user/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,44 +21,45 @@ class CountriesSettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = AppLocalizations.of(context)!;
 
-    //selectedCountry = ref.watch(someProvider);
-    CountryEnum selectedCountry = CountryEnum.values[0];
+    // Получение текущего выбранного значения из `selectedCountryProvider`
+    final selectedCountry = ref.watch(selectedCountryProvider);
 
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Padding(
-              padding: EdgeInsets.only(left: 14),
-              child: Icon(Icons.arrow_back_ios),
-            ),
-            onPressed: () {
-              context.pop();
-            },
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Padding(
+            padding: EdgeInsets.only(left: 14),
+            child: Icon(Icons.arrow_back_ios),
           ),
-          centerTitle: true,
-          title: Text(
-            loc.loadPoints,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          backgroundColor: Theme.of(context)
-              .extension<AppColorsExtension>()!
-              .settingsBackground,
+          onPressed: () {
+            context.pop();
+          },
+        ),
+        centerTitle: true,
+        title: Text(
+          loc.loadPoints,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         backgroundColor: Theme.of(context)
             .extension<AppColorsExtension>()!
             .settingsBackground,
-        body: ListView(
-          children: [
-            _settingsText(loc.selectedCountry),
-            SettingTile(country: selectedCountry),
-            const SizedBox(height: 24,),
-            _settingsText(loc.downloadedCountries),
-            ...CountryEnum.values.map((e) => SettingTile(country: e)),
-          ],
-        ));
+      ),
+      backgroundColor: Theme.of(context)
+          .extension<AppColorsExtension>()!
+          .settingsBackground,
+      body: ListView(
+        children: [
+          _settingsText(loc.selectedCountry),
+          SettingTile(country: selectedCountry),
+          const SizedBox(height: 24),
+          _settingsText(loc.downloadedCountries),
+          ...CountryEnum.values.map((e) => SettingTile(country: e)),
+        ],
+      ),
+    );
   }
 
-  Widget _settingsText(String text){
+  Widget _settingsText(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 7, left: 24),
       child: Text(
@@ -66,7 +69,6 @@ class CountriesSettingsScreen extends ConsumerWidget {
       ),
     );
   }
-
 }
 
 class SettingTile extends ConsumerWidget {
@@ -77,6 +79,7 @@ class SettingTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var downloadPod = ref.watch(countryDownloadNotifierProvider.notifier);
     final isDownloaded = ref.watch(countryDownloadNotifierProvider)[country]!;
+
     return Container(
       decoration: BoxDecoration(
         border: country != CountryEnum.values.last
@@ -91,69 +94,67 @@ class SettingTile extends ConsumerWidget {
             .settingsTileColor,
       ),
       child: ListTile(
-          title: Text(
-            country.locale(),
-            style: AppFonts.interMedium.copyWith(fontSize: 18),
-          ),
-          leading: SvgPicture.asset(
-            country.path(),
-            width: 32,
-            height: 32,
-          ),
-          trailing: switch (isDownloaded) {
-            DownloadEnum.isDefault => InkWell(
-                onTap: isDownloaded == DownloadEnum.downloaded ||
-                        isDownloaded == DownloadEnum.downloading
-                    ? null
-                    : () async {
-                        try {
+        title: Text(
+          country.locale(),
+          style: AppFonts.interMedium.copyWith(fontSize: 18),
+        ),
+        leading: SvgPicture.asset(
+          country.path(),
+          width: 32,
+          height: 32,
+        ),
+        trailing: switch (isDownloaded) {
+          DownloadEnum.isDefault => InkWell(
+              onTap: isDownloaded == DownloadEnum.downloaded ||
+                      isDownloaded == DownloadEnum.downloading
+                  ? null
+                  : () async {
+                      try {
+                        downloadPod.setDownloadState(
+                            country, DownloadEnum.downloading);
+
+                        final countryName = country.name;
+
+                        final models = await ref
+                            .read(firebaseModelsProvider(countryName).future);
+                        await ref
+                            .read(
+                                countryNotifierProvider(countryName).notifier)
+                            .saveAll(models)
+                            .whenComplete(() {
                           downloadPod.setDownloadState(
-                              country, DownloadEnum.downloading);
+                              country, DownloadEnum.downloaded);
+                        });
 
-                          final countryName = country.name;
-
-                          final models = await ref
-                              .read(firebaseModelsProvider(countryName).future);
-                          await ref
-                              .read(
-                                  countryNotifierProvider(countryName).notifier)
-                              .saveAll(models)
-                              .whenComplete(() {
-                            downloadPod.setDownloadState(
-                                country, DownloadEnum.downloaded);
-                          });
-
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Data saved to Isar')),
-                          );
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Error: $e')),
-                          );
-                        }
-                      },
-                child: SvgPicture.asset(
-                  'assets/icons/load.svg',
-                  width: 20,
-                  height: 20,
-                  colorFilter:
-                      const ColorFilter.mode(Colors.blue, BlendMode.srcIn),
-                ),
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Data saved to Isar')),
+                        );
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Error: $e')),
+                        );
+                      }
+                    },
+              child: SvgPicture.asset(
+                'assets/icons/load.svg',
+                width: 20,
+                height: 20,
+                colorFilter:
+                    const ColorFilter.mode(Colors.blue, BlendMode.srcIn),
               ),
-            DownloadEnum.downloaded => const Icon(
-                Icons.check,
-              ),
-            DownloadEnum.downloading => const RotatingIcon(),
-          },
-          dense: true,
-          visualDensity: const VisualDensity(horizontal: 0, vertical: -1),
-          contentPadding: const EdgeInsets.only(left: 24, right: 12),
-          onTap: () {
-            // логика изменения страны
-            //ref.read(someProvider).setCountry();
-          }
-          //horizontalTitleGap: 25,
-          ),
+            ),
+          DownloadEnum.downloaded => const Icon(
+              Icons.check,
+            ),
+          DownloadEnum.downloading => const RotatingIcon(),
+        },
+        dense: true,
+        visualDensity: const VisualDensity(horizontal: 0, vertical: -1),
+        contentPadding: const EdgeInsets.only(left: 24, right: 12),
+        onTap: () {
+          ref.read(selectedCountryProvider.notifier).state = country;
+        },
+      ),
     );
   }
 }

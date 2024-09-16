@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:antiradar/presentation/view_model/selected_country/selected_country.dart';
 import 'package:antiradar/presentation/view_model/settings/app_colors_extension.dart';
 import 'package:antiradar/presentation/view_model/settings/gradient_extension.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -129,6 +130,8 @@ class _RadarImageState extends ConsumerState<RadarImage> {
 
   Future<(List<Offset>, List<CountryModel>)> _getPoints(
       Size size, Offset center, GeoPosition currentLocation) async {
+    final selectedCountry = ref.watch(selectedCountryProvider);
+    final countryName = selectedCountry.name;
     const double maxDistanceKm = 0.6;
     final radius = min(size.width, size.height) / 0.8;
     final Isar isar = IsarDatabaseService().isarDB;
@@ -136,7 +139,7 @@ class _RadarImageState extends ConsumerState<RadarImage> {
     List<CountryModel> positions = await isar.countryModels
         .where()
         .filter()
-        .countryEqualTo('argentina')
+        .countryEqualTo(countryName)
         .findAll();
 
     List<Offset> points = [];
@@ -173,7 +176,8 @@ class _RadarImageState extends ConsumerState<RadarImage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done &&
               snapshot.data == null) {
-            return const CircularProgressIndicator();
+            return const SizedBox(
+                height: 50, width: 50, child: CircularProgressIndicator());
           }
           return LayoutBuilder(
             builder: (context, constraints) {
@@ -189,26 +193,40 @@ class _RadarImageState extends ConsumerState<RadarImage> {
                       if (snapshotPoints.connectionState !=
                               ConnectionState.done &&
                           snapshotPoints.data == null) {
-                        return CircularProgressIndicator();
+                        return const SizedBox(
+                          height: 50,
+                          width: 50,
+                          child: CircularProgressIndicator(),
+                        );
                       }
                       return CustomPaint(
                         painter: RadarPainter(
-                          //image: snapshot.data!,
-                          points: snapshotPoints.data?.$1 ?? [],
-                          models: snapshotPoints.data?.$2 ?? [],
-                          picture: snapshot.data!,
-                          gradient: Theme.of(context).gradients.viewGradient!,
-                          linesColor: Theme.of(context).appColors.radarColors!.linesColor!
-                        ),
+                            //image: snapshot.data!,
+                            points: snapshotPoints.data?.$1 ?? [],
+                            models: snapshotPoints.data?.$2 ?? [],
+                            picture: snapshot.data!,
+                            gradient: Theme.of(context).gradients.viewGradient!,
+                            linesColor: Theme.of(context)
+                                .appColors
+                                .radarColors!
+                                .linesColor!),
                       );
                     },
                   );
                 },
                 error: (Object error, StackTrace stackTrace) {
-                  return CircularProgressIndicator();
+                  return const SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: CircularProgressIndicator());
                 },
                 loading: () {
-                  return CircularProgressIndicator();
+                  return const Center(
+                    child: SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: CircularProgressIndicator()),
+                  );
                 },
               );
             },
