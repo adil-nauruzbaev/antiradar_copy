@@ -28,21 +28,50 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   final _formKey = GlobalKey<FormState>();
 
   Future<void> _authenticate() async {
+    if (!_formKey.currentState!.validate()) {
+      // Если форма не валидна, показываем сообщение и не продолжаем
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please fill out the form correctly.')),
+      );
+      return;
+    }
+
     try {
-      if (_isSignUp && _formKey.currentState!.validate()) {
-        await ref.read(authServiceProvider.notifier).signUp(
-              _emailController.text,
-              _passwordController.text,
-            );
-           if (context.mounted) context.go('/country-select');
-      } else if (!_isSignUp && _formKey.currentState!.validate()) {
-        await ref.read(authServiceProvider.notifier).signIn(
-              _emailController.text,
-              _passwordController.text,
-            );
-           if (context.mounted) context.go('/country-select');
+      if (_isSignUp) {
+        // Регистрация
+        final signUpResult =
+            await ref.read(authServiceProvider.notifier).signUp(
+                  _emailController.text,
+                  _passwordController.text,
+                );
+        if (signUpResult == null) {
+          // Переход только в случае успешной регистрации
+          if (mounted) context.go('/country-select');
+        } else {
+          // Отображение ошибки регистрации
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Sign-up failed: $signUpResult')),
+          );
+        }
+      } else {
+        // Вход
+        final signInResult =
+            await ref.read(authServiceProvider.notifier).signIn(
+                  _emailController.text,
+                  _passwordController.text,
+                );
+        if (signInResult == null) {
+          // Переход только в случае успешного входа
+          if (mounted) context.go('/country-select');
+        } else {
+          // Отображение ошибки входа
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Sign-in failed: $signInResult')),
+          );
+        }
       }
     } catch (error) {
+      // Отображение ошибки аутентификации
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $error')),
       );

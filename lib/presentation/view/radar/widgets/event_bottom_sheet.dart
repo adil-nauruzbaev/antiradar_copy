@@ -86,10 +86,33 @@ Widget eventBottomSheet(BuildContext context, WidgetRef ref) {
   );
 }
 
+Future<void> showCustomDialog(BuildContext context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: true, // Позволяет закрыть диалог при нажатии вне его
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Placeholder'),
+        content: const Text('In testing'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Закрыть диалог
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
 Widget eventContainer(
     BuildContext context, String path, String title, Color color) {
   return GestureDetector(
-    onTap: () {},
+    onTap: () {
+      showCustomDialog(context);
+    },
     child: Column(
       children: [
         Container(

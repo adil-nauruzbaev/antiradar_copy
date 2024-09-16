@@ -44,9 +44,8 @@ class CountriesSettingsScreen extends ConsumerWidget {
             .extension<AppColorsExtension>()!
             .settingsBackground,
       ),
-      backgroundColor: Theme.of(context)
-          .extension<AppColorsExtension>()!
-          .settingsBackground,
+      backgroundColor:
+          Theme.of(context).extension<AppColorsExtension>()!.settingsBackground,
       body: ListView(
         children: [
           _settingsText(loc.selectedCountry),
@@ -118,8 +117,7 @@ class SettingTile extends ConsumerWidget {
                         final models = await ref
                             .read(firebaseModelsProvider(countryName).future);
                         await ref
-                            .read(
-                                countryNotifierProvider(countryName).notifier)
+                            .read(countryNotifierProvider(countryName).notifier)
                             .saveAll(models)
                             .whenComplete(() {
                           downloadPod.setDownloadState(
@@ -153,6 +151,7 @@ class SettingTile extends ConsumerWidget {
         contentPadding: const EdgeInsets.only(left: 24, right: 12),
         onTap: () {
           ref.read(selectedCountryProvider.notifier).state = country;
+          ref.read(selectedCountryChangeNotifierProvider);
         },
       ),
     );

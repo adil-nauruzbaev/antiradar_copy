@@ -37,7 +37,7 @@ class _AudioChannelDialogState extends State<AudioChannelDialog> {
         borderRadius: BorderRadius.circular(26),
       ),
       title: Text(
-        "Audio channel",
+        "Audio channel (In testing)",
         style: AppFonts.h3Style.copyWith(
             fontWeight: FontWeight.w500, color: AppColors.lightTextColor2),
       ),

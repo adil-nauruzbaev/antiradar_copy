@@ -1,3 +1,4 @@
+import 'package:antiradar/presentation/view_model/selected_country/selected_country.dart';
 import 'package:antiradar/presentation/view_model/settings/app_colors_extension.dart';
 import 'package:antiradar/presentation/view_model/settings/fonts_extension.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,6 +23,7 @@ Widget buildBottomSheet(BuildContext context, WidgetRef ref) {
   final selectedSpeed = ref.watch(selectedSpeedProvider);
   final isHorizontal = MediaQuery.of(context).orientation == Orientation.landscape;
   final double decreaseIndex = isHorizontal ? 0.66 : 1;
+  final selectedCountry = ref.watch(selectedCountryProvider);
 
   return Container(
     padding: EdgeInsets.only(right: 16, left: 16, top: 20, bottom: isHorizontal ? 20 : 40),
@@ -198,13 +200,13 @@ Widget buildBottomSheet(BuildContext context, WidgetRef ref) {
                         lat: avgLat,
                         long: avgLong,
                         speed: newPoint.speed,
-                        country: 'argentina',
+                        country: selectedCountry.toString(),
                         createdAt: DateTime.now(),
                       );
 
                       try {
                         await FirebaseFirestore.instance
-                            .collection('argentina')
+                            .collection(selectedCountry.toString())
                             .add(argentinaData.toFirestore());
                       } catch (e) {
                         print(e);
@@ -213,7 +215,7 @@ Widget buildBottomSheet(BuildContext context, WidgetRef ref) {
                   }
 
                   final sandboxData = SandboxModel(
-                    country: 'argentina',
+                    country: selectedCountry.toString(),
                     lat: locationAsyncValue.when(
                       data: (position) => position.latitude,
                       loading: () => 0.0,

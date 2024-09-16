@@ -3,15 +3,18 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StopButton extends StatelessWidget {
   final GlobalKey buttonKey;
   final bool isHorizontal;
 
-  const StopButton({super.key, required this.buttonKey, required this.isHorizontal});
+  const StopButton(
+      {super.key, required this.buttonKey, required this.isHorizontal});
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return Container(
       height: 60,
       width: isHorizontal ? 118 : 260,
@@ -28,8 +31,9 @@ class StopButton extends StatelessWidget {
         onPressed: () {
           context.pop();
         },
-        child: Text('STOP',
-            style: AppFonts.buttonTextStyle.copyWith(color: AppColors.whiteColor)),
+        child: Text(loc.stop,
+            style:
+                AppFonts.buttonTextStyle.copyWith(color: AppColors.whiteColor)),
       ),
     );
   }
