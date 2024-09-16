@@ -127,6 +127,13 @@ flutter:
     - assets/icons/settings_icons/moon.svg
     - assets/icons/settings_icons/globe.svg
 
+    - assets/icons/events/cap.svg
+    - assets/icons/events/car_crash.svg
+    - assets/icons/events/cars.svg
+    - assets/icons/events/geo.svg
+    - assets/icons/events/sign.svg
+    - assets/icons/events/sign2.svg
+
     - assets/audio/russian_voice/300m40.mp3
 
   #   - images/a_dot_ham.jpeg

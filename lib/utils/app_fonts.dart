@@ -88,7 +88,7 @@ class AppFonts {
       fontFamily: 'SF Pro Display', fontWeight: FontWeight.normal);
   static const TextStyle speedStyle = TextStyle(
       fontFamily: 'SF Pro Display',
-      fontSize: 40,
+      fontSize: 38,
       color: AppColors.darkColor,
       fontWeight: FontWeight.w500);
 }

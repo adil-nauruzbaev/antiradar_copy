@@ -68,15 +68,15 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          decoration: BoxDecoration(
-              gradient:
-                  Theme.of(context).extension<GradientExtension>()?.gradient),
-          child: Center(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        decoration: BoxDecoration(
+            gradient:
+                Theme.of(context).extension<GradientExtension>()?.gradient),
+        child: Center(
+          child: SingleChildScrollView(
+            reverse: true,
             child: Form(
               key: _formKey,
               child: Column(

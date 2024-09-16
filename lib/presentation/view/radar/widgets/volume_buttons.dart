@@ -1,8 +1,11 @@
 import 'package:antiradar/presentation/view_model/settings/app_colors_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'alert_dialog.dart';
 import 'audio_channel.dart';
+import 'event_bottom_sheet.dart';
 
 class VolumeButtons extends StatelessWidget {
   final GlobalKey key1;
@@ -38,7 +41,18 @@ class VolumeButtons extends StatelessWidget {
                   Theme.of(context).radarColors.volumeIconsColor,
                   BlendMode.srcIn),
             ),
-            onTap: () {},
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Consumer(
+                      builder: (context, ref, child) {
+                        return placeActionDialog(context, (context, ref) => eventBottomSheet(context, ref));
+                      }
+                  );
+                },
+              );
+            },
           ),
           const SizedBox(height: 34),
           InkWell(

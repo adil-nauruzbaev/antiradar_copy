@@ -60,5 +60,13 @@
     "selectedCountry": "SELECTED COUNTRY",
     "downloadedCountries": "DOWNLOADED COUNTRIES",
     "speedControl": "Speed control",
-    "stationaryCamera": "Stationary camera"
+    "stationaryCamera": "Stationary camera",
+    "reportEvent": "Report an event",
+    "trafficJams": "Traffic jams",
+    "police": "Police",
+    "crash": "Crash",
+    "hazard": "Hazard",
+    "roadWorks": "Road works",
+    "cardError": "Card error",
+    "logOut": "Log out"
 }

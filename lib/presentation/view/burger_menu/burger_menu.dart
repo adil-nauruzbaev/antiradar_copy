@@ -129,13 +129,18 @@ class _BurgerMenuState extends ConsumerState<BurgerMenu> {
                 data: (user) {
                   // Если пользователь авторизован, показываем кнопку выхода
                   if (user != null) {
-                    return ElevatedButton(
-                      onPressed: () async {
+                    return ListTile(
+                      contentPadding: const EdgeInsets.only(left: 20, right: 40),
+                      title: Text(
+                        loc.logOut,
+                        style: AppFonts.interMedium.copyWith(fontSize: 18),
+                      ),
+                      horizontalTitleGap: 16,
+                      leading: const Icon(Icons.logout, size: 24, color: AppColors.iconGray,),
+                      onTap: () async {
                         await FirebaseAuth.instance.signOut();
-                        // Перенаправляем пользователя на экран авторизации
                         GoRouter.of(context).go('/auth');
                       },
-                      child: const Text('Log out'),
                     );
                   } else {
                     return const Text('Not logged in');

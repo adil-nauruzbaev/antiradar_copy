@@ -60,4 +60,6 @@ class AppColors {
 
   static const Color metresColor = Color(0xFF858585);
   static const Color chamberStrokeColor = Color(0xFFDEDEDE);
+  static const Color eventStrokeColor = Color(0xFFDBDBDB);
+  static const Color iconGray = Color(0xFF979797);
 }
