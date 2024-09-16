@@ -59,7 +59,7 @@ GoRouter router(RouterRef ref) {
       return '/country-select'; // Если это первый запуск, направляем на выбор страны
     }
 
-    return '/'; // Иначе отправляем на главный экран
+    return '/start'; // Иначе отправляем на главный экран
   }
 
   final router = GoRouter(
