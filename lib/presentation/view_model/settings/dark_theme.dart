@@ -1,3 +1,4 @@
+import 'package:antiradar/presentation/view_model/settings/fonts_extension.dart';
 import 'package:antiradar/presentation/view_model/settings/gradient_extension.dart';
 import 'package:antiradar/presentation/view_model/settings/app_colors_extension.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +9,15 @@ import '../../../utils/app_fonts.dart';
 final darkTheme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor: AppColors.darkBackgroundColor,
   textTheme: TextTheme(
-    titleLarge: AppFonts.sfProRegular.copyWith(color: AppColors.darkTextColor, fontSize: 24),
-    headlineMedium: AppFonts.interMedium.copyWith(color: AppColors.darkTextColor, fontSize: 18),
-    headlineSmall: AppFonts.interMedium.copyWith(color: AppColors.grayText, fontSize: 14),
+    titleLarge: AppFonts.sfProRegular.copyWith(
+        color: AppColors.darkTextColor, fontSize: 24),
+    headlineMedium: AppFonts.interMedium.copyWith(
+        color: AppColors.darkTextColor, fontSize: 18),
+    headlineSmall: AppFonts.interMedium.copyWith(
+        color: AppColors.grayText, fontSize: 14),
   ),
   colorScheme: const ColorScheme.dark().copyWith(
-      // appbar
+    // appbar
       surface: AppColors.darkBackgroundColor,
       onSurface: AppColors.darkTextColor
   ),
@@ -21,15 +25,16 @@ final darkTheme = ThemeData.dark().copyWith(
     backgroundColor: AppColors.darkMenuColor,
   ),
   extensions: [
-    const GradientExtension(
-      gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
+    GradientExtension(
+      gradient: darkGradient,
+      radarGradient: darkGradient,
+      viewGradient: RadialGradient(
         colors: [
-          AppColors.darkColor,
-          AppColors.gradientColor7,
+          Colors.white.withOpacity(0.2),
+          AppColors.darkViewColor.withOpacity(0.2),
+          Colors.transparent
         ],
-        stops: [0.0367, 1],
+        stops: const [0, 0.9, 1],
       ),
     ),
     AppColorsExtension(
@@ -37,8 +42,32 @@ final darkTheme = ThemeData.dark().copyWith(
         strokeColor: AppColors.darkStrokeVersionCardColor,
         settingsBackground: AppColors.darkSettingsBackground,
         settingsTileColor: AppColors.darkSettingsTileColor,
-        settingsStrokeColor: AppColors.darkSettingsStrokeColor
-    )
+        settingsStrokeColor: AppColors.darkSettingsStrokeColor,
+        radarColors: RadarColors(
+            linesColor: AppColors.darkLinesColor,
+            staticChamberColor: AppColors.darkRadarWidgetsColor,
+            volumeButtonColor: AppColors.darkRadarWidgetsColor,
+            volumeIconsColor: AppColors.whiteColor,
+            staticChamberStrokeColor: Colors.transparent,
+            alertColor: AppColors.darkAlertColor
+        )
+    ),
+    AppFontsExtension(
+        staticChamberTextStyle: AppFonts.sfProMedium.copyWith(color: AppColors.darkTextColor, fontSize: 22, height: 1),
+        alertTextStyle: AppFonts.sfProMedium.copyWith(fontSize: 20, color: AppColors.darkTextColor),
+        alertTextStyle2: AppFonts.sfProMedium.copyWith(fontSize: 24, color: AppColors.darkTextColor),
+        alertTextStyle3: AppFonts.sfProRegular.copyWith(fontSize: 24, color: AppColors.darkTextColor),
+    ),
+
   ],
 );
 
+const darkGradient = LinearGradient(
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+  colors: [
+    AppColors.darkColor,
+    AppColors.gradientColor7,
+  ],
+  stops: [0.0367, 1],
+);

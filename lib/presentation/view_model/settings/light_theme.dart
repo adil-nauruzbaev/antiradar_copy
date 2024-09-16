@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_fonts.dart';
+import 'fonts_extension.dart';
 
 final lightTheme = ThemeData.light().copyWith(
   scaffoldBackgroundColor: AppColors.lightBackgroundColor,
   textTheme: TextTheme(
-    titleLarge: AppFonts.sfProRegular.copyWith(color: AppColors.lightTextColor, fontSize: 24),
+    titleLarge: AppFonts.sfProRegular
+        .copyWith(color: AppColors.lightTextColor, fontSize: 24),
     headlineMedium: AppFonts.interMedium
         .copyWith(color: AppColors.lightTextColor, fontSize: 18),
     headlineSmall:
@@ -22,8 +24,8 @@ final lightTheme = ThemeData.light().copyWith(
     backgroundColor: AppColors.lightMenuColor,
   ),
   extensions: [
-    const GradientExtension(
-      gradient: LinearGradient(
+    GradientExtension(
+      gradient: const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
@@ -35,13 +37,37 @@ final lightTheme = ThemeData.light().copyWith(
         ],
         stops: [0.06, 0.41, 0.64, 0.8, 1],
       ),
+      radarGradient: null,
+      viewGradient: RadialGradient(
+        colors: [
+          AppColors.lightViewColor.withOpacity(0.2),
+          AppColors.lightViewColor.withOpacity(0.1),
+          Colors.white.withOpacity(0.3)
+        ],
+        stops: const [0.1, 0.6, 1],
+      ),
     ),
     AppColorsExtension(
-      highlightedStrokeColor: AppColors.gradientColor5.withOpacity(0.12),
-      strokeColor: AppColors.lightStrokeVersionCardColor,
-      settingsBackground: AppColors.lightSettingsBackground,
-      settingsTileColor: AppColors.lightSettingsTileColor,
-      settingsStrokeColor: AppColors.lightSettingsStrokeColor
-    )
+        highlightedStrokeColor: AppColors.gradientColor5.withOpacity(0.12),
+        strokeColor: AppColors.lightStrokeVersionCardColor,
+        settingsBackground: AppColors.lightSettingsBackground,
+        settingsTileColor: AppColors.lightSettingsTileColor,
+        settingsStrokeColor: AppColors.lightSettingsStrokeColor,
+        radarColors: RadarColors(
+            linesColor: AppColors.lightLinesColor,
+            staticChamberColor: AppColors.lightRadarWidgetsColor,
+            volumeButtonColor: AppColors.whiteColor,
+            volumeIconsColor: AppColors.gradientColor5,
+            staticChamberStrokeColor: AppColors.chamberStrokeColor,
+            alertColor: AppColors.lightAlertColor)),
+    AppFontsExtension(
+        staticChamberTextStyle: AppFonts.sfProMedium
+            .copyWith(color: AppColors.lightTextColor, fontSize: 22, height: 1),
+        alertTextStyle: AppFonts.sfProMedium
+            .copyWith(fontSize: 20, color: AppColors.lightTextColor),
+      alertTextStyle2: AppFonts.sfProMedium
+          .copyWith(fontSize: 24, color: AppColors.lightTextColor),
+      alertTextStyle3: AppFonts.sfProRegular.copyWith(fontSize: 24, color: AppColors.lightTextColor),
+    ),
   ],
 );

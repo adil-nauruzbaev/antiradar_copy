@@ -7,6 +7,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
     required this.settingsBackground,
     required this.settingsTileColor,
     required this.settingsStrokeColor,
+    required this.radarColors
   });
 
   final Color? strokeColor;
@@ -14,6 +15,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
   final Color? settingsBackground;
   final Color? settingsTileColor;
   final Color? settingsStrokeColor;
+  final RadarColors? radarColors;
 
   @override
   AppColorsExtension copyWith({
@@ -22,6 +24,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
     Color? settingsBackground,
     Color? settingsTileColor,
     Color? settingsStrokeColor,
+    RadarColors? radarColors
   }) {
     return AppColorsExtension(
       strokeColor: strokeColor ?? this.strokeColor,
@@ -30,6 +33,7 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
       settingsBackground: settingsBackground ?? this.settingsBackground,
       settingsTileColor: settingsTileColor ?? this.settingsTileColor,
       settingsStrokeColor: settingsStrokeColor ?? this.settingsStrokeColor,
+      radarColors: radarColors ?? this.radarColors
     );
   }
 
@@ -48,10 +52,30 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
       Color.lerp(settingsTileColor, other.settingsTileColor, t),
       settingsStrokeColor:
       Color.lerp(settingsStrokeColor, other.settingsStrokeColor, t),
+      radarColors: radarColors
     );
   }
 }
 
 extension AppColorsExt on ThemeData {
   AppColorsExtension get appColors => extension<AppColorsExtension>()!;
+  RadarColors get radarColors => extension<AppColorsExtension>()!.radarColors!;
+}
+
+class RadarColors{
+  RadarColors({
+    required this.linesColor,
+    required this.staticChamberColor,
+    required this.staticChamberStrokeColor,
+    required this.volumeButtonColor,
+    required this.volumeIconsColor,
+    required this.alertColor,
+});
+
+  final Color linesColor;
+  final Color staticChamberColor;
+  final Color staticChamberStrokeColor;
+  final Color volumeButtonColor;
+  final Color volumeIconsColor;
+  final Color alertColor;
 }

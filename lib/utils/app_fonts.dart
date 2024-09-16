@@ -78,6 +78,9 @@ class AppFonts {
   static const TextStyle sfProSemibold =
       TextStyle(fontFamily: 'SF Pro Display', fontWeight: FontWeight.w600);
 
+  static const TextStyle sfProMedium =
+  TextStyle(fontFamily: 'SF Pro Display', fontWeight: FontWeight.w500);
+
   static const TextStyle interMedium =
       TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w500);
 

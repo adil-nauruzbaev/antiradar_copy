@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
 
 class GradientExtension extends ThemeExtension<GradientExtension> {
-  const GradientExtension({required this.gradient});
+  const GradientExtension({
+    required this.gradient,
+    required this.radarGradient,
+    required this.viewGradient,
+  });
 
   final Gradient? gradient;
+  final Gradient? radarGradient;
+  final RadialGradient? viewGradient;
 
   @override
   GradientExtension copyWith(
-      {Color? brandColor, Color? danger, Gradient? gradient}) {
-    return GradientExtension(gradient: gradient ?? this.gradient);
+      {Gradient? gradient,
+      Gradient? radarGradient,
+      RadialGradient? viewGradient}) {
+    return GradientExtension(
+        gradient: gradient ?? this.gradient,
+        radarGradient: radarGradient ?? this.radarGradient,
+        viewGradient: viewGradient ?? this.viewGradient,
+    );
   }
 
   @override
@@ -17,6 +29,13 @@ class GradientExtension extends ThemeExtension<GradientExtension> {
       return this;
     }
     return GradientExtension(
-        gradient: Gradient.lerp(gradient, other.gradient, t));
+        gradient: Gradient.lerp(gradient, other.gradient, t),
+        radarGradient: Gradient.lerp(radarGradient, other.radarGradient, t),
+        viewGradient: RadialGradient.lerp(viewGradient, viewGradient, t)
+    );
   }
+}
+
+extension GradientExt on ThemeData {
+  GradientExtension get gradients => extension<GradientExtension>()!;
 }

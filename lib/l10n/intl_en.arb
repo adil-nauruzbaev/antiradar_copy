@@ -58,5 +58,7 @@
     "tutorial7": "Here you can mark cameras",
     "skip": "SKIP",
     "selectedCountry": "SELECTED COUNTRY",
-    "downloadedCountries": "DOWNLOADED COUNTRIES"
+    "downloadedCountries": "DOWNLOADED COUNTRIES",
+    "speedControl": "Speed control",
+    "stationaryCamera": "Stationary camera"
 }
