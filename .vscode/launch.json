@@ -20,7 +20,7 @@
             "name": "antiradar (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug"
+            "flutterMode": "release"
         }
     ]
 }
