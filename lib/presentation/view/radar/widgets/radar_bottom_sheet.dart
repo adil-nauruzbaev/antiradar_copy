@@ -20,9 +20,11 @@ Widget buildBottomSheet(BuildContext context, WidgetRef ref) {
   final locationAsyncValue = ref.watch(locationProvider);
   final loc = AppLocalizations.of(context)!;
   final selectedSpeed = ref.watch(selectedSpeedProvider);
+  final isHorizontal = MediaQuery.of(context).orientation == Orientation.landscape;
+  final double decreaseIndex = isHorizontal ? 0.66 : 1;
 
   return Container(
-    padding: const EdgeInsets.only(right: 16, left: 16, top: 20, bottom: 42),
+    padding: EdgeInsets.only(right: 16, left: 16, top: 20, bottom: isHorizontal ? 20 : 40),
     decoration: BoxDecoration(
       color: Theme.of(context).radarColors.alertColor,
       borderRadius: const BorderRadius.only(
@@ -37,12 +39,14 @@ Widget buildBottomSheet(BuildContext context, WidgetRef ref) {
           loc.speedControl,
           style: Theme.of(context).appFonts.alertTextStyle2,
         ),
-        const SizedBox(height: 36),
+        SizedBox(height: isHorizontal ? 12 : 36),
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 13),
+          height: 120 * decreaseIndex,
+          width: 108 * decreaseIndex,
+          padding: EdgeInsets.symmetric(vertical: 19 * decreaseIndex, horizontal: 13 * decreaseIndex),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12 * decreaseIndex),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.15),
@@ -58,26 +62,52 @@ Widget buildBottomSheet(BuildContext context, WidgetRef ref) {
               shape: BoxShape.circle,
             ),
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(20.0 * decreaseIndex),
               child: SvgPicture.asset('assets/icons/camera3.svg'),
             ),
           ),
         ),
-        const SizedBox(height: 36),
+        SizedBox(height: isHorizontal ? 12 : 36),
         Text(
           loc.stationaryCamera,
           style: Theme.of(context).appFonts.alertTextStyle3,
         ),
-        const SizedBox(height: 36),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        SizedBox(height: isHorizontal ? 12 : 36),
+        isHorizontal ? SizedBox(
+          height: 80,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              buildSpeedOption(context, ref, 40),
+              buildSpeedOption(context, ref, 50),
+              buildSpeedOption(context, ref, 60),
+              buildSpeedOption(context, ref, 80),
+              buildSpeedOption(context, ref, 90),
+              buildSpeedOption(context, ref, 100),
+            ],
+          ),
+        ) : Column(
           children: [
-            buildSpeedOption(context, ref, 40),
-            buildSpeedOption(context, ref, 50),
-            buildSpeedOption(context, ref, 60),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                buildSpeedOption(context, ref, 40),
+                buildSpeedOption(context, ref, 50),
+                buildSpeedOption(context, ref, 60),
+              ],
+            ),
+            const SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                buildSpeedOption(context, ref, 80),
+                buildSpeedOption(context, ref, 90),
+                buildSpeedOption(context, ref, 100),
+              ],
+            ),
           ],
         ),
-        const SizedBox(height: 36),
+        SizedBox(height: isHorizontal ? 12 : 36),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -103,7 +133,6 @@ Widget buildBottomSheet(BuildContext context, WidgetRef ref) {
                 ),
               ),
             ),
-            const SizedBox(width: 20),
             SizedBox(
               height: 60,
               width: 170,
@@ -223,12 +252,19 @@ Widget buildBottomSheet(BuildContext context, WidgetRef ref) {
 
 Widget buildSpeedOption(BuildContext context, WidgetRef ref, int speed) {
   final selectedSpeed = ref.watch(selectedSpeedProvider);
+  final isHorizontal = MediaQuery.of(context).orientation == Orientation.landscape;
 
   return GestureDetector(
     onTap: () {
       ref.read(selectedSpeedProvider.notifier).state = speed;
     },
     child: Container(
+      constraints: const BoxConstraints(
+        maxHeight: 100,
+        maxWidth: 100,
+        minHeight: 80,
+        minWidth: 80
+      ),
       decoration: BoxDecoration(
         color: AppColors.whiteColor,
         shape: BoxShape.circle,
@@ -239,13 +275,10 @@ Widget buildSpeedOption(BuildContext context, WidgetRef ref, int speed) {
           width: 5,
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Center(
-          child: Text(
-            "$speed",
-            style: AppFonts.speedStyle,
-          ),
+      child: Center(
+        child: Text(
+          "$speed",
+          style: isHorizontal ? AppFonts.speedStyle.copyWith(fontSize: 30) : AppFonts.speedStyle,
         ),
       ),
     ),

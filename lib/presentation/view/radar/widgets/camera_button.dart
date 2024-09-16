@@ -91,6 +91,9 @@ class CameraButton extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).pop(true);
                             showModalBottomSheet(
+                              constraints: BoxConstraints(
+                                minWidth: MediaQuery.of(context).size.width
+                              ),
                               context: context,
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
