@@ -42,41 +42,81 @@ Widget buildBottomSheet(BuildContext context, WidgetRef ref) {
           style: Theme.of(context).appFonts.alertTextStyle2,
         ),
         SizedBox(height: isHorizontal ? 12 : 36),
-        Container(
-          height: 120 * decreaseIndex,
-          width: 108 * decreaseIndex,
-          padding: EdgeInsets.symmetric(vertical: 19 * decreaseIndex, horizontal: 13 * decreaseIndex),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12 * decreaseIndex),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.15),
-                blurRadius: 4,
-                spreadRadius: 0,
-                offset: const Offset(0, 2),
+        isHorizontal ? Row(
+          children: [
+            Container(
+              height: 120 * decreaseIndex,
+              width: 108 * decreaseIndex,
+              padding: EdgeInsets.symmetric(vertical: 19 * decreaseIndex, horizontal: 13 * decreaseIndex),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12 * decreaseIndex),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.15),
+                    blurRadius: 4,
+                    spreadRadius: 0,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
-            ],
-          ),
-          child: Container(
-            decoration: const BoxDecoration(
-              color: AppColors.redColor,
-              shape: BoxShape.circle,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: AppColors.redColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(20.0 * decreaseIndex),
+                  child: SvgPicture.asset('assets/icons/camera3.svg'),
+                ),
+              ),
             ),
-            child: Padding(
-              padding: EdgeInsets.all(20.0 * decreaseIndex),
-              child: SvgPicture.asset('assets/icons/camera3.svg'),
+            const SizedBox(width: 20,),
+            Text(
+              loc.stationaryCamera,
+              style: Theme.of(context).appFonts.alertTextStyle3,
             ),
-          ),
+          ],
+        ) : Column(
+          children: [
+            Container(
+              height: 120,
+              width: 108,
+              padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 13),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.15),
+                    blurRadius: 4,
+                    spreadRadius: 0,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: AppColors.redColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: SvgPicture.asset('assets/icons/camera3.svg'),
+                ),
+              ),
+            ),
+            SizedBox(height: isHorizontal ? 12 : 36),
+            Text(
+              loc.stationaryCamera,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).appFonts.alertTextStyle3,
+            ),
+          ],
         ),
-        SizedBox(height: isHorizontal ? 12 : 36),
-        Text(
-          loc.stationaryCamera,
-          style: Theme.of(context).appFonts.alertTextStyle3,
-        ),
-        SizedBox(height: isHorizontal ? 12 : 36),
+        const SizedBox(height: 36),
         isHorizontal ? SizedBox(
-          height: 80,
+          height: 100,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -254,7 +294,6 @@ Widget buildBottomSheet(BuildContext context, WidgetRef ref) {
 
 Widget buildSpeedOption(BuildContext context, WidgetRef ref, int speed) {
   final selectedSpeed = ref.watch(selectedSpeedProvider);
-  final isHorizontal = MediaQuery.of(context).orientation == Orientation.landscape;
 
   return GestureDetector(
     onTap: () {
@@ -278,9 +317,12 @@ Widget buildSpeedOption(BuildContext context, WidgetRef ref, int speed) {
         ),
       ),
       child: Center(
-        child: Text(
-          "$speed",
-          style: isHorizontal ? AppFonts.speedStyle.copyWith(fontSize: 30) : AppFonts.speedStyle,
+        child: MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
+          child: Text(
+            "$speed",
+            style: AppFonts.speedStyle,
+          ),
         ),
       ),
     ),

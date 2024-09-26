@@ -33,6 +33,7 @@ Widget eventBottomSheet(BuildContext context, WidgetRef ref) {
             ? SizedBox(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     eventContainer(context, "assets/icons/events/cars.svg",
                         loc.trafficJams, const Color(0xFFE84852)),
@@ -52,6 +53,7 @@ Widget eventBottomSheet(BuildContext context, WidgetRef ref) {
             : Column(
                 children: [
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       eventContainer(context, "assets/icons/events/cars.svg",
@@ -69,6 +71,7 @@ Widget eventBottomSheet(BuildContext context, WidgetRef ref) {
                     height: 20,
                   ),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       eventContainer(context, "assets/icons/events/sign.svg",
@@ -137,11 +140,17 @@ Widget eventContainer(
         const SizedBox(
           height: 8,
         ),
-        Text(title,
-            style: Theme.of(context)
-                .appFonts
-                .alertTextStyle!
-                .copyWith(fontSize: 16))
+        Container(
+          constraints: const BoxConstraints(
+            maxWidth: 100
+          ),
+          child: Text(title,
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .appFonts
+                  .alertTextStyle!
+                  .copyWith(fontSize: 16)),
+        )
       ],
     ),
   );

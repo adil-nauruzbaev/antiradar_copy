@@ -17,7 +17,10 @@ class StopButton extends StatelessWidget {
     final loc = AppLocalizations.of(context)!;
     return Container(
       height: 60,
-      width: isHorizontal ? 118 : 260,
+      constraints: BoxConstraints(
+        minWidth: isHorizontal ? 118 : 260,
+        maxWidth: isHorizontal ? 160 : 260,
+      ),
       margin: EdgeInsets.only(bottom: isHorizontal ? 26 : 60),
       child: ElevatedButton(
         key: buttonKey,
