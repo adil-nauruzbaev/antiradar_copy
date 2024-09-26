@@ -21,7 +21,7 @@ class VersionSelection extends StatelessWidget {
       visible: isVisible,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
-        height: 225,
+        padding: const EdgeInsets.only(bottom: 36),
         decoration: BoxDecoration(
           border: Border.all(
             width: 2,
