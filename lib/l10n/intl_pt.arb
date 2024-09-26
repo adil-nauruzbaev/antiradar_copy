@@ -4,6 +4,8 @@
     "selectLanguage": "Selecionar idioma",
     "selectCountry": "Selecionar país",
     "allow": "Permitir que o «Antirradar» use sua localização?",
+    "allowBtn" : "Permitir",
+    "dontAllowBtn" : "Não permitir",
     "argentina": "Argentina",
     "brazil": "Brasil",
     "uruguay": "Uruguai",

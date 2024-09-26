@@ -18,9 +18,7 @@ import '../../../view_model/settings/theme_provider.dart';
 import '../../radar/radar_screen.dart';
 import '../start_screen.dart';
 
-
 class Tutorial {
-
   late TutorialCoachMark tutorialCoachMark;
   List<TargetFocus> targets = [];
   List<String> texts = [];
@@ -45,45 +43,41 @@ class Tutorial {
       loc.tutorial7,
     ];
     tutorialCoachMark = TutorialCoachMark(
-      targets: _createTargets(),
-      colorShadow: ref.read(themeNotifierProvider) == AppTheme.light
-          ? AppColors.lightTutorialShadowColor
-          : AppColors.darkTutorialShadowColor,
-      pulseEnable: false,
-      textSkip: loc.skip,
-      opacityShadow: 0.3,
-      imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-      onFinish: () {
-        ref.read(learningNotifierProvider.notifier).setLearningComplete();
-        isShowing = false;
-        AppOrientation.allowRotate();
-      },
-      onSkip: () {
-        ref.read(learningNotifierProvider.notifier).setLearningComplete();
-        isShowing = false;
-        AppOrientation.allowRotate();
-        return true;
-      },
-      onClickTarget: (target) {
-        currentIndex = targets.indexOf(target) + 1;
+        targets: _createTargets(),
+        colorShadow: ref.read(themeNotifierProvider) == AppTheme.light
+            ? AppColors.lightTutorialShadowColor
+            : AppColors.darkTutorialShadowColor,
+        pulseEnable: false,
+        textSkip: loc.skip,
+        opacityShadow: 0.3,
+        imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+        onFinish: () {
+          ref.read(learningNotifierProvider.notifier).setLearningComplete();
+          isShowing = false;
+          AppOrientation.allowRotate();
+        },
+        onSkip: () {
+          ref.read(learningNotifierProvider.notifier).setLearningComplete();
+          isShowing = false;
+          AppOrientation.allowRotate();
+          return true;
+        },
+        onClickTarget: (target) {
+          currentIndex = targets.indexOf(target) + 1;
 
-        switch (target.identify) {
-          case "keyStartButton":
-            context.push('/radar');
-            break;
-          default:
-        }
-      },
-      onClickOverlay: (target){
-        currentIndex = targets.indexOf(target) + 1;}
-    );
+          switch (target.identify) {
+            case "keyStartButton":
+              context.push('/radar');
+              break;
+            default:
+          }
+        },
+        onClickOverlay: (target) {
+          currentIndex = targets.indexOf(target) + 1;
+        });
   }
 
-
-
   List<TargetFocus> _createTargets() {
-
-
     targets.add(targetFocus(
         widgetKey: keyMenu,
         identify: 'keyMenu',
@@ -213,7 +207,10 @@ class Tutorial {
     double paddingFocus = 0,
     required double arrowAngle,
   }) {
-    final double maxWidth = (contentAlign == ContentAlign.left || contentAlign == ContentAlign.right) ? 180 : 230;
+    final double maxWidth = (contentAlign == ContentAlign.left ||
+            contentAlign == ContentAlign.right)
+        ? 180
+        : 230;
     return TargetFocus(
       identify: identify,
       keyTarget: widgetKey,
@@ -263,9 +260,14 @@ class Tutorial {
                           color: AppColors.dialogTutorialColor,
                         ),
                         child: Center(
-                            child: Text(
-                          text,
-                          style: AppFonts.sfProSemibold.copyWith(fontSize: 16),
+                            child: MediaQuery(
+                          data: MediaQuery.of(context).copyWith(
+                              textScaler: const TextScaler.linear(1.0)),
+                          child: Text(
+                            text,
+                            style:
+                                AppFonts.sfProSemibold.copyWith(fontSize: 16),
+                          ),
                         )),
                       ),
                     ),
