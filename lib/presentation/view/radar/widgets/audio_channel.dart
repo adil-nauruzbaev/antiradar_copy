@@ -1,11 +1,10 @@
-
 import 'package:antiradar/utils/app_colors.dart';
 import 'package:antiradar/utils/app_fonts.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class AudioChannelDialog extends StatefulWidget {
   @override
@@ -14,7 +13,9 @@ class AudioChannelDialog extends StatefulWidget {
 
 class _AudioChannelDialogState extends State<AudioChannelDialog> {
   String _selectedOption = 'Automatically';
- 
+  final MethodChannel _channel =
+      const MethodChannel('com.example/antiradar/audio_channel');
+  final AssetsAudioPlayer _assetsAudioPlayer = AssetsAudioPlayer();
 
   @override
   void initState() {
@@ -26,7 +27,7 @@ class _AudioChannelDialogState extends State<AudioChannelDialog> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-  
+    _assetsAudioPlayer.dispose();
   }
 
   @override
@@ -121,30 +122,22 @@ class _AudioChannelDialogState extends State<AudioChannelDialog> {
     setState(() {
       _selectedOption = prefs.getString('audio_channel') ?? 'Automatically';
     });
-    // await _assetsAudioPlayer.open(
-    //     Audio(
-    //       "assets/audio/russian_voice/300m40.mp3",
-    //     ),
-    //     autoStart: true,
-    //     loopMode: LoopMode.single);
-    // await _assetsAudioPlayer.setLoopMode(LoopMode.single);
+    await _assetsAudioPlayer.open(
+        Audio(
+          "assets/audio/russian_voice/300m40.mp3",
+        ),
+        autoStart: true,
+        loopMode: LoopMode.single);
+    await _assetsAudioPlayer.setLoopMode(LoopMode.single);
   }
 
   Future<void> _applyAudioChannelSetting() async {
-    switch (_selectedOption) {
-      case 'Bluetooth':
-        
-        break;
-      case 'Speaker':
-        
-        break;
-      case 'Headphones':
-       
-        break;
-      case 'Automatically':
-       
-      default:
-        break;
+    try {
+      await _channel
+          .invokeMethod('setAudioOutput', {'output': _selectedOption});
+          print(_selectedOption);
+    } on PlatformException catch (e) {
+      print("Failed to set audio output: '${e.message}'.");
     }
   }
 }
