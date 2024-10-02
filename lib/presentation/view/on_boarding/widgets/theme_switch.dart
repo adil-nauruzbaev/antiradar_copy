@@ -2,8 +2,8 @@ import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../utils/app_colors.dart';
-import '../../../../utils/app_fonts.dart';
+import '../../../../utils/src/app_colors.dart';
+import '../../../../utils/src/app_fonts.dart';
 import '../../../view_model/settings/theme_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

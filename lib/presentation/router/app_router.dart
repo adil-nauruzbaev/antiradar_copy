@@ -29,11 +29,11 @@ final authProvider = StreamProvider<User?>((ref) {
   return FirebaseAuth.instance.authStateChanges();
 });
 
-@riverpod
+@Riverpod(keepAlive: true)
 GoRouter router(RouterRef ref) {
   final authState = ref.watch(authProvider);
-  final firstPod = ref.watch(firstNotifierProvider);
-  final learningPod = ref.watch(learningNotifierProvider);
+  //final firstPod = ref.watch(firstNotifierProvider);
+  final learningPod = ref.read(learningNotifierProvider);
 
   // Определяем, загружаются ли данные
   bool isLoading() {
@@ -68,7 +68,11 @@ GoRouter router(RouterRef ref) {
     navigatorKey: navigatorKey,
     initialLocation: isLoading() ? '/splash' : getInitialLocation(), // Показываем splash пока данные загружаются
     debugLogDiagnostics: true,
+    redirect: (context, state) {
+      
+    },
     routes: [
+      
       GoRoute(
         path: '/',
         builder: (context, state) => const WelcomeScreen(),
@@ -120,6 +124,6 @@ GoRouter router(RouterRef ref) {
     ],
   );
 
-  ref.onDispose(router.dispose);
+ // ref.onDispose(router.dispose);
   return router;
 }

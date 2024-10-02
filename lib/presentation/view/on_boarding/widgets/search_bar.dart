@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:antiradar/utils/app_colors.dart';
-import 'package:antiradar/utils/app_fonts.dart';
+import 'package:antiradar/utils/src/app_colors.dart';
+import 'package:antiradar/utils/src/app_fonts.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

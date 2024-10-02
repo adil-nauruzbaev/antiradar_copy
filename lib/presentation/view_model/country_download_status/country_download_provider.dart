@@ -1,5 +1,5 @@
 import 'package:antiradar/presentation/view_model/isar/models/country_model.dart';
-import 'package:antiradar/utils/extensions/localization.dart';
+import 'package:antiradar/utils/src/extensions/localization.dart';
 import 'package:isar/isar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

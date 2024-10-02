@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:antiradar/presentation/view_model/isar/models/country_model.dart';
-import 'package:antiradar/utils/app_colors.dart';
-import 'package:antiradar/utils/app_fonts.dart';
+import 'package:antiradar/utils/src/app_colors.dart';
+import 'package:antiradar/utils/src/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

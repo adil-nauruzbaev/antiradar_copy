@@ -4,7 +4,7 @@ import 'package:antiradar/presentation/view/on_boarding/tutorial/tutorial.dart';
 import 'package:antiradar/presentation/view/on_boarding/widgets/car_image.dart';
 import 'package:antiradar/presentation/view_model/learning/learning_provider.dart';
 import 'package:antiradar/presentation/view_model/settings/orientation_settings/app_orientation.dart';
-import 'package:antiradar/utils/app_fonts.dart';
+import 'package:antiradar/utils/src/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

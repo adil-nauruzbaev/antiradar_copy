@@ -1,29 +1,45 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
+import 'package:antiradar/utils/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:antiradar/presentation/router/app_router.dart';
 import 'package:antiradar/presentation/view/auth/widgets/custom_text_field.dart';
 import 'package:antiradar/presentation/view/auth/widgets/lang_dropdown.dart';
 import 'package:antiradar/presentation/view_model/auth/auth_provider.dart';
-import 'package:antiradar/utils/app_fonts.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
+import 'package:antiradar/utils/src/app_fonts.dart';
+import 'package:antiradar/utils/src/constants/ui_constants.dart';
 
-import '../../../utils/app_colors.dart';
+import '../../../utils/src/app_colors.dart';
 import '../../view_model/settings/gradient_extension.dart';
 
 class AuthScreen extends ConsumerStatefulWidget {
   const AuthScreen({super.key});
 
   @override
-  _AuthScreenState createState() => _AuthScreenState();
+  ConsumerState<AuthScreen> createState() => _AuthScreenState();
 }
 
 class _AuthScreenState extends ConsumerState<AuthScreen> {
-  final TextEditingController _emailController = TextEditingController();
+  late StateProvider<AuthState> authStateProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    authStateProvider =
+        StateProvider<AuthState>((ref) => AuthState(email: '', password: ''));
+  }
+
+  //final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _repeatPasswordController =
       TextEditingController();
+
   bool _isSignUp = false;
   final _formKey = GlobalKey<FormState>();
 
@@ -35,70 +51,73 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
       );
       return;
     }
-
+    final authState = ref.read(authStateProvider);
     try {
       if (_isSignUp) {
         // Регистрация
-        final signUpResult =
-            await ref.read(authServiceProvider.notifier).signUp(
-                  _emailController.text,
-                  _passwordController.text,
-                );
-        if (signUpResult == null) {
-          // Переход только в случае успешной регистрации
+
+        await ref
+            .read(authServiceProvider.notifier)
+            .signUp(
+              authState.email,
+              _passwordController.text,
+            )
+            .whenComplete(() {
           if (mounted) context.go('/country-select');
-        } else {
-          // Отображение ошибки регистрации
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Sign-up failed: $signUpResult')),
-          );
-        }
+        });
+
+        // if (signUpResult == null) {
+        //   // Переход только в случае успешной регистрации
+
+        // } else {
+        //   // Отображение ошибки регистрации
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     SnackBar(content: Text('Sign-up failed: $signUpResult')),
+        //   );
+        // }
       } else {
         // Вход
-        final signInResult =
-            await ref.read(authServiceProvider.notifier).signIn(
-                  _emailController.text,
-                  _passwordController.text,
-                );
-        if (signInResult == null) {
-          // Переход только в случае успешного входа
+
+        await ref
+            .read(authServiceProvider.notifier)
+            .signIn(
+              authState.email,
+              _passwordController.text,
+            )
+            .whenComplete(() {
           if (mounted) context.go('/country-select');
-        } else {
-          // Отображение ошибки входа
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Sign-in failed: $signInResult')),
-          );
-        }
+        });
       }
     } catch (error) {
       // Отображение ошибки аутентификации
+      log('ERROR:$error');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $error')),
       );
     }
   }
 
-  Future<void> _signOut() async {
-    try {
-      await ref.read(authServiceProvider.notifier).signOut();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Signed out successfully!')),
-      );
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Sign out failed: $error')),
-      );
-    }
-  }
+  // Future<void> _signOut() async {
+  //   try {
+  //     await ref.read(authServiceProvider.notifier).signOut();
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Signed out successfully!')),
+  //     );
+  //   } catch (error) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Sign out failed: $error')),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authServiceProvider);
+    // final authState = ref.watch(authServiceProvider);
     final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: Container(
-        height: MediaQuery.of(context).size.height,
+        height: context.height,
         padding: const EdgeInsets.symmetric(horizontal: 24),
         decoration: BoxDecoration(
             gradient:
@@ -112,9 +131,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const _HandSVG(),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  kSBH20,
                   Text(
                     _isSignUp ? loc.signup : loc.signin,
                     style: AppFonts.headlineStyle,
@@ -123,7 +140,10 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                     height: 40,
                   ),
                   CustomTextField(
-                    controller: _emailController,
+                    //controller: _emailController,
+                    onChanged: (value) => ref
+                        .read(authStateProvider.notifier)
+                        .update((state) => state.copyWith(email: value)),
                     hintText: loc.email,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -132,7 +152,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 20),
+                  kSBH20,
                   CustomTextField(
                     controller: _passwordController,
                     hintText: loc.password,
@@ -172,7 +192,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                   const SizedBox(height: 30),
                   SizedBox(
                     height: 50,
-                    width: MediaQuery.of(context).size.width,
+                    width: context.width,
                     child: ElevatedButton(
                       onPressed: _authenticate,
                       style: ElevatedButton.styleFrom(
@@ -227,6 +247,25 @@ class _HandSVG extends StatelessWidget {
       'assets/icons/waving-hand-svgrepo-com.svg',
       width: 80,
       height: 80,
+    );
+  }
+}
+
+class AuthState {
+  final String email;
+  final String password;
+  AuthState({
+    required this.email,
+    required this.password,
+  });
+
+  AuthState copyWith({
+    String? email,
+    String? password,
+  }) {
+    return AuthState(
+      email: email ?? this.email,
+      password: password ?? this.password,
     );
   }
 }

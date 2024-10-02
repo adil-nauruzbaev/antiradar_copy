@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../utils/app_colors.dart';
-import '../../../../utils/app_fonts.dart';
+import '../../../../utils/src/app_colors.dart';
+import '../../../../utils/src/app_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StopButton extends StatelessWidget {

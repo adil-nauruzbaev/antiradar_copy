@@ -8,8 +8,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../../../data/firebase/sandbox_service.dart';
-import '../../../../utils/app_colors.dart';
-import '../../../../utils/app_fonts.dart';
+import '../../../../utils/src/app_colors.dart';
+import '../../../../utils/src/app_fonts.dart';
 import '../../../view_model/isar/models/country_model.dart';
 import '../../../view_model/location/location_provider.dart';
 import '../../../view_model/radar/models/sandbox_model.dart';

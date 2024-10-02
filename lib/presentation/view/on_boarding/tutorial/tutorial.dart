@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:antiradar/utils/extensions/localization.dart';
+import 'package:antiradar/utils/src/extensions/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,8 +9,8 @@ import 'package:go_router/go_router.dart';
 
 import 'dart:math' as math;
 
-import '../../../../utils/app_colors.dart';
-import '../../../../utils/app_fonts.dart';
+import '../../../../utils/src/app_colors.dart';
+import '../../../../utils/src/app_fonts.dart';
 import '../../../router/app_router.dart';
 import '../../../view_model/learning/learning_provider.dart';
 import '../../../view_model/settings/orientation_settings/app_orientation.dart';

@@ -1,5 +1,5 @@
 import 'package:antiradar/presentation/view_model/settings/app_colors_extension.dart';
-import 'package:antiradar/utils/app_fonts.dart';
+import 'package:antiradar/utils/src/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

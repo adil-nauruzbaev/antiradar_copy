@@ -1,5 +1,4 @@
 import 'package:antiradar/data/source/database/isar_service.dart';
-import 'package:antiradar/data/source/shared_preferences/shared_preferences_provider.dart';
 import 'package:antiradar/data/source/shared_preferences/user_preferences.dart';
 import 'package:antiradar/firebase_options.dart';
 import 'package:antiradar/presentation/router/app_router.dart';
@@ -18,9 +17,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AppOrientation.setOnlyVertical();
   await UserPref.init();
-
   await IsarDatabaseService().init();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

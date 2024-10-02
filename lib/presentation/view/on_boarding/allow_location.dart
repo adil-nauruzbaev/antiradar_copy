@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../utils/app_fonts.dart';
+import '../../../utils/src/app_fonts.dart';
 import '../../view_model/settings/gradient_extension.dart';
 
 class AllowLocationScreen extends ConsumerWidget {

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../utils/app_colors.dart';
+import '../../../../utils/src/app_colors.dart';
 
 class CameraButton extends StatelessWidget {
   const CameraButton({super.key});

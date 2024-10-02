@@ -1,6 +1,6 @@
 import 'package:antiradar/presentation/view_model/auth/auth_provider.dart';
 import 'package:antiradar/presentation/view_model/settings/app_colors_extension.dart';
-import 'package:antiradar/utils/app_fonts.dart';
+import 'package:antiradar/utils/src/app_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../utils/app_colors.dart';  
+import '../../../utils/src/app_colors.dart';  
 import '../../view_model/settings/user_settings/settings_provider.dart';
 
 class MenuSettingsScreen extends ConsumerWidget {

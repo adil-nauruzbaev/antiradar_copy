@@ -3,7 +3,7 @@ import 'package:antiradar/data/source/database/country_pod.dart';
 import 'package:antiradar/presentation/view/on_boarding/widgets/continue_button.dart';
 import 'package:antiradar/presentation/view/on_boarding/widgets/rotating_icon.dart';
 import 'package:antiradar/presentation/view_model/settings/gradient_extension.dart';
-import 'package:antiradar/utils/app_fonts.dart';
+import 'package:antiradar/utils/src/app_fonts.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

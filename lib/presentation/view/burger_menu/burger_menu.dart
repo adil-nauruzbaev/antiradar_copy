@@ -12,8 +12,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../utils/app_colors.dart';
-import '../../../utils/app_fonts.dart';
+import '../../../utils/src/app_colors.dart';
+import '../../../utils/src/app_fonts.dart';
 import '../../view_model/settings/theme_provider.dart';
 import '../../view_model/settings/user_settings/settings_provider.dart';
 

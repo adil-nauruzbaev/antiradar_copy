@@ -9,7 +9,6 @@ part 'user_model.g.dart';
 @isar.Collection()
 class UserModel {
   isar.Id? id = isar.Isar.autoIncrement;
-
   final String? country;
   final DateTime createdAt;
   final String email;

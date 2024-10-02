@@ -8,8 +8,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../data/firebase/argentina_provider.dart';
 import '../../../data/source/database/country_pod.dart';
-import '../../../utils/app_colors.dart';
-import '../../../utils/app_fonts.dart';
+import '../../../utils/src/app_colors.dart';
+import '../../../utils/src/app_fonts.dart';
 import '../../view_model/country_download_status/country_download_provider.dart';
 import '../../view_model/settings/app_colors_extension.dart';
 import '../on_boarding/widgets/rotating_icon.dart';

@@ -2,8 +2,8 @@ import 'package:antiradar/presentation/view_model/settings/app_colors_extension.
 import 'package:antiradar/presentation/view_model/settings/gradient_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utils/app_colors.dart';
-import '../../../utils/app_fonts.dart';
+import '../../../utils/src/app_colors.dart';
+import '../../../utils/src/app_fonts.dart';
 import 'fonts_extension.dart';
 
 final lightTheme = ThemeData.light().copyWith(

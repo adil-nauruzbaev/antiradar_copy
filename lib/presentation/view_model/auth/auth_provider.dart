@@ -23,7 +23,7 @@ class AuthService extends _$AuthService {
     }
   }
 
-  Future<String?> signIn(String email, String password) async {
+  Future<void> signIn(String email, String password) async {
     try {
       final userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -39,13 +39,13 @@ class AuthService extends _$AuthService {
       final info = data.data();
       if (info != null) {
         state = AsyncData(UserModel.fromMap(info));
-      } else {}
+      } 
     } catch (error) {
-      return error.toString();
+       rethrow;
     }
   }
 
-  Future<String?> signUp(String email, String password) async {
+  Future<void> signUp(String email, String password) async {
     try {
       final userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -61,8 +61,8 @@ class AuthService extends _$AuthService {
         'created_at': Timestamp.now(),
         'subscription': false,
       });
-    } catch (error) {
-      return error.toString();
+    } catch (_) {
+      rethrow;
     }
   }
 

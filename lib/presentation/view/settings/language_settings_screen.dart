@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../l10n/l10n.dart';
-import '../../../utils/app_fonts.dart';
+import '../../../utils/src/app_fonts.dart';
 import '../../view_model/settings/app_colors_extension.dart';
 import '../../view_model/settings/select_language/locale_provider.dart';
 

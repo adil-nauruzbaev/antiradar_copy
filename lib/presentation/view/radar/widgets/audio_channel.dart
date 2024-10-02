@@ -1,5 +1,5 @@
-import 'package:antiradar/utils/app_colors.dart';
-import 'package:antiradar/utils/app_fonts.dart';
+import 'package:antiradar/utils/src/app_colors.dart';
+import 'package:antiradar/utils/src/app_fonts.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 
 import 'package:flutter/material.dart';

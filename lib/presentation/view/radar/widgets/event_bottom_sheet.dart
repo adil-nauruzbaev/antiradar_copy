@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../utils/app_colors.dart';
+import '../../../../utils/src/app_colors.dart';
 
 Widget eventBottomSheet(BuildContext context, WidgetRef ref) {
   final loc = AppLocalizations.of(context)!;

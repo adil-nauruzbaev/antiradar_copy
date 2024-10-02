@@ -3,8 +3,8 @@ import 'package:antiradar/presentation/view_model/settings/gradient_extension.da
 import 'package:antiradar/presentation/view_model/settings/app_colors_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utils/app_colors.dart';
-import '../../../utils/app_fonts.dart';
+import '../../../utils/src/app_colors.dart';
+import '../../../utils/src/app_fonts.dart';
 
 final darkTheme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor: AppColors.darkBackgroundColor,
