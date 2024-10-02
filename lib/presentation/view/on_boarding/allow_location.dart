@@ -61,7 +61,7 @@ class AllowLocationScreen extends ConsumerWidget {
                   if (permission == LocationPermission.denied ||
                       permission == LocationPermission.deniedForever) {
                     return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         AllowButton(
                           onPressed: () async {
@@ -69,14 +69,11 @@ class AllowLocationScreen extends ConsumerWidget {
                                 await Geolocator.requestPermission();
                             ref.refresh(locationPermissionProvider);
                           },
-                          text: 'Allow',
-                        ),
-                        const SizedBox(
-                          width: 40,
+                          text: loc.allowBtn
                         ),
                         AllowButton(
                           onPressed: () async {},
-                          text: "Don't allow",
+                          text: loc.dontAllowBtn
                         ),
                       ],
                     );

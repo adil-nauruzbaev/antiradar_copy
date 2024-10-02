@@ -17,8 +17,11 @@ Widget placeActionDialog(BuildContext context, Widget Function(BuildContext, Wid
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12),
     ),
-    content: SizedBox(
-      width: 300,
+    content: Container(
+      constraints: const BoxConstraints(
+        minWidth: 300,
+        maxWidth: 500
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

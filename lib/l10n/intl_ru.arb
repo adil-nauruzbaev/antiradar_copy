@@ -4,6 +4,8 @@
     "selectLanguage": "Выберите язык",
     "selectCountry": "Выберите страну",
     "allow" : "Предоставить доступ к местоположению?",
+    "allowBtn" : "Разрешить",
+    "dontAllowBtn" : "Не разрешать",
     "argentina" : "Аргентина",
     "brazil" : "Бразилия",
     "uruguay" : "Уругвай",

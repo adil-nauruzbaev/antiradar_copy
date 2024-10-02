@@ -13,8 +13,10 @@ class AllowButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 60),
-      height: 60,
-      width: 140,
+      constraints: const BoxConstraints(
+        minWidth: 140,
+        minHeight: 60,
+      ),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(

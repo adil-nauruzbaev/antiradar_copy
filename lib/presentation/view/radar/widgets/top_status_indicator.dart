@@ -13,8 +13,10 @@ class TopStatusIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 242,
-      height: 100,
+      constraints: const BoxConstraints(
+        minHeight: 100,
+        minWidth: 242,
+      ),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: Theme.of(context).radarColors.staticChamberColor,

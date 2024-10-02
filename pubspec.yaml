@@ -112,6 +112,8 @@ flutter:
     - assets/icons/location.svg
     - assets/icons/camera3.svg
     - assets/icons/tutor_arrow.svg
+    - assets/icons/pro.svg
+    - assets/icons/free.svg
 
     - assets/icons/country_flags/lang_flags/usa.svg
     - assets/icons/country_flags/lang_flags/spain.svg

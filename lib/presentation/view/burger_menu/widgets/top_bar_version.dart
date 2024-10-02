@@ -18,8 +18,7 @@ class TopBarVersion extends StatelessWidget {
     final loc = AppLocalizations.of(context)!;
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
-        padding: const EdgeInsets.only(left: 8, right: 14),
-        height: 64,
+        padding: const EdgeInsets.only(left: 8, right: 14, top: 8, bottom: 8),
         decoration: BoxDecoration(
           border: Border.all(
             width: 2,
